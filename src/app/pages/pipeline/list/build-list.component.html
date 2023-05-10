@@ -1,0 +1,37 @@
+<nz-page-header class="site-page-header" >
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>工具箱</nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>构建器</a>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <!-- <nz-page-header-content>
+  
+    </nz-page-header-content> -->
+  </nz-page-header>
+
+  <nz-tabset [nzSelectedIndex]="selectedIndex" (nzSelectChange)="selectChange($event)">
+    <nz-tab nzTitle="构建器列表" >
+      <app-build-template-list (onSelectIndex)="selected($event)"></app-build-template-list>
+    </nz-tab>
+    <nz-tab nzTitle="构建记录">
+       <app-build-history-list [loadData]="loadData"
+       (onBuildLog)="onBuildLogData($event)" 
+       (onShowBuildLog)="showBuildLog($event)"
+       ></app-build-history-list>
+    </nz-tab>
+  </nz-tabset>
+
+  <!-- 构建日志 -->
+<nz-drawer
+[nzBodyStyle]="{'padding':'0px'}"
+nzPlacement="right"
+[nzClosable]="false"
+[nzVisible]="visible"
+nzWidth="90%"
+nzTitle="构建日志"
+(nzOnClose)="visible = false"
+>
+<div *ngIf="visible">
+  <app-build-log [id]="buildLogId"   [data]="buildLogData"></app-build-log>
+</div>
+</nz-drawer>

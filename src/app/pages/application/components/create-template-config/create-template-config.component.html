@@ -1,0 +1,127 @@
+
+<div class="ant-advanced-search-form">
+
+<form nz-form [formGroup]="validateForm" >
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="name" nzSpan="8" nzRequired="true"> 配置名称</nz-form-label>
+          <nz-form-control nzSpan="12" nzErrorTip="请输入配置名称">
+            <textarea nz-input name="name" formControlName="name"  placeholder="请输入配置名称"  required  nzAutosize></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="serviceName" nzSpan="10" nzRequired="true"><span>服务名&nbsp;<i nz-icon nz-tooltip
+                nzTooltipTitle="该服务名将作用于多个k8s概念，如'service'、'deployment'等,请根据你的该项目服务性质填写，如：前端服务（xxx-fe）、后端服务（xxx-be/xxx-backend）、独立服务（xxx/xxx-svc）、api服务（xxx-api）等等"
+                nzType="question-circle" nzTheme="outline"></i></span>
+          </nz-form-label>
+          <nz-form-control nzSpan="12" nzErrorTip="请输入有效服务名">
+            <textarea nz-input name="serviceName" formControlName="serviceName"    placeholder="格式样例：xxxxview-fe、xxxxview-be"  maxlength="60" required  nzAutosize></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="serviceVersion" nzSpan="8" nzRequired="true">镜像版本</nz-form-label>
+          <nz-form-control nzSpan="12">
+            <textarea nz-input name="serviceVersion" formControlName="serviceVersion"
+              placeholder="镜像tag样例：944fa6ed45f9bf85c0e174fd30b51dea9b2daf5a、3.2.10"    required  nzAutosize></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nzSpan="10" nzFor="repoUrl" nzRequired="true">镜像地址</nz-form-label>
+          <nz-form-control nzSpan="12">
+            <textarea nz-input name="repoUrl"
+              formControlName="repoUrl" placeholder="镜像仓库地址样例：xxxx/xxxx-fe/dev、redis"
+              required nzAutosize ></textarea>
+           
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nzSpan="8" nzFor="externalRegistry"><span>外部源镜像地址&nbsp;<i nz-icon nz-tooltip
+                nzTooltipTitle="指定该服务的镜像将从指定的外部源拉取，一般用于配置第三方服务（如redis）" nzType="question-circle"
+                nzTheme="outline"></i></span>
+          </nz-form-label>
+          <nz-form-control nzSpan="12">
+            <textarea nz-input name="externalRegistry" formControlName="externalRegistry"placeholder="外部源镜像地址样例：docker-mirror.com/"  nzAutosize></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nzSpan="8" nzFor="description"><span>描述</span> </nz-form-label>
+          <nz-form-control nzSpan="12">
+            <textarea nz-input name="description" formControlName="description" nzAutosize></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <div class="table_container" >
+    <nz-tabset nzSelectedIndex="0">
+
+      <nz-tab  nzForceRender="true" nzTitle="环境变量配置">
+        <div nz-row class="table_button">
+            <div nz-col nzSpan="6">
+              <button nz-button nzType="primary" >
+                添加
+              </button>
+            </div>
+
+          </div>
+          <nz-table #nzTableenv  [nzPageSize]="1000" nzSize="middle"
+            [nzShowPagination]="false" [nzHideOnSinglePage]="true">
+            <thead>
+              <tr>
+                <th nzShowExpand></th>
+                <th>key</th>
+                <th>
+                  <span>value </span>
+                </th>
+                <th>label</th>
+                <th>
+                  <span>tags </span>
+                </th>
+                <th>显示名称</th>
+                <th>是否固定配置</th>
+                <th>必填项</th>
+                <th>正则表达式</th>
+                <th>是否必填项</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+         <tbody>
+  
+         </tbody>
+        </nz-table> 
+        </nz-tab>
+    </nz-tabset>
+  </div>
+
+</div>
+  <nz-footer>
+    <button nz-button (click)="cancel()">取消</button>
+    <button  nzTooltipTitle="将再次拉取关联的项目信息，更新环境变量" nzTooltipPlacement="topLeft"
+       nz-button nz-tooltip type="primary" [nzLoading]="loading"
+      nzType="primary" (click)="syncConfig()">
+      同步配置
+    </button>
+    <button nz-button type="primary" nzType="primary" [nzLoading]="loading" (click)="openadvancededit()">
+      高级编辑
+    </button>
+    <button nz-button type="primary" nzType="primary" [nzLoading]="loading" (click)="submitConfig()">
+      提交
+    </button>
+  </nz-footer>

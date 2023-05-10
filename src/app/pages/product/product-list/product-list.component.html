@@ -1,0 +1,61 @@
+
+<nz-page-header class="site-page-header" >
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>产品管理</nz-breadcrumb-item>
+    <nz-breadcrumb-item><a>产品列表</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header-content>
+    <button (click)="openCreateHospitalProductModal()" nz-button nzType="primary">
+      <i nz-icon nzType="plus"></i>新建产品
+    </button>
+  </nz-page-header-content>
+</nz-page-header>
+
+<nz-card [nzBordered]="false">
+
+  <!-- 查询条件 -->
+  <div  class="search-div">
+    <div>
+      <input type="text" nz-input placeholder="请输入产品名称" [(ngModel)]="productName" (keyup.enter)="clickSearch()" />
+    </div>
+  
+    <div>
+      <button (click)="clickSearch()" nz-button nzType="primary">搜索</button>
+    </div>
+
+  </div>
+  
+  <!-- 产品列表 -->
+  <nz-list
+    [nzLoading]="loading"
+    [nzGrid]="{ gutter: 24, xs: 24, md: 12, lg: 12, xl: 8, xxl: 6 }"
+    [nzDataSource]="listData?.productModels"
+    [nzRenderItem]="item"
+    class="list-card-animation"
+  >
+    <ng-template #item let-item>
+      <nz-list-item (click)="navigateProductDetail(item)" class="list-card-animation-item">
+        <app-product-info 
+          [product]="item"
+          (onEditItem)="openEdidHospitalProjectModal($event)"
+          (onDeleteItem)="openDeleteHospitalProjectModal($event)">
+        </app-product-info>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+  
+  <!-- 分页 -->
+  <div class="page-div">
+    <nz-pagination 
+      (nzPageIndexChange)="pageIndexChange($event)"
+      [nzPageIndex]="pageIndex" 
+      [nzPageSize]="pageSize" 
+      [nzShowTotal]="totalTemplate"
+      [nzTotal]="total">
+    </nz-pagination>
+      <ng-template #totalTemplate let-total> 总数 {{ total }} 个 </ng-template>
+  </div>
+
+  
+</nz-card>

@@ -1,0 +1,54 @@
+<div class="jenkins-code">
+    <div class="jenkins-code-left">
+        <div class="jenkins-code-left-title">
+            <div>
+                <button nz-button (click)="topping()" ><i nz-icon nzType="up" nzTheme="outline"></i></button>
+                <button nz-button (click)="bottom('handel')"><i nz-icon nzType="down" nzTheme="outline"></i></button>
+            </div>
+        </div>
+        <div class="jenkins-code-left-content" #codeContent>
+            <div class="jenkins-code-left-content-div">
+                <div *ngFor="let item of list; let i = index"  >
+                    <div >
+                        <div class="index-span">{{i+1}}</div>
+                        <div  [innerHTML]="item.text" [ngStyle]="formatCss(item.css)">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="status === 1" class="js-log-animation loader-animation pt-3 pl-3">
+                    <div class="dot"></div> 
+                    <div class="dot"></div> 
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jenkins-code-right">
+        <div>
+            <div class="div-build">
+                <!-- <div>{{dataDetail?.title}}</div> -->
+
+            </div>
+            <nz-divider></nz-divider>
+            <div class="div-duration">
+                <span>构建时间：</span>
+                <!-- <span>{{dataDetail?.buildPipeline?.duration}}</span> -->
+            </div>
+            <nz-divider></nz-divider>
+        </div>
+        <div class="div-item">
+            <div *ngFor="let item of dataDetail?.buildProjectPipelines" (click)="goToJenkins(item)">
+                <div>
+                    <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                    <!-- 构建成功 -->
+                    <i nz-icon *ngIf="item.buildProjectPipelineStatus === 1" [nzType]="'check-circle'" [nzTheme]="'twotone'" class="span-icon" [nzTwotoneColor]="'#52c41a'"></i>
+                    <!-- 构建失败 -->
+                    <!-- <i nz-icon *ngIf="item.buildProjectPipelineStatus === 2"  nzType="close-circle" nzTheme="twotone" class="span-icon" [nzTwotoneColor]="'#ff4d4f'"></i> -->
+                    <!-- 构建中 -->
+                    <i nz-icon *ngIf="item.buildProjectPipelineStatus === 0"  nzType="clock-circle" nzTheme="twotone" class="span-icon"></i>
+                    <span>{{item.serviceName}}</span>
+                </div>
+            </div>      
+        </div>
+    </div>
+</div>

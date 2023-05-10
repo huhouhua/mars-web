@@ -1,0 +1,117 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item class="mb-sm">
+      <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 产品名称 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group   >
+          <input nz-input formControlName="name"   name="name"   maxlength="15"  minlength="1" placeholder="请输入产品名称" />
+        </nz-input-group>
+      </nz-form-control>
+        <nz-form-label  nzSpan="3" nzFor="code" nzRequired> 产品简称 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group  >
+            <input nz-input formControlName="code"  name="code"   minlength="1" placeholder="请输入产品简称" />
+          </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-sm">
+      <nz-form-label nzSpan="3"  nzFor="productType">产品级别</nz-form-label>
+      <nz-form-control nzSpan="19"  >
+            <nz-select formControlName="productType"   nzPlaceHolder="请选择产品级别">
+                    <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of typeOptions">
+                    </nz-option>
+            </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    
+    <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="description" >产品描述  </nz-form-label>
+        <nz-form-control  nzSpan="19" >
+          <nz-input-group>
+            <textarea nz-input name="description"
+            formControlName="description" [nzAutosize]="{ minRows: 4, maxRows: 10 }"
+            placeholder="请输入产品描述"></textarea>
+          </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+<!-- 
+    <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="description" >产品成员 </nz-form-label>
+        <nz-form-control  nzSpan="19" >
+
+            <nz-transfer
+            [nzTitles]="transferTitles"
+            [nzDataSource]="allMembers"
+            [nzShowSearch]="true"
+            (nzSearchChange)="searchChange($event)"
+            [nzShowSelectAll]="true"
+            [nzRenderList]="[renderList, renderList]"
+            (nzSelectChange)="select($event)"
+            (nzChange)="change($event)"
+          >
+            <ng-template
+              #renderList
+              let-items
+              let-direction="direction"
+              let-stat="stat"
+              let-disabled="disabled"
+              let-onItemSelectAll="onItemSelectAll"
+              let-onItemSelect="onItemSelect"
+            >
+              <nz-table [nzLoading]="loading" #t [nzData]="items" nzSize="small" [nzPageSize]="5">
+                <thead>
+                  <tr>
+                    <th
+                      nzShowCheckbox
+                      [nzDisabled]="disabled"
+                      [nzChecked]="stat.checkAll"
+                      [nzIndeterminate]="stat.checkHalf"
+                      (nzCheckedChange)="onItemSelectAll($event)"
+                    ></th>
+                    <th>账户名</th>
+                    <th>姓名</th>
+                    <th *ngIf="direction !== 'left'">成员角色</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of t.data; let i = index" (click)="onItemSelect(data)">
+                    <td
+                      nzShowCheckbox
+                      [nzChecked]="data.checked"
+                      [nzDisabled]="disabled || data.disabled"
+                      (nzCheckedChange)="onItemSelect(data)"
+                    ></td>
+                    <td>{{ data.title }}</td>
+                    <td>{{ data.description }}</td>
+                    <td *ngIf="direction !== 'left'">
+                      <nz-select
+                        name="roleSelect+{{ data.key }}"
+                        [(ngModel)]="data.tag"
+                        (ngModelChange)="roleSelect($event)">
+                        <nz-option [nzLabel]="role.displayName" [nzValue]="role.value" *ngFor="let role of memberRoles">
+                        </nz-option>
+                      </nz-select>
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </ng-template>
+          </nz-transfer>
+
+        </nz-form-control>
+    </nz-form-item> -->
+
+
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+          <div *nzModalFooter>
+            <button nz-button nzType="default" [nzLoading]="loading" (click)="onCancel()" >关闭</button>
+            <button nz-button nzType="primary"  [nzLoading]="loading" (click)="submitForm()" [disabled]="!validateForm.valid">提交</button>
+          </div>
+
+        </nz-form-control>
+      </nz-form-item>
+  </form>
+
+

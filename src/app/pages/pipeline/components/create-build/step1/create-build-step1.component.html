@@ -1,0 +1,58 @@
+<form nz-form [formGroup]="validateForm"  >
+    <nz-form-item class="mb-sm first-item">
+        <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 构建器名称 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group >
+            <input nz-input formControlName="name"   name="name"   maxlength="15"  minlength="1" placeholder="请输入构建器名称" />
+          </nz-input-group>
+        </nz-form-control>
+        <nz-form-label  [nzSm]="3" nzFor="packageType" nzRequired><span>部署包类型 &nbsp;<i nz-icon nz-tooltip
+            nzTooltipTitle="构建类型。 install：安装包 upgrade：升级包 patch：补丁包 dcs：外置dcs"
+            nzType="question-circle" nzTheme="outline"></i></span></nz-form-label>
+        <nz-form-control [nzSm]="8"   >
+              <nz-select formControlName="packageType"   nzPlaceHolder="请选择部署包类型">
+                      <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of packageTypelist">
+                      </nz-option>
+              </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item class="mb-sm">
+        <nz-form-label  [nzSm]="3" nzFor="platformUrl" nzRequired>构建平台</nz-form-label>
+        <nz-form-control [nzSm]="8"   >
+              <nz-select formControlName="platformUrl"  (ngModelChange)="onSelect($event)" nzPlaceHolder="请选择构建平台">
+                      <nz-option [nzLabel]="t.showName" [nzValue]="t.name" *ngFor="let t of platformlist">
+                      </nz-option>
+              </nz-select>
+        </nz-form-control>
+
+        <nz-form-label  [nzSm]="3" nzFor="jobName"  nzRequired>流水线</nz-form-label>
+        <nz-form-control [nzSm]="8"   >
+              <nz-select formControlName="jobName" nzShowSearch="true"  [nzLoading]="listLoading" nzPlaceHolder="请选择构建的流水线">
+                      <nz-option [nzLabel]="t.name" [nzValue]="t.name" *ngFor="let t of jobNameList">
+                      </nz-option>
+              </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="3"  nzFor="description" >描述  </nz-form-label>
+        <nz-form-control [nzSm]="8" >
+            <textarea nz-input name="description"
+            formControlName="description"  [nzAutosize]="{ minRows: 4, maxRows: 10 }"
+            placeholder="描述下这个构建器！"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <div *nzModalFooter>
+                <div class="steps-action">
+                    <button nz-button nzType="default" (click)="next()"  [disabled]="!validateForm.valid">
+                      <span>下一步</span>
+                    </button>
+                  </div>
+            </div>
+        </nz-form-control>
+      </nz-form-item>
+      </form>
+  
+      

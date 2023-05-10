@@ -1,0 +1,43 @@
+<form nz-form [formGroup]="validateForm"  >
+  <nz-form-item >
+    <nz-form-label [nzSm]="9" [nzXs]="24"   nzFor="name" nzRequired> 应用名称 </nz-form-label>
+    <nz-form-control  [nzSm]="8" [nzXs]="24" >
+      <input nz-input formControlName="name"   name="name"   maxlength="15"  minlength="1" placeholder="请输入应用名" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item >
+    <nz-form-label  [nzSm]="9" [nzXs]="24"  nzFor="author" nzRequired> 应用负责人 </nz-form-label>
+    <nz-form-control   [nzSm]="8" [nzXs]="24"  >
+        <input nz-input formControlName="author"  name="author"   minlength="1" placeholder="请输入应用负责人" />
+    </nz-form-control>
+</nz-form-item>
+  <nz-form-item>
+    <nz-form-label  [nzSm]="9"  [nzXs]="24" nzFor="teamId" nzRequired>团队</nz-form-label>
+    <nz-form-control [nzSm]="8" [nzXs]="24"  >
+          <nz-select formControlName="teamId"   nzPlaceHolder="请选择团队">
+                  <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of teamList">
+                  </nz-option>
+          </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item >
+      <nz-form-label [nzSm]="9" [nzXs]="24" nzFor="description" >描述  </nz-form-label>
+      <nz-form-control [nzSm]="8" [nzXs]="24" >
+          <textarea nz-input name="description"
+          formControlName="description"  [nzAutosize]="{ minRows: 4, maxRows: 10 }"
+          placeholder="描述下这个应用！"></textarea>
+      </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <div class="steps-action">
+          <button nz-button nzType="default" (click)="next()"  [disabled]="!validateForm.valid">
+            <span>下一步</span>
+          </button>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    </form>
+
+    

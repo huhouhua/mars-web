@@ -1,0 +1,54 @@
+<form nz-form [formGroup]="validateForm"  >
+    <nz-form-item class="mb-sm first-item">
+        <nz-form-label  [nzSm]="3" nzFor="productId" nzRequired>产品</nz-form-label>
+        <nz-form-control [nzSm]="8"   >
+              <nz-select formControlName="productId"   nzPlaceHolder="请选择打包的产品">
+                      <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of productList">
+                      </nz-option>
+              </nz-select>
+        </nz-form-control>
+
+        <nz-form-label [nzSm]="3"  nzFor="description" >版本描述  </nz-form-label>
+        <nz-form-control [nzSm]="8" >
+            <textarea nz-input name="description"
+            formControlName="description"  [nzAutosize]="{ minRows: 4, maxRows: 10 }"></textarea>
+        </nz-form-control>
+
+      </nz-form-item>
+    
+      <nz-form-item class="mb-sm">
+        <nz-form-label  [nzSm]="3" nzFor="fromVersion" nzRequired><span>起始版本 &nbsp;<i nz-icon nz-tooltip
+            nzTooltipTitle="升级、补丁起始版本。"
+            nzType="question-circle" nzTheme="outline"></i></span></nz-form-label>
+        <nz-form-control [nzSm]="8"   >
+              <nz-select formControlName="fromVersion"  nzShowSearch="true" [nzLoading]="listLoading"  nzPlaceHolder="请选择起始版本">
+                      <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of fromVersionlist">
+                      </nz-option>
+              </nz-select>
+        </nz-form-control>
+
+        <nz-form-label  [nzSm]="3" nzFor="toVersion"  nzRequired><span>结束版本 &nbsp;<i nz-icon nz-tooltip
+            nzTooltipTitle="安装、升级、补丁版本"
+            nzType="question-circle" nzTheme="outline"></i></span></nz-form-label>
+        <nz-form-control [nzSm]="8"   >
+              <nz-select formControlName="toVersion" nzShowSearch="true"  [nzLoading]="listLoading" nzPlaceHolder="请选择结束版本">
+                      <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of toVersionList">
+                      </nz-option>
+              </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <div *nzModalFooter>
+                <button nz-button nzType="default" (click)="pre()" >
+                    <span>上一步</span>
+                </button>
+                <button nz-button nzType="default" (click)="next()" [disabled]="!validateForm.valid">
+                    <span>下一步</span>
+                  </button>
+            </div>
+        </nz-form-control>
+      </nz-form-item>
+      </form>
+  
+      

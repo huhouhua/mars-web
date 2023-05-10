@@ -1,0 +1,22 @@
+<form nz-form [formGroup]="validateForm"  >
+    <nz-form-item>
+      <nz-form-label  [nzSm]="9"  [nzXs]="24" nzFor="builderId" nzRequired>打包器</nz-form-label>
+      <nz-form-control [nzSm]="8" [nzXs]="24"  >
+            <nz-select formControlName="builderId" [nzLoading]="loading"  nzPlaceHolder="请选择打包器">
+                    <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of buildList">
+                    </nz-option>
+            </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    </form>
+
+    <div nzOffset="7" nzSpan="12" >
+        <div class="steps-action">
+            <button nz-button nzType="default" (click)="pre()" >
+                <span>上一步</span>
+            </button>
+            <button nz-button nzType="primary" (click)="create()">
+                <span>创建</span>
+              </button>
+        </div>
+    </div>

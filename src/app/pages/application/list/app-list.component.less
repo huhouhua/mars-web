@@ -1,0 +1,50 @@
+:host ::ng-deep {
+    .tag-select {
+      .ant-tag {
+        margin: 0 12px;
+      }
+    }
+  
+    nz-divider {
+      margin-top: 14px;
+    }
+  }
+  .app-nav {
+    padding-top: 10px;
+    nz-tag {
+      cursor: pointer;
+      border: 1px solid #d9d9d9;
+    }
+    .ant-tag-checkable-checked {
+      border: 1px solid #1890ff;
+    }
+  }
+  .app-list {
+    &-title {
+      display: flex;
+      justify-content: space-between;
+      &-name {
+        width: calc(100% - 95px);
+      }
+      &-tag {
+        max-width: 90px;
+        nz-tag {
+          margin-right: 0;
+          text-align: center;
+        }
+      }
+    }
+    .item-content {
+      margin-top: 10px;
+      & > p {
+        margin-bottom: 5px;
+      }
+      & > p:last-child {
+        margin-bottom: 0px;
+      }
+    }
+  }
+  .list-card-animation {
+    padding: 0 10px;
+  }
+  

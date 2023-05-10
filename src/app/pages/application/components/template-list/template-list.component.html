@@ -1,0 +1,76 @@
+<nz-card [nzBordered]="false">
+
+
+    <div style="margin-bottom: 16px;">
+      <button nz-button nzType="primary"  (click)="openStructure()">新增模板</button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <!-- <li nz-menu-item>
+            <a  (click)="openStructure()">结构化配置模版</a>
+          </li>
+          <li nz-menu-item>
+            <a (click)="openRaw()">raw配置模版</a>
+          </li> -->
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <nz-table
+      #templateList
+      nzShowPagination
+      nzShowQuickJumper
+      nzShowSizeChanger
+      [nzData]="listData?.templates"
+      class="demo-loadmore-list"
+      [nzPageSize]="10"
+      [nzTotal]="listData.length"
+      [nzPageSizeOptions]="[5, 10, 20]"
+      [nzScroll]="{ x: '1024px' }"
+      [nzLoading]="initLoading"
+    >
+      <thead>
+        <tr>
+          <th nzLeft="0px">模板名称</th>
+          <th>模板类型</th>
+          <th>创建人</th>
+          <th>创建时间</th>
+          <th>更新人</th>
+          <th>更新时间</th>
+          <th nzRight="0px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of templateList.data">
+          <td  nzLeft="0px">
+            <nz-list-item-meta [nzTitle]="item.name" [nzDescription]="nzDescription">
+              <ng-template #nzDescription>
+               {{ item.description }}
+              </ng-template>
+            </nz-list-item-meta>
+          </td>
+          <td>
+            {{ handlerType(item.type) }}
+          </td>
+          <td>
+            张三
+          </td>
+          <td>
+           {{ item.creationTime}}
+          </td>
+          <td>
+            李四
+          </td>
+          <td>
+            {{ item.updateTime}}
+           </td>
+          <td nzRight="0px">
+            <a (click)="configTpl(item)">配置</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a  (click)="build(item)">发包</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="是否要删除操作？" (nzOnConfirm)="removeTemplate(item)">移除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+  

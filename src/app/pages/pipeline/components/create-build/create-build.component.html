@@ -1,0 +1,27 @@
+<nz-steps [nzCurrent]="itemStep.step">
+ 
+  <nz-step nzTitle="基础信息" nzDescription="描述下这个构建">
+    <!-- 构建名称
+           //部署包类型 构建平台      任务名称
+    描述 -->
+
+  </nz-step>
+  <nz-step nzTitle="版本配置" nzDescription="部署包版本配置">
+    <!-- //产品名称
+     //版本描述
+     //版本 -->
+  </nz-step>
+  <nz-step nzTitle="构建参数" nzDescription="构建流水线的参数">
+    <!-- 
+    流程类型
+    服务
+    k8s环境名称
+    k8s部署命名空间
+    分支名称 -->
+  </nz-step>
+</nz-steps>
+<div class="steps-content">
+  <app-create-build-step1 *ngIf="itemStep.step==0" [stepContext]="itemStep" (onStep)="step($event)"></app-create-build-step1>
+  <app-create-build-step2 *ngIf="itemStep.step==1" [stepContext]="itemStep" (onStep)="step($event)"></app-create-build-step2>
+  <app-create-build-step3 *ngIf="itemStep.step==2" [stepContext]="itemStep" (onStep)="step($event)"></app-create-build-step3>
+</div>

@@ -1,0 +1,78 @@
+<div class="header">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item
+          ><a href="#/delivery/application/list">应用列表</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item><a>应用详情</a></nz-breadcrumb-item>
+      </nz-breadcrumb>
+</div>
+<div nz-row nzGutter="24">
+
+    <div nz-col nzMd="24" nzLg="5" class="left-dev">
+        <nz-card [nzBordered]="false" class="mb-lg" [nzLoading]="appLoading">
+            <ng-container>
+                <div class="avatarHolder">
+                    <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
+                    <div class="name">{{application?.name}}</div>
+                </div>
+                <div class="detail ellipsis">
+                    <p nz-tooltip >描述：{{application?.description}}</p>
+                    <div>
+                        <p>创建时间:</p> 
+                        <p nz-tooltip  class="ellipsis">{{application?.creationTime}}</p>
+                    </div>
+                    <p nz-tooltip >
+                        负责人：{{application?.author}}
+                    </p>
+                    <p>包构建器: 新包构建器</p>
+                </div>
+                <nz-divider nzDashed></nz-divider>
+                <div class="tags">
+                    <div class="tagsTitle">标签</div>
+                </div>
+                <nz-divider nzDashed></nz-divider>
+                <div class="detail">
+
+                    <button nz-button nzType="primary" [nzLoading]="loading" nz-popconfirm
+                        nzPopconfirmTitle="是否要删除操作？" (nzOnConfirm)="deleteApp()" nzDanger>
+                        删除
+                    </button>
+                </div>
+            </ng-container>
+        </nz-card>
+    </div>
+    
+    <div nz-col nzMd="24" nzLg="19">
+        <nz-card class="tabsCard" [nzBordered]="false" [nzTitle]="tagTitleTpl">
+            <ng-template #tagTitleTpl>
+                <nz-tabset nzSize="large" [nzSelectedIndex]="detail.pos" (nzSelectedIndexChange)="tabChange($event)">
+                    <nz-tab [nzTitle]="'发行模板'">
+                        <app-template-list [applicationId]="id" ></app-template-list>
+                    </nz-tab>
+                    <nz-tab [nzTitle]="'发行包'">
+                        <!-- <app-tplpack  [applicationId]="id" 
+                        (onBuildLog)="onBuildLogData($event)" 
+                        (onShowBuildLog)="showBuildLog($event)" ></app-tplpack> -->
+                    </nz-tab>
+                </nz-tabset>
+            </ng-template>
+        </nz-card>
+    </div>
+</div>
+
+
+
+<!-- 构建日志 -->
+<nz-drawer
+      [nzBodyStyle]="{'padding':'0px'}"
+      nzPlacement="right"
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzWidth="90%"
+      nzTitle="构建日志"
+      (nzOnClose)="visible = false"
+    >
+    <div *ngIf="visible">
+        <!-- <app-git-lab-code [id]="buildLogId" [isRelationPack]="isRelationPack" [data]="buildLogData"></app-git-lab-code> -->
+    </div>
+</nz-drawer>

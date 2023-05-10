@@ -1,0 +1,36 @@
+
+<div class="list-content">
+    <nz-card 
+      [nzTitle]="title" 
+      class="card-head hospital-project-list" 
+      [nzExtra]="extraTemplate">
+      <div class="card-body ellipsis">
+        <p> 简称: {{ product.code }} </p>
+        <p> 名称:  {{ product.name }} </p>
+        <p> 创建时间: {{product.creationTime }}  </p>
+      </div>
+    </nz-card>
+
+    <!-- title -->
+    <ng-template #title>
+      <div nz-tooltip  class="ellipsis">{{product.code}}</div>
+    </ng-template>
+
+    <!-- 右上角操作区域 -->
+    <ng-template #extraTemplate>
+      <nz-tag [nzColor]="hadnlerProductStatus()">{{hadnlerProductType()}}</nz-tag>
+      <span 
+        style="padding:5px;"
+        nz-dropdown 
+        nzTrigger="click" 
+        [nzDropdownMenu]="menu"  >
+        <i style="cursor: pointer;" nz-icon nzType="more" class="operation" nzTheme="outline" ></i>
+      </span>
+      <nz-dropdown-menu #menu="nzDropdownMenu"  >
+        <ul nz-menu  >
+          <li nz-menu-item (click)="editItem()">编辑</li>
+          <li nz-menu-item (click)="deleteItem()" >删除</li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-template>
+</div>

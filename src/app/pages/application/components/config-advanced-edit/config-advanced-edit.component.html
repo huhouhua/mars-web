@@ -1,0 +1,18 @@
+<nz-spin *ngIf="!record" class="modal-spin"></nz-spin>
+<div nz-row [nzGutter]="24" #editor>
+    <div nz-col [nzMd]="12">
+        <nz-card nzTitle="yaml">
+            <codemirror [(ngModel)]="yamlContent" [config]="yamlEditorConfig"></codemirror>
+        </nz-card>
+    </div>
+    <div nz-col [nzMd]="12">
+        <nz-card nzTitle="config.json">
+            <codemirror [(ngModel)]="metaContent" [config]="metaEditorConfig"></codemirror>
+        </nz-card>
+    </div>
+</div>
+<div class="drawer-footer">
+    <button type="button" (click)="save()" class="ant-btn ant-btn-primary"><span>保存</span></button>
+    <button type="button" (click)="cancel()" class="ant-btn"><span>取消编辑</span></button>
+    <button type="button" (click)="scrollEditorToTop()" class="ant-btn"><span>回到顶部</span></button>
+</div>

@@ -1,0 +1,60 @@
+<nz-page-header class="site-page-header" >
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>产品</nz-breadcrumb-item>
+      <nz-breadcrumb-item><a href="/app-product-list/list">产品列表</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>版本列表</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <nz-page-header-content>
+      <button (click)="openCreateProductVersionModal()" nz-button nzType="primary">
+        <i nz-icon nzType="plus"></i>新增版本
+      </button>
+    </nz-page-header-content>
+  </nz-page-header>
+
+    <nz-table
+    #basicTable
+    nzShowPagination
+    nzShowQuickJumper
+    nzShowSizeChanger
+    [nzData]="listOfData.productVersionList"
+    [nzPageSize]="listOfData.pageSize"
+    [nzPageIndex]="listOfData.pageIndex"
+    [nzTotal]="listOfData.totalItemCount"
+    [nzPageSizeOptions]="[5, 10, 20]"
+    [nzScroll]="{ x: '1024px' }"
+    [nzLoading]="loading"
+  >
+    <thead>
+      <tr>
+        <th>版本号</th>
+        <th>状态</th>
+        <th>分支版本</th>
+        <th>升级类型</th>
+        <th>是否发布</th>
+        <th>发布时间</th>
+        <th nzRight="0px">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+       <td>{{  data.version }}</td>
+       <td>
+        <nz-tag [nzColor]="hadnlerVersionStatusColor(data.versionStatus)">  {{  hadnlerVersionStatus(data.versionStatus) }}</nz-tag>
+       </td>
+       <td>{{  hadnlerbranch(data.branchVersion)}}</td>
+       <td>{{ hadnlerUpgradeType(data.upgradeType)   }}</td>
+       <td>{{ data.isPublished == true ? '是':'否'   }}</td>
+       <td>{{data.releasedDate == '0001-01-01 00:00:00'?'':data.releasedDate}}</td>
+        <td nzRight="0px">
+          <a (click)="edit(data)">编辑</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="detail(data)">详情</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a *ngIf="data.isPublished == false" (click)="published(data)">发布</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm nzPopconfirmTitle="是否要删除操作？" (nzOnConfirm)="remove(data)">删除</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

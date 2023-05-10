@@ -1,0 +1,57 @@
+  <nz-page-header class="site-page-header" >
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>工具箱</nz-breadcrumb-item>
+      <nz-breadcrumb-item>包配置</nz-breadcrumb-item>
+      <nz-breadcrumb-item>详情</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-anchor (nzClick)="handleClick($event)">
+    <nz-link nzHref="#product-definition" nzTitle="产品定义">
+        <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 产品名称 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <input nz-input formControlName="name"  nzSize="small" name="name"   maxlength="15"  minlength="1" placeholder="请输入产品名称" />
+              </nz-input-group>
+            </nz-form-control>
+              <nz-form-label  nzSpan="3" nzFor="prefix" nzRequired> 版本前缀 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group  >
+                  <input nz-input formControlName="prefix"  nzSize="small" name="prefix"   minlength="1" placeholder="版本前缀" />
+                </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" nzFor="version" nzRequired> 版本号 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <input nz-input formControlName="version"  nzSize="small" name="version"   maxlength="5"  minlength="1" placeholder="请输入版本号" />
+              </nz-input-group>
+            </nz-form-control>
+              <nz-form-label  nzSpan="3" nzFor="date"  nzRequired> 版本日期 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                <nz-date-picker formControlName="date" name="date" ></nz-date-picker>
+            </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" nzFor="stage" nzRequired> 阶段 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <input nz-input formControlName="stage"  nzSize="small" name="stage"   maxlength="5"  minlength="1" placeholder="请输入阶段" />
+              </nz-input-group>
+            </nz-form-control>
+     
+          </nz-form-item>
+    </nz-link>
+    <nz-link nzHref="#compile-config" nzTitle="编译配置">
+    
+    </nz-link>
+    <nz-link nzHref="#packageConfig" nzTitle="包配置">
+      <!-- <nz-link nzHref="#nz-anchor" nzTitle="nz-anchor"></nz-link>
+      <nz-link nzHref="#nz-link" nzTitle="nz-link"></nz-link> -->
+    </nz-link>
+  </nz-anchor>
+</form>

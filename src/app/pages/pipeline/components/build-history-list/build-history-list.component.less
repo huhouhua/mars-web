@@ -1,0 +1,75 @@
+
+.search-div {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    & > div {
+      margin-right: 20px;
+    }
+    & > div:first-child {
+      width: 32%;
+    }
+    nz-tag {
+      cursor: pointer;
+      border: 1px solid #d9d9d9;
+      width: 60px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 14px;
+    }
+    .ant-tag-checkable-checked {
+      border: 1px solid #1890ff;
+    }
+  }
+  .list-card-animation {
+    padding: 0 10px;
+  }
+  .page-div {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+  }
+
+  .btn-disabled {
+    color: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+  }
+  .center {
+    text-align: center;
+  }
+  
+  .pl-15 {
+    padding-left: 15px;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .stage-td {
+    display: flex;
+    align-items: center;
+    & > div:nth-child(2) {
+      display: flex;
+      height: 22px;
+      width: 7px;
+      align-items: center;
+      margin: 0 3px;
+      & > div {
+        width: 7px;
+        height: 2px;
+        background-color: #dbdbdb;
+      }
+    }
+    [nz-icon] {
+      font-size: 20px;
+    }
+  }
+  .hide-td {
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  

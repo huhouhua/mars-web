@@ -1,0 +1,40 @@
+<nz-page-header class="site-page-header"  >
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>应用模板</nz-breadcrumb-item>
+      <nz-breadcrumb-item>{{ template.name+'的配置项' }}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <nz-page-header-content >
+        <div nz-col nzSpan="6" nzOffset="23">
+            <button nz-button nzType="default" [nzLoading]="loading"  (click)="viewMetadata(this.template)">预览</button>
+        </div>
+        <nz-descriptions nzTitle="模板信息" >
+            <nz-descriptions-item nzTitle="应用名">{{ appName  }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="配置类型">  {{ handlerType(template.type) }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="更新时间">{{template?.updateTime}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="创建时间">{{template?.creationTime}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="更新人员"> 张三</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="描述"> {{template.description}}</nz-descriptions-item>
+          </nz-descriptions>
+
+    </nz-page-header-content>
+  </nz-page-header>
+
+
+  <!-- 下方tabs -->
+  <nz-card [nzBordered]="false" >
+    <nz-tabset [nzSelectedIndex]="0">
+  
+      <!-- 普通模式 -->
+      <nz-tab [nzTitle]="'服务列表'" >
+        <app-template-config-list [templateId]="templateId"></app-template-config-list>
+      </nz-tab>
+
+      <nz-tab nzTitle="测试配置" > 
+        <!-- <app-deploy-configuration [templateId]="templateId" (onChange)="updateTemplate()"></app-deploy-configuration> -->
+      </nz-tab>
+
+      <nz-tab nzTitle="部署配置" > 
+        <!-- <app-deploy-configuration [templateId]="templateId" (onChange)="updateTemplate()"></app-deploy-configuration> -->
+      </nz-tab>
+    </nz-tabset>
+  </nz-card>
