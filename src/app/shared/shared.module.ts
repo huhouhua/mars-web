@@ -42,6 +42,8 @@ import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { NzMentionModule } from 'ng-zorro-antd/mention';
 @NgModule({
   imports: [
     BrowserModule,
@@ -84,8 +86,11 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzListModule,
     NzSkeletonModule,
     IconsProviderModule,
+    NzMentionModule,
+    NzTimelineModule
   ],
-  declarations: [],
+  declarations: [
+  ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
@@ -119,13 +124,14 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzTableModule,
     NzListModule,
     NzSkeletonModule,
-
+    NzMentionModule,
     NzModalModule,
     NzNotificationModule,
     NzNotificationServiceModule,
 
     NzFormModule,
     IconsProviderModule,
+    NzTimelineModule
   ],
   providers: [],
 })

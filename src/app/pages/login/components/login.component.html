@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row row-center" >
+      <div  class="col-center">
+        <div class="login-layout">
+          <h3 class="login-title">工具箱</h3>
+          <p style="margin: 10px 0;color:#bcc1c7; text-align: center;">提示：用户名: GitLab用户名， 密码: GitLab密码</p>
+          <form nz-form name="form" [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" >用户名</nz-form-label>
+              <nz-form-control 
+                nzHasFeedback 
+                [nzSpan]="20"
+                nzErrorTip="请输入用户名"
+              >
+                <nz-input-group >
+                  <input 
+                    nz-input 
+                    placeholder="请输入用户名" 
+                    name="username" 
+                    formControlName="username"
+                    required 
+                  />
+                </nz-input-group>
+   
+  
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="4" >密&nbsp;&nbsp;&nbsp;&nbsp;码</nz-form-label>
+              <nz-form-control 
+                nzHasFeedback 
+                [nzSpan]="20"
+                nzErrorTip="请输入密码"
+              >
+                <nz-input-group [nzSuffix]="suffixPassword">
+                  <input 
+                    nz-input 
+                    name="password" 
+                    formControlName="password"
+                    [type]="passwordVisible ? 'text' : 'password'" 
+                    placeholder="请输入密码" 
+                    required
+                  />
+                </nz-input-group>
+                <ng-template #suffixPassword>
+                  <i 
+                    nz-icon 
+                    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" 
+                    (click)="passwordVisible = !passwordVisible"
+                  ></i>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="24" [nzOffset]="0" style="text-align: center;">
+                <button 
+                  type="submit"
+                  nz-button 
+                  style="width: 100px;" 
+                  [disabled]="!validateForm.valid"
+                  nzType="primary"
+                >登录</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

@@ -91,7 +91,7 @@ export class MetadataService {
                   cpu: '10m',
                 },
               },
-              env: [],
+              env: []=[],
             },
           ],
         },

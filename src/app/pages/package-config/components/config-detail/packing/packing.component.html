@@ -1,0 +1,70 @@
+  <form nz-form [formGroup]="validateForm">
+  <nz-table #nzTable [nzData]="listOfControl" [nzLoading]="loading" [nzPageSize]="1000" nzSize="middle"
+    [nzShowPagination]="false" [nzHideOnSinglePage]="true">
+    <thead>
+      <tr>
+        <th>os</th>
+        <th>架构</th>
+        <th>类型</th>
+        <th>模板路径</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let control of nzTable.data; let i = index">
+          <td>
+            <nz-form-item class="mb-sm">
+            <nz-form-control nzErrorTip="请填写os">
+               <input  nz-input  formControlName="{{ control.controlValue.id+'_packing_os' }}" placeholder="请填写os" >
+            </nz-form-control>
+            </nz-form-item>
+          </td>
+          <td>
+            <nz-form-item class="mb-sm">
+            <nz-form-control nzErrorTip="请选择架构" >
+              <nz-select formControlName="{{ control.controlValue.id+'_packing_arch' }}"  nzShowSearch="true"  nzPlaceHolder="请选择架构">
+                      <nz-option [nzLabel]="opt" [nzValue]="opt" *ngFor="let opt of archOptions">
+                      </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          </td>
+          <td>
+            <nz-form-item class="mb-sm">
+            <nz-form-control  nzErrorTip="请选择类型" >
+              <nz-select formControlName="{{ control.controlValue.id+'_packing_type' }}"  nzShowSearch="true"   nzPlaceHolder="请选择类型">
+                      <nz-option [nzLabel]="opt" [nzValue]="opt" *ngFor="let opt of packageOptions">
+                      </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          </td>
+          <td>
+            <nz-form-item class="mb-sm">
+            <nz-form-control nzErrorTip="请填写模板路径">
+               <input  nz-input  formControlName="{{ control.controlValue.id+'_packing_template' }}" placeholder="请填写模板路径" >
+            </nz-form-control>
+            </nz-form-item>
+          </td>
+          <td>
+            <div class="delete-div">
+                <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+                <i nz-icon nzType="edit" class="dynamic-delete-button" nzTheme="outline" (click)="viewClick(control,$event)"></i>
+            </div>
+          </td>
+      </tr>
+      <tr> 
+     <td colSpan="5">
+      <nz-form-item>
+        <nz-form-control>
+            <button nz-button nzType="dashed" [nzLoading]="loading" class="add-button" (click)="addField($event)">
+                <i nz-icon nzType="plus"></i>
+                添加
+            </button>
+        </nz-form-control>
+    </nz-form-item>
+     </td>
+  </tr>
+    </tbody>
+  </nz-table>
+  </form>

@@ -18,7 +18,7 @@ export class ApplistComponent implements OnInit {
   public colorList = ['#f56a00', '#1890ff', '#7265e6', '#ffbf00', '#00a2ae', '#00a2ae'];
   public apps: any[] = [];
   public loading = true;
-  public teams = [];
+  public teams:any[]=[];
   public query:Query ={
     pageSize: 9999,
     appName: '',

@@ -1,0 +1,62 @@
+<form nz-form [formGroup]="validateForm">
+<nz-table #nzTable [nzData]="listOfControl" [nzLoading]="loading" [nzPageSize]="1000" nzSize="middle"
+  [nzShowPagination]="false" [nzHideOnSinglePage]="true">
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>项目
+        <i nz-icon nz-tooltip nzTooltipTitle="拥有Develop角色的所有项目" nzType="question-circle" nzTheme="outline">
+        </i>
+      </th>
+      <th>分支</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let control of nzTable.data; let i = index">
+        <td>
+          <nz-form-item class="mb-sm">
+          <nz-form-control nzErrorTip="请填写名称">
+             <input  nz-input  formControlName="{{ control.id+'_compile_name' }}" placeholder="请填写名称" >
+          </nz-form-control>
+          </nz-form-item>
+        </td>
+        <td>
+          <nz-form-item class="mb-sm">
+          <nz-form-control nzErrorTip="请选择项目" >
+            <nz-select formControlName="{{ control.id+'_compile_git' }}"  nzShowSearch="true" (ngModelChange)="onProjectChange($event,control)" [nzLoading]="loadingWithProjectList"  nzPlaceHolder="请选择项目">
+                    <nz-option [nzLabel]="t.path_with_namespace" [nzValue]="t.id" *ngFor="let t of ProjectList">
+                    </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        </td>
+        <td>
+          <nz-form-item class="mb-sm">
+          <nz-form-control  nzErrorTip="请选择分支" >
+            <nz-select formControlName="{{ control.id+'_compile_branch' }}"  nzShowSearch="true" (ngModelChange)="onBranchChange($event,control)" [nzLoading]="control.brancheLoading"  nzPlaceHolder="请选择分支">
+                    <nz-option [nzLabel]="t.name" [nzValue]="t.name" *ngFor="let t of control.branches">
+                    </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        </td>
+        <td>
+          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+        </td>
+    </tr>
+    <tr> 
+   <td colSpan="4">
+    <nz-form-item>
+      <nz-form-control>
+          <button nz-button nzType="dashed" [nzLoading]="loading" class="add-button" (click)="addField($event)">
+              <i nz-icon nzType="plus"></i>
+              添加
+          </button>
+      </nz-form-control>
+  </nz-form-item>
+   </td>
+</tr>
+  </tbody>
+</nz-table>
+</form>

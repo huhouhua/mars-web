@@ -11,7 +11,6 @@ import { AppDetailComponent } from "./components/app-detail/app-detail.component
 import { CreateTemplateComponent } from "./components/create-template/create-template.component";
 import { TemplateConfigComponent } from "./components/template-config/template-config.component";
 import { PrviewConfigComponent } from "./components/prview-config/prview-config.component";
-import { CodemirrorComponent } from "./components/codemirror/codemirror.component";
 import { CreateTemplateConfig } from "./components/create-template-config/create-template-config.component";
 import { TemplateConfigList } from "./components/template-config-list/template-config-list.component";
 import { ConfigAdvancedEditComponent } from "./components/config-advanced-edit/config-advanced-edit.component";
@@ -27,7 +26,6 @@ import { CreateBuildPackageComponent } from "./components/create-build-package/c
   CreateTemplateComponent,
   TemplateConfigComponent,
   PrviewConfigComponent,
-  CodemirrorComponent,
   CreateTemplateConfig,
   TemplateConfigList,
   ConfigAdvancedEditComponent,
@@ -39,7 +37,6 @@ import { CreateBuildPackageComponent } from "./components/create-build-package/c
     FormsModule
  ],
  exports:[
-   CodemirrorComponent
 ]
 
 })

@@ -1,0 +1,35 @@
+   <nz-tabset>
+        <nz-tab nzTitle="主文件">
+            <div nz-row [nzGutter]="24" #editor> 
+                <div  nz-col [nzMd]="24">
+                    <ngx-codemirror
+                    [(ngModel)]="yamlAllData.productYaml"
+                    [options]="options"
+                    [ngModelOptions]="{standalone: true}" 
+                    ngDefaultControl >
+                  </ngx-codemirror>
+                </div>
+            </div>
+        </nz-tab>
+        <nz-tab nzTitle="打包配置文件">
+            <div class="global-toolbar">
+                <nz-select class="select-temp" nzShowSearch [(ngModel)]="name" (ngModelChange)="onTempChange($event)" >
+                    <nz-option [nzValue]="item.name" [nzLabel]="item.name" *ngFor="let  item of yamlDataItems"></nz-option>
+                </nz-select>
+            </div>
+            <div nz-row [nzGutter]="24" #editorContainerItems> 
+                <div  nz-col [nzMd]="24">
+                    <ngx-codemirror
+                    [(ngModel)]="codeItem"
+                    [options]="options"
+                    [ngModelOptions]="{standalone: true}" 
+                    ngDefaultControl >
+                  </ngx-codemirror>
+                </div>
+            </div>
+        </nz-tab>
+      </nz-tabset>
+<div class="drawer-footer">
+<button type="button" (click)="cancel()" class="ant-btn"><span>返回</span></button>
+<button type="button" (click)="scrollEditorToTop()" class="ant-btn"><span>回到顶部</span></button>
+</div>

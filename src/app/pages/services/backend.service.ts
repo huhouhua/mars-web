@@ -12,6 +12,36 @@ export class BackendService {
 
     constructor(private http: HttpClient) {}
 
+    public login<ApiResult>(usrname:string, password:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/auth/login`;
+      return this.http.post(url,{
+        name:usrname,
+        password:password
+      } );
+    }
+
+    public getProjecBuildFileFromGitlab<ApiResult>(projectId:string, branchName:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/gitLab/project/${projectId}/file/build`;
+      return this.http.get(url,
+        {
+          params:{
+            branchName: branchName
+          }
+        });
+    }
+    
+    public getProjectListFromGitlab<ApiResult>() :Observable<any>{
+      const url = `api/${this.apiVersion}/gitLab/project/list`;
+      return this.http.get(url);
+    }
+    public getBranchListFromGitlab<ApiResult>(projectId:string,search:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/gitLab/project/${projectId}/branch/list`;
+      return this.http.get(url,{
+        params:{
+          search:search
+        }
+      });
+    }
     public getPackageConfig<ApiResult>(id:string) :Observable<any>{
       const url = `api/${this.apiVersion}/packageconfig/${id}`;
       return this.http.get(url,{
@@ -38,10 +68,17 @@ export class BackendService {
       const url = `api/${this.apiVersion}/packageconfig`;
       return this.http.post(url,data);
     }
+    
     public updatePackageConfig<ApiResult>(id:string, data:any) :Observable<any>{
       const url = `api/${this.apiVersion}/packageconfig/${id}`;
       return this.http.put(url,data);
     }
+    public updatePackageMetadata<ApiResult>(id:string, data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/packageconfig/${id}/metadata`;
+      return this.http.put(url,data);
+    }
+  
+    
     public deletePackageConfig<ApiResult>(id:string) :Observable<any>{
       const url = `api/${this.apiVersion}/packageconfig/${id}`;
       return this.http.delete(url);

@@ -1,0 +1,15 @@
+
+    <div nz-row [nzGutter]="24" #editor> 
+        <div  nz-col [nzMd]="24">
+            <ngx-codemirror
+            [(ngModel)]="yamlData"
+            [options]="options"
+            [ngModelOptions]="{standalone: true}" 
+            ngDefaultControl >
+          </ngx-codemirror>
+        </div>
+    </div>
+<div class="drawer-footer">
+    <button type="button" (click)="cancel()" class="ant-btn"><span>返回</span></button>
+    <button type="button" (click)="scrollEditorToTop()" class="ant-btn"><span>回到顶部</span></button>
+</div>

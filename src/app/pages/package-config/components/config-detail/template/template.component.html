@@ -1,0 +1,23 @@
+<nz-tabset [nzSelectedIndex]="selectedIndex">
+    <nz-tab   [nzTitle]="titleTemplate" [nzDisabled]="disabled">
+        <ng-template #titleTemplate>
+            <i nz-icon nzType="file-add" nzTheme="outline"></i>
+            文件配置
+          </ng-template>
+        <app-package-config-template-file  [ValidateForm]="validateForm"></app-package-config-template-file>
+    </nz-tab>
+    <nz-tab   [nzTitle]="titleTemplate2" [nzDisabled]="disabled">
+        <ng-template #titleTemplate2>
+            <i nz-icon nzType="codepen" nzTheme="outline"></i>
+            镜像配置
+          </ng-template>
+          <app-package-config-template-image [ValidateForm]="validateForm" ></app-package-config-template-image>
+    </nz-tab>
+    <nz-tab  [nzTitle]="titleTemplate3" [nzDisabled]="disabled">
+        <ng-template #titleTemplate3>
+            <i nz-icon nzType="radar-chart" nzTheme="outline"></i>
+            charts
+          </ng-template>
+          <app-package-config-template-charts [ValidateForm]="validateForm"></app-package-config-template-charts>
+    </nz-tab>
+  </nz-tabset>
