@@ -44,13 +44,16 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-
+    NzResultModule,
     NzSpinModule,
     NzSliderModule,
     NzCardModule,
@@ -90,6 +93,7 @@ import { NzMentionModule } from 'ng-zorro-antd/mention';
     NzTimelineModule
   ],
   declarations: [
+    PageNotFoundComponent,
   ],
   exports: [
     FormsModule,
@@ -128,10 +132,11 @@ import { NzMentionModule } from 'ng-zorro-antd/mention';
     NzModalModule,
     NzNotificationModule,
     NzNotificationServiceModule,
-
+    NzResultModule,
     NzFormModule,
     IconsProviderModule,
-    NzTimelineModule
+    NzTimelineModule,
+    PageNotFoundComponent
   ],
   providers: [],
 })

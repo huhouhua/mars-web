@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
     this.backendService.login<ApiResult>(userName,passowrd).subscribe(res=>{
       if (res.status === ApiResultType.Success) {
-        this.router.navigateByUrl(`home`);
+        this.router.navigate(['build-list']);
         return;
       }
       this.loading = false;

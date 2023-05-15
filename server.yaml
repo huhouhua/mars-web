@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: tool-fontend-svc
+    namespace: devops-tool
+    labels:
+      service: tool-fontend
+  spec:
+    selector:
+      app: tool-fontend
+    ports:
+    - name: tool-port
+      port: 5228
+      targetPort: 5228
+      protocol: TCP
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: tool-fontend
+    namespace: devops-tool
+    labels:
+      service: tool-fontend
+      fromApp: tool-fontend
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: tool-fontend
+    template:
+      metadata:
+        labels:
+          app: tool-fontend
+      spec:
+        containers:
+        - image: 172.17.162.231/platform-tool/fontend:v1.0.1
+          name: tool-fontend
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 5228
+            name: tool-port
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 4
+            requests:
+              memory: 128Mi
+              cpu: 10m
+          env:
+          - name: WEBAPI__SERVER
+            value: '172.17.206.81:32538'
+kind: List

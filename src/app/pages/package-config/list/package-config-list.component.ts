@@ -77,7 +77,7 @@ export class PackageConfiglistComponent implements OnInit {
   }
 
   public config(config: any):void {
-    this.router.navigateByUrl(`/app-tool/package-config-list/detail/config/${config.id}`);
+    this.router.navigateByUrl(`/package-config-list/detail/config/${config.id}`);
   }
 
   public edit(config: any) {
