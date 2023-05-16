@@ -13,7 +13,7 @@ import * as FileSaver from 'file-saver';
 import { DownloadUtilityService } from 'src/app/shared/util/download-util.service';
 import { MetaData, NgEventBus } from 'ng-event-bus';
 import { EventBus } from './shared/event-bus';
-import { FromService } from './shared/form.service';
+import { FormService } from './shared/form.service';
 
 @Component({
   selector: 'app-package-config-detail.component',
@@ -35,7 +35,7 @@ export class PackageConfigDetailComponent implements OnInit {
     private generateService: GenerateService,
     private downloadUtilityService: DownloadUtilityService,
     private eventBus: NgEventBus,
-    private fromService: FromService,
+    private fromService: FormService,
     private drawerService: NzDrawerService,
     private notification: NzNotificationService) {
 
@@ -128,7 +128,7 @@ export class PackageConfigDetailComponent implements OnInit {
     if (e) {
       e.preventDefault();
     }
-     let compileList =  this.generateService.GetfileCompileList(this.validateForm);
+     let compileList =  this.fromService.GetfileCompileList(this.validateForm);
      const projectIds = compileList.map(q=>q.git);
      let gitlabProjects = new Array<GitLabProject>();
      projectIds.forEach(id => {

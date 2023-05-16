@@ -51,7 +51,8 @@
                         <input  nz-input  [(ngModel)]="data.fillInName"  [ngModelOptions]="{standalone: true}"  placeholder="请填写镜像" >
                     </td>
                     <td  *ngIf="data.type==1">
-                        <nz-select  nzShowSearch="true" [ngModelOptions]="{standalone: true}"    [(ngModel)]="data.name"  nzPlaceHolder="请选择文件内容参数" (nzOpenChange)="onOpenChange($event)">
+                        <nz-select  nzShowSearch="true" [ngModelOptions]="{standalone: true}"    [(ngModel)]="data.name"  nzPlaceHolder="请选择文件内容参数" 
+                          (nzOpenChange)="onOpenChange($event,control.controlValue.listOfChildrenData)">
                             <nz-option-group [nzLabel]="opt.name+'('+opt.branch+')'"  *ngFor="let opt of fileCompileList">
                                 <nz-option [nzLabel]="file.type"  [nzValue]="opt.name+'_'+file.type" *ngFor="let file of opt.buildfileContent">
                                 </nz-option>

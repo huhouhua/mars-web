@@ -24,6 +24,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { GenerateTemplateService } from '../../shared/generate-template.service';
 import { ChildrenData, Compile, GenerateTemplateContext, Packing, TemplateFile, TemplateFileControl, TypeOptions } from '../../shared/options';
 import { GenerateService } from '../../shared/generate.service';
+import { FormService } from '../../shared/form.service';
 
 @Component({
   selector: 'app-package-config-template-file',
@@ -49,6 +50,7 @@ export class PackageConfigTemplateFileComponent implements OnInit {
     private eventBus: NgEventBus,
     private changeDetector: ChangeDetectorRef,
     private generateService:GenerateService,
+       private formService:FormService,
     private generateTemplateService:GenerateTemplateService,
   ) {}
   ngOnInit(): void {
@@ -154,7 +156,7 @@ export class PackageConfigTemplateFileComponent implements OnInit {
     }
   }
   public onOpenChange(e:any){
-     let newFileCompileList = this.generateService.GetfileCompileList(this.ValidateForm);
+     let newFileCompileList = this.formService.GetfileCompileList(this.ValidateForm);
      this.fileCompileList = newFileCompileList;
     this.fileCompileList=[...this.fileCompileList];
   

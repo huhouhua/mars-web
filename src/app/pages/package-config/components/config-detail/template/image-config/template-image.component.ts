@@ -24,6 +24,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { GenerateTemplateService } from '../../shared/generate-template.service';
 import { ChildrenData, Compile, GenerateTemplateContext, Packing, TemplateImage, TemplateImageControl,TypeOptions } from '../../shared/options';
 import { GenerateService } from '../../shared/generate.service';
+import { FormService } from '../../shared/form.service';
 
 @Component({
   selector: 'app-package-config-template-image',
@@ -50,6 +51,7 @@ export class PackageConfigTemplateImageComponent implements OnInit {
     private eventBus: NgEventBus,
     private changeDetector: ChangeDetectorRef,
     private generateService:GenerateService,
+    private formService:FormService,
     private generateTemplateService:GenerateTemplateService,
   ) {}
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class PackageConfigTemplateImageComponent implements OnInit {
       this.disabled =false;
       this.pack = control.data;
       this.Context = control.data.medaData;
-      this.onOpenChange({});
+      this.onOpenChange({},[]);
   });
   }
   public addField(e?: MouseEvent, value?: any){
@@ -128,13 +130,17 @@ export class PackageConfigTemplateImageComponent implements OnInit {
         this.Context.TemplateImages=[...this.Context.TemplateImages];
     }
   }
-  public onOpenChange(e:any){
-     let newFileCompileList = this.generateService.GetfileCompileList( this.ValidateForm);
+  public onOpenChange(value:any,children:ChildrenData[]){
+     let newFileCompileList = this.formService.GetfileCompileList(this.ValidateForm);
+    //  children.forEach(child=>{
+  
+    //   newFileCompileList.findIndex(q=>q.buildfileContent.);
+    //       if(new)
+    //  });
      this.fileCompileList = newFileCompileList;
     this.fileCompileList=[...this.fileCompileList];
     console.log(this.fileCompileList);
   }
-
   public onPreview(){
     const yamlData = this.generateTemplateService.GenerateTemplateYaml(this.pack,this.ValidateForm, this.Context);
      

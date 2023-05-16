@@ -24,7 +24,7 @@ import { EventBus } from './event-bus';
 @Injectable({
   providedIn: `root`,
 })
-export class FromService {
+export class FormService {
     
     constructor(private eventBus: NgEventBus){}
     public SetFromValue(gitLabProject:GitLabProject[], yamlData:string, validateForm: FormGroup){
@@ -189,5 +189,43 @@ export class FromService {
        pack.medaData.TemplateCharts.forEach((element,index)=>{
         validateForm.removeControl(`${pack.id}_${index}_template_charts_target`);
        })
+    }
+
+    public GetfileCompileList(validateForm: FormGroup): Compile[] {
+      let fileCompileList: Compile[] = [];
+      let controls = validateForm.controls;
+    
+      let compile = new Compile();
+      let isNameExist: Boolean = false;
+      let isBranchExist: Boolean = false;
+      let isGitExist: Boolean = false;
+      let isCompileFileContent: Boolean = false;
+      for (const key in controls) {
+        if (key.endsWith('_compile_name')) {
+          isNameExist = true;
+          compile.name = validateForm.get(key)?.value;
+        }
+        if (key.endsWith('_compile_branch')) {
+          isBranchExist = true;
+          compile.branch = validateForm.get(key)?.value;
+        }
+        if (key.endsWith('_compile_git')) {
+          isGitExist = true;
+          compile.git = validateForm.get(key)?.value;
+        }
+        if (key.endsWith('_compile_file_content')) {
+          isCompileFileContent = true;
+          compile.buildfileContent = validateForm.get(key)?.value;
+        }
+        if (isNameExist && isBranchExist && isGitExist && isCompileFileContent) {
+          fileCompileList.push(compile);
+          compile = new Compile();
+          isNameExist = false;
+          isBranchExist = false;
+          isGitExist = false;
+          isCompileFileContent = false;
+        }
+      }
+      return fileCompileList;
     }
 }

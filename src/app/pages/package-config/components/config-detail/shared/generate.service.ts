@@ -21,12 +21,14 @@ import {
 import { GenerateTemplateService } from './generate-template.service';
 import * as YAML from 'js-yaml';
 import { getTime } from 'src/app/shared/util/convert';
+import { FormService } from './form.service';
 
 @Injectable({
   providedIn: `root`,
 })
 export class GenerateService {
-    constructor(private generateTemplateService: GenerateTemplateService){
+    constructor(private generateTemplateService: GenerateTemplateService,
+      private formService:FormService){
         
     }
   private template: any = {
@@ -75,7 +77,7 @@ export class GenerateService {
    }
 
    private setCompile(validateForm:FormGroup,projectList: any[],template:any):void{
-       let compileList = this.GetfileCompileList(validateForm);
+       let compileList = this.formService.GetfileCompileList(validateForm);
        compileList.forEach(element => {
             let obj ={
                 name:element.name == null ? '': element.name,
@@ -149,41 +151,5 @@ export class GenerateService {
         }
         return packingTemplateList;
     }
-    public GetfileCompileList(validateForm: FormGroup): Compile[] {
-        let fileCompileList: Compile[] = [];
-        let controls = validateForm.controls;
-      
-        let compile = new Compile();
-        let isNameExist: Boolean = false;
-        let isBranchExist: Boolean = false;
-        let isGitExist: Boolean = false;
-        let isCompileFileContent: Boolean = false;
-        for (const key in controls) {
-          if (key.endsWith('_compile_name')) {
-            isNameExist = true;
-            compile.name = validateForm.get(key)?.value;
-          }
-          if (key.endsWith('_compile_branch')) {
-            isBranchExist = true;
-            compile.branch = validateForm.get(key)?.value;
-          }
-          if (key.endsWith('_compile_git')) {
-            isGitExist = true;
-            compile.git = validateForm.get(key)?.value;
-          }
-          if (key.endsWith('_compile_file_content')) {
-            isCompileFileContent = true;
-            compile.buildfileContent = validateForm.get(key)?.value;
-          }
-          if (isNameExist && isBranchExist && isGitExist && isCompileFileContent) {
-            fileCompileList.push(compile);
-            compile = new Compile();
-            isNameExist = false;
-            isBranchExist = false;
-            isGitExist = false;
-            isCompileFileContent = false;
-          }
-        }
-        return fileCompileList;
-      }
+
 }

@@ -13,10 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { MetaData, NgEventBus } from 'ng-event-bus';
 import { EventBus } from '../shared/event-bus';
-import { ArchOptions, GenerateTemplateContext, PackageOptions, PackingControl, TemplateFileControl } from '../shared/options';
+import { ArchOptions, ChildrenData, GenerateTemplateContext, PackageOptions, PackingControl, TemplateFileControl } from '../shared/options';
 import { GenerateTemplateService } from '../shared/generate-template.service';
-import { cloneDeep, uniq, uniqBy } from 'lodash-es';
-import { FromService } from '../shared/form.service';
+import { cloneDeep, forEach, uniq, uniqBy } from 'lodash-es';
+import { FormService } from '../shared/form.service';
+import { GenerateService } from '../shared/generate.service';
 @Component({
   selector: 'app-package-config-packing',
   templateUrl: './packing.component.html',
@@ -33,8 +34,9 @@ export class PackagePackingComponent implements OnInit {
     private modal: NzModalService,
     private backendService: BackendService,
     private notification: NzNotificationService,
-    private generateService:GenerateTemplateService,
-    private fromService:FromService,
+    private generateTemplateService:GenerateTemplateService,
+    private generateService:GenerateService,
+    private formService:FormService,
     private router: Router,
     private eventBus: NgEventBus,
     private changeDetector: ChangeDetectorRef
@@ -125,13 +127,43 @@ export class PackagePackingComponent implements OnInit {
     this.validateForm.removeControl(`${value.controlValue.id}_packing_type`);
     this.validateForm.removeControl(`${value.controlValue.id}_packing_template`);
     this.validateForm.removeControl(`${value.controlValue.id}_packing_template_medaData`);
-    this.fromService.setRemoveOfFileConfig(value.controlValue,this.validateForm);
+    this.formService.setRemoveOfFileConfig(value.controlValue,this.validateForm);
     // this.validateForm.removeControl(`${value.controlValue.id}_packing_template_chart_items`);
     // this.validateForm.removeControl(`${value.controlValue.id}_packing_template_file_items`);
     // this.validateForm.removeControl(`${value.controlValue.id}_packing_template_image_items`);
   }
   public viewClick(value: PackingControl, e: MouseEvent){
-    const  pack = this.generateService.GetPackingOfValidateForm(value.controlValue.id,this.validateForm);
+    const  pack = this.generateTemplateService.GetPackingOfValidateForm(value.controlValue.id,this.validateForm);
+    
+    // const compilelist =  this.generateService.GetfileCompileList(this.validateForm);
+    // compilelist.forEach(compile=>{
+    //   const imageTag =`.${compile.name}_image`;
+    //   const chart= `.${compile.name}_chart`;
+    //   pack.medaData.TemplateImages.forEach(image=>{
+    //     const tag = image.controlValue.listOfChildrenData.findIndex(q=>q.name == imageTag);
+    //       if(tag<0){
+    //         let id = 0;
+    //         if(image.controlValue.listOfChildrenData.length>0){
+    //         id = this.listOfControl[this.listOfControl.length - 1].controlValue.id + 1;
+    //         }
+            
+    //         image.controlValue.listOfChildrenData.push({
+    //           name:imageTag,
+    //           fillInName:'',
+    //           id:id,
+    //           type:1,
+    //         });
+    //       }
+    //   })
+      
+
+    //   pack.medaData.TemplateCharts.forEach(chart=>{
+
+    //   })
+      
+
+    // })
+    // pack.medaData.TemplateImages
     this.eventBus.cast(EventBus.packageView, pack);
   }
 }

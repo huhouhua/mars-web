@@ -16,6 +16,7 @@ import {
   TemplateImageControl,
 } from './options';
 import * as YAML from 'js-yaml';
+import { FormService } from './form.service';
 
 @Injectable({
   providedIn: `root`,
@@ -37,17 +38,19 @@ export class GenerateTemplateService {
    images:[],
    charts:[]
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private formService:FormService) {}
 
   public GenerateTemplateYaml(pack:Packing, validateForm:FormGroup, context:GenerateTemplateContext):string {
    const  packageTemplate =cloneDeep(this.packageTemplate);
+   let compileList = this.formService.GetfileCompileList(validateForm);
    let files = this.getTemplateFileList(pack, validateForm, context.TemplateFiles);    
    let images = this.getTemplateImageList(pack,validateForm, context.TemplateImages);
-   let charts = this.getTemplateChartList(pack,validateForm, context.TemplateCharts);
+   let charts = this.getTemplateChartList(pack,validateForm,  context.TemplateCharts);
     this.setBaseInfo(packageTemplate, pack);
     this.setFile(packageTemplate, files);
-    this.setImage(packageTemplate,images);
-    this.setCharts(packageTemplate, charts);
+    this.setImage(packageTemplate,compileList, images);
+    this.setCharts(packageTemplate, compileList, charts);
     return YAML.dump(packageTemplate, {
       lineWidth: 5000,
     });
@@ -69,7 +72,6 @@ export class GenerateTemplateService {
               let fileObj:any ={
                name:file.fillInName,
               };
-              
               if(file.type == 1 && file.name!=''){
                   fileObj.name = `{{ .${file.name} }}`;
                   const search  = fileObj.name.search('-');
@@ -84,7 +86,7 @@ export class GenerateTemplateService {
        template.files.http.push(obj);
    });
   }
-  private setImage(template:any,templateImages:TemplateImage[]):void{
+  private setImage(template:any, compiles:Compile[],templateImages:TemplateImage[]):void{
    templateImages.forEach(element => {
        let obj:any= {
          source:[]=[],
@@ -100,13 +102,17 @@ export class GenerateTemplateService {
                   }
               }
               if(name!=''){
-               obj.source.push(name);
-               }
+                //判断是否有image的配置
+                const comIndex = compiles.findIndex(q=>`${q.name}_image` == file.name);
+                if(comIndex<0){
+                  obj.source.push(name);
+                }
+             }
        });
        template.images.push(obj);
    });
   }
-  private setCharts(template:any,templateCharts:TemplateCharts[]):void{
+  private setCharts(template:any,compiles:Compile[], templateCharts:TemplateCharts[]):void{
    templateCharts.forEach(element => {
        let obj:any= {
          source:[]=[],
@@ -122,9 +128,12 @@ export class GenerateTemplateService {
                   }
               }
               if(name!=''){
-               obj.source.push(name);
+                  //判断是否有chart的配置
+                  const comIndex = compiles.findIndex(q=>`${q.name}_chart` == file.name);
+                  if(comIndex<0){
+                    obj.source.push(name);
+                  }
                }
-            
        });
        template.charts.push(obj);
    });
@@ -245,6 +254,12 @@ export class GenerateTemplateService {
    return charts;
  }
 
+ private appendDefaultImage(sources:string[],compiles:Compile[] ){
+   
+ }
+ private appendDefaultChart(sources:string[],compiles:Compile[]){
+
+ }
   public GetPackingOfValidateForm(prefix:number, validateForm: FormGroup):Packing{
      let pack =new Packing();
      pack.template = validateForm.get(`${prefix}_packing_template`)?.value;
