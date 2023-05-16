@@ -46,6 +46,7 @@ export class GenerateTemplateService {
    let compileList = this.formService.GetfileCompileList(validateForm);
    let files = this.getTemplateFileList(pack, validateForm, context.TemplateFiles);    
    let images = this.getTemplateImageList(pack,validateForm, context.TemplateImages);
+  
    let charts = this.getTemplateChartList(pack,validateForm,  context.TemplateCharts);
     this.setBaseInfo(packageTemplate, pack);
     this.setFile(packageTemplate, files);
@@ -92,6 +93,7 @@ export class GenerateTemplateService {
          source:[]=[],
          target:element.target == null ? '':element.target,
        }
+       this.appendDefaultImage(obj.source,compiles);
        element.listOfChildrenData.forEach(file=>{
              let name = file.fillInName;
               if(file.type == 1&&file.name!=''){
@@ -103,9 +105,9 @@ export class GenerateTemplateService {
               }
               if(name!=''){
                 //判断是否有image的配置
-                const comIndex = compiles.findIndex(q=>`${q.name}_image` == file.name);
-                if(comIndex<0){
-                  obj.source.push(name);
+                const index  = obj.source.findIndex((q:string)=>q == file.name);
+                if(index<0){
+                   obj.source.push(name);
                 }
              }
        });
@@ -118,6 +120,7 @@ export class GenerateTemplateService {
          source:[]=[],
          target:element.target == null ? '':element.target,
        }
+       this.appendDefaultChart(obj.source,compiles);
        element.listOfChildrenData.forEach(file=>{
          let name = file.fillInName;
               if(file.type == 1 && file.name!=''){
@@ -129,9 +132,9 @@ export class GenerateTemplateService {
               }
               if(name!=''){
                   //判断是否有chart的配置
-                  const comIndex = compiles.findIndex(q=>`${q.name}_chart` == file.name);
-                  if(comIndex<0){
-                    obj.source.push(name);
+                const index  = obj.source.findIndex((q:string)=>q == file.name);
+                  if(index<0){
+                     obj.source.push(name);
                   }
                }
        });
@@ -254,12 +257,27 @@ export class GenerateTemplateService {
    return charts;
  }
 
- private appendDefaultImage(sources:string[],compiles:Compile[] ){
-   
- }
- private appendDefaultChart(sources:string[],compiles:Compile[]){
+ private appendDefaultImage(sources:string[],compiles:Compile[] ) :void{
+  const images = compiles.map(q=>{
+   const search  = q.name.search('-');
+   if(search>=0){
+     return `{{ index .${q.name}_image }}`
+   }
+     return `{{ ${q.name}_image }}`
+  });
+  sources.push(...images);
+}
+private appendDefaultChart(sources:string[],compiles:Compile[]):void{
+ const charts = compiles.map(q=>{
+   const search  = q.name.search('-');
+   if(search>=0){
+     return `{{ index .${q.name}_chart }}`
+   }
+     return `{{ ${q.name}_chart }}`
+});
+sources.push(...charts);
+}
 
- }
   public GetPackingOfValidateForm(prefix:number, validateForm: FormGroup):Packing{
      let pack =new Packing();
      pack.template = validateForm.get(`${prefix}_packing_template`)?.value;

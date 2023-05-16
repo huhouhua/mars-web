@@ -31,7 +31,6 @@ export class FormService {
            if(yamlData == ''){
               return;
            }
-           
           let yamlAllData = JSON.parse(yamlData);
           let productYaml =YAML.load(yamlAllData.productYaml)as any;
           let packageYamls =YAML.load(yamlAllData.packageYaml) as any[];
@@ -39,7 +38,9 @@ export class FormService {
           // console.log(packageYamls);
           this.setValueOfProduct(productYaml.product,validateForm);
           this.setValueOfCompile(productYaml.compile,gitLabProject);
-          this.setValueOfPacking(productYaml.packing,packageYamls,validateForm);
+          const compiles =  this.GetfileCompileList(validateForm);
+
+          this.setValueOfPacking(productYaml.packing,packageYamls,validateForm,compiles);
     }
 
     private setValueOfProduct(productYaml:any, validateForm: FormGroup){
@@ -53,7 +54,6 @@ export class FormService {
         validateForm.get('version')?.setValue(productYaml.version);
     }
     private setValueOfCompile(compile:any[],gitLabProject:GitLabProject[]){
-      console.log(gitLabProject);
         compile.forEach(element => {
              let project = gitLabProject.find(q=>q.sshUrlRepo == element.git);
            this.eventBus.cast(EventBus.setCompileForm,{
@@ -62,7 +62,7 @@ export class FormService {
            });
         });
     }
-    private setValueOfPacking(packing:any[],packageYamls:any[],validateForm: FormGroup){
+    private setValueOfPacking(packing:any[],packageYamls:any[],validateForm: FormGroup,compiles:Compile[]){
         packing.forEach((element:any,index:number) => {
           let template = packageYamls.find(q=>q.key == element.template);
           let yamlData = YAML.load(template.value) as any;
@@ -99,6 +99,10 @@ export class FormService {
             let control = new TemplateImageControl();
             control.controlValue.target = element.target;
             control.controlValue.id = indexImage;
+            
+            //清除默认的images
+            element.source = this.clearDefaultImage(element.source,compiles);
+
             element.source.forEach((source:any,sourceIndex:number)=>{
                 let children = new ChildrenData();
                 children.id = sourceIndex;
@@ -121,6 +125,10 @@ export class FormService {
             let control = new TemplateChartsControl();
             control.controlValue.id = indexChart;
             control.controlValue.target = element.target;
+
+             //清除默认的Charts
+             element.source = this.clearDefaultImage(element.source,compiles);
+
             element.source.forEach((source:any,sourceIndex:number)=>{
                 let children = new ChildrenData();
                 children.id = sourceIndex;
@@ -190,6 +198,35 @@ export class FormService {
         validateForm.removeControl(`${pack.id}_${index}_template_charts_target`);
        })
     }
+
+  private clearDefaultImage(sources:string[],compiles:Compile[]):string[]{
+    const images = compiles.map(q=>{
+      const search  = q.name.search('-');
+      if(search>=0){
+        return `{{ index .${q.name}_image }}`
+      }
+        return `{{ ${q.name}_image }}`
+     });
+     return this.distinct(sources,images)
+  }
+
+  private clearDefaultCharts(sources:string[],compiles:Compile[]):string[]{
+    const charts = compiles.map(q=>{
+      const search  = q.name.search('-');
+      if(search>=0){
+        return `{{ index .${q.name}_chart }}`
+      }
+        return `{{ ${q.name}_chart }}`
+   });
+     return this.distinct(sources,charts)
+  }
+
+  private distinct(a:string[],b:string[]):string[]{
+    let arr = a.concat(b);
+    return arr.filter((item, index)=> {
+        return arr.indexOf(item) === index
+    })
+  }
 
     public GetfileCompileList(validateForm: FormGroup): Compile[] {
       let fileCompileList: Compile[] = [];

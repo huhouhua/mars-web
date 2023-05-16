@@ -101,7 +101,6 @@ export class GenerateService {
                 type:element.packing.type ==null ? '':element.packing.type,
                 template:element.packing.template ==null ? '':element.packing.template,
             }
-
             template.packing.push(obj);
             if(element.packing.template!=null && element.packing.template !=''){
                 this.templateItems.set(obj.template,element.yamlData);   
@@ -139,6 +138,9 @@ export class GenerateService {
             template.packing.medaData = validateForm.get(key)?.value;
           }
           if (isOsExist && isBranchExist && isTypeExist && isTemplate && isTemplateContent) {
+            template.packing.id =Number(key.replace('_packing_template_medaData',''));
+            console.log('pack',template.packing);
+          
             template.yamlData =this.generateTemplateService.GenerateTemplateYaml(template.packing,validateForm,template.packing.medaData);
             packingTemplateList.push(template);
             template = new PackingTemplate();

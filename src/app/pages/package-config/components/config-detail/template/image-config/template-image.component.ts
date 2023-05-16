@@ -142,8 +142,11 @@ export class PackageConfigTemplateImageComponent implements OnInit {
     console.log(this.fileCompileList);
   }
   public onPreview(){
+    console.log(this.pack);
+    console.log(this.Context);
     const yamlData = this.generateTemplateService.GenerateTemplateYaml(this.pack,this.ValidateForm, this.Context);
-     
+
+
     this.drawerService.create({
       nzTitle: `${this.pack.template}-配置预览`,
       nzContent: PackageConfigTemplatePreviewComponent,
