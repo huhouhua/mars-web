@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   public passwordVisible:Boolean = false;
     // 初始化
     async ngOnInit(): Promise<void> {
-      this.accountService.logout();
       this.userService.clear();
       this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || 'build-list';
       this.validateForm = this.login.group({
@@ -57,7 +56,6 @@ export class LoginComponent implements OnInit {
            this.userService.loadUsers().then(res=>{
             
            });
-
           this.route.navigate([this.returnUrl]);
           this.loading = false;
           return;
