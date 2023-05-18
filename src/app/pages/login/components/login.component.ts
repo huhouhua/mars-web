@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   public passwordVisible:Boolean = false;
     // 初始化
     async ngOnInit(): Promise<void> {
+      this.addBodyStyle();
       this.userService.clear();
       this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || 'build-list';
       this.validateForm = this.login.group({
@@ -56,12 +57,22 @@ export class LoginComponent implements OnInit {
            this.userService.loadUsers().then(res=>{
             
            });
-          this.route.navigate([this.returnUrl]);
+          this.route.navigate([this.returnUrl]).finally(()=>{
+            this.removeBodyStyle();
+          })
           this.loading = false;
           return;
      },err=>{
       this.loading = false;
       this.notification.error('错误',`${err.error.message}，登录失败！`);
      })
+  }
+  private removeBodyStyle():void{
+      const body = document.getElementsByTagName('body')[0];
+      body.classList.remove('login-body');
+  }
+  private addBodyStyle(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('login-body');
   }
 }

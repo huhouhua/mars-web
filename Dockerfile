@@ -14,7 +14,7 @@ COPY . .
 RUN npm config set registry https://registry.npmmirror.com/ && \
     npm install -g @angular/cli@latest typescript@latest && \
     npm install
-RUN ng build
+RUN ng build --prod
 
 FROM alpine:3.17 AS remove_exif
 
