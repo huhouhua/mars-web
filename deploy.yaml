@@ -13,8 +13,9 @@ items:
       app: tool-fontend
     ports:
     - name: tool-port
-      port: 5228
-      targetPort: 5228
+      port: 4200
+      targetPort: 5000
+      nodePort: 31000
       protocol: TCP
 
 - apiVersion: apps/v1
@@ -26,7 +27,7 @@ items:
       service: tool-fontend
       fromApp: tool-fontend
   spec:
-    replicas: 1
+    replicas: 3
     selector:
       matchLabels:
         app: tool-fontend
@@ -36,11 +37,11 @@ items:
           app: tool-fontend
       spec:
         containers:
-        - image: 172.17.162.231/platform-tool/fontend:v1.0.1
+        - image: 172.17.162.231/platform-tool/fontend:v1.0.2
           name: tool-fontend
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
-          - containerPort: 5228
+          - containerPort: 5000
             name: tool-port
           resources:
             limits:
