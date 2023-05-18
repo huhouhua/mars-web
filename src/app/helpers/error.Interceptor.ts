@@ -17,20 +17,9 @@ import { AccountService } from './account.service';
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(request).pipe(catchError(err => {
           if ([401, 403].includes(err.status) && this.accountService.userValue) {
-           
-              this.accountService.logout().subscribe(res=>{
-
-              });
-          }
-          if ([400].includes(err.status)) {
-                this.notification.error("错误",err.error.message);
+              this.accountService.logout();
           }
           const error = err.error?.message || err.statusText;
-          if(err.url.search('login?')>=0 &&  err.url.search('status=401')>=0){
-               this.accountService.logout().subscribe(res=>{
-
-               });
-          }
           console.error(err);
           return throwError(() => error);
       }))

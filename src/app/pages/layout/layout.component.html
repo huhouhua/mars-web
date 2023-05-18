@@ -13,6 +13,18 @@
       </div>
     
       <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+
+        <li *ngFor="let menuItem of listOfMenu" nz-submenu [nzOpen]="menuItem.isOpen"  [nzTitle]="menuItem.name"  [nzIcon]="menuItem.icon">
+          <ul *ngIf="menuItem.children!= null && menuItem.children.length>0">
+
+            <!-- class="custom-menu-item" -->
+            <li *ngFor="let childItem of menuItem.children" nz-menu-item nzMatchRouter  >
+              <a [routerLink]="childItem.router" (click)="onRouter(childItem)" >{{ childItem.name }}</a>
+            </li>
+          </ul>
+        </li>
+
+
         <!-- <li nz-submenu nzOpen nzTitle="持续交付" nzIcon="rocket">
           <ul>
             <li nz-menu-item nzMatchRouter>
@@ -25,7 +37,7 @@
             </li>
           </ul>
         </li> -->
-        <li nz-submenu nzOpen nzTitle="工具箱" nzIcon="tool">
+        <!-- <li nz-submenu nzOpen nzTitle="工具箱" nzIcon="tool">
             <ul>
               <li nz-menu-item nzMatchRouter>
                 <a routerLink="/build-list">构建器</a>
@@ -35,7 +47,7 @@
                 <a routerLink="/package-config-list">包配置</a>
               </li>
             </ul>
-        </li>
+        </li> -->
         <!-- <li nz-submenu nzOpen nzTitle="产品管理" nzIcon="appstore">
           <ul>
             <li nz-menu-item nzMatchRouter>
@@ -45,7 +57,7 @@
         </li> -->
       </ul>
     </nz-sider>
-    <nz-layout>
+    <nz-layout [ngClass]="{'custom-layout-content-open':isCollapsed==false,'custom-layout-content-close':isCollapsed==true }">
       <nz-header>
         <div class="app-header">
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">

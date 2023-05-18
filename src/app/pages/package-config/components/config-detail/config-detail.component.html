@@ -7,64 +7,100 @@
         <nz-breadcrumb-item>详情</nz-breadcrumb-item>
       </nz-breadcrumb>
     </nz-page-header>
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()"  >
-    <nz-anchor (nzClick)="handleClick($event)"  [nzShowInkInFixed]="true">
-      <nz-link nzHref="#product-definition" nzTitle="产品定义">
-        <div id="product-definition">
-          <nz-form-item class="mb-sm">
-            <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 产品名称 </nz-form-label>
-            <nz-form-control  nzSpan="8" >
-              <nz-input-group   >
-                <input nz-input formControlName="name"  nzSize="small" name="name"   maxlength="15"  minlength="1" placeholder="请输入产品名称" />
-              </nz-input-group>
-            </nz-form-control>
-              <nz-form-label  nzSpan="3" nzFor="prefix" nzRequired> 版本前缀 </nz-form-label>
-              <nz-form-control  nzSpan="8" >
-                <nz-input-group  >
-                  <input nz-input formControlName="prefix"  nzSize="small" name="prefix"   minlength="1" placeholder="版本前缀" />
-                </nz-input-group>
-              </nz-form-control>
-          </nz-form-item>
-          <nz-form-item class="mb-sm">
-            <nz-form-label  nzSpan="3" nzFor="version" nzRequired> 版本号 </nz-form-label>
-            <nz-form-control  nzSpan="8" >
-              <nz-input-group   >
-                <input nz-input formControlName="version"  nzSize="small" name="version"    minlength="1" placeholder="请输入版本号" />
-              </nz-input-group>
-            </nz-form-control>
-              <nz-form-label  nzSpan="3" nzFor="date"  nzRequired> 版本日期 </nz-form-label>
-              <nz-form-control  nzSpan="8" >
-                <nz-input-group   >
-                <nz-date-picker formControlName="date" name="date" ></nz-date-picker>
+
+    <div class="anchor-config">
+      <nz-anchor (nzClick)="handleClick($event)">
+        <nz-link nzHref="#product-definition" nzTitle="产品定义"></nz-link>
+        <nz-link nzHref="#compile-config" nzTitle="编译组"></nz-link>
+        <nz-link nzHref="#package-config" nzTitle="打包组"></nz-link>
+        <nz-link nzHref="#template-config" nzTitle="打包模板">
+          <nz-link nzHref="#template-config" nzTitle="文件配置"></nz-link>
+          <nz-link nzHref="#template-config" nzTitle="镜像配置"></nz-link>
+          <nz-link nzHref="#template-config" nzTitle="Charts"></nz-link>
+        </nz-link>
+      </nz-anchor>
+    </div>
+
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()"  >
+  <div class="custom-container" id="product-definition">
+    <div class="custom-container-title">
+      产品定义
+    </div>
+    <p>
+      配置出来的包属于哪个产品的，以及对应的版本等基础信息。
+    </p>
+    <div >
+      <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 产品名称 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group   >
+            <input nz-input formControlName="name"  nzSize="small" name="name"   maxlength="15"  minlength="1" placeholder="请输入产品名称" />
+          </nz-input-group>
+        </nz-form-control>
+          <nz-form-label  nzSpan="3" nzFor="prefix" nzRequired> 版本前缀 </nz-form-label>
+          <nz-form-control  nzSpan="8" >
+            <nz-input-group  >
+              <input nz-input formControlName="prefix"  nzSize="small" name="prefix"   minlength="1" placeholder="版本前缀" />
             </nz-input-group>
-              </nz-form-control>
-          </nz-form-item>
-          <nz-form-item class="mb-sm">
-            <nz-form-label  nzSpan="3" nzFor="stage" nzRequired> 阶段 </nz-form-label>
-            <nz-form-control  nzSpan="8" >
-              <nz-input-group   >
-                <input nz-input formControlName="stage"  nzSize="small" name="stage"    minlength="1" placeholder="请输入阶段" />
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-  
-      </nz-link>
-      <nz-link nzHref="#compile-config" nzTitle="编译组">
-      <app-package-config-compile [validateForm]="validateForm"  [loading]="loading" [ProjectList]="projectList" id="compile-config"></app-package-config-compile>
-      </nz-link>
-      <nz-link nzHref="#package-config" nzTitle="打包组">
-       <app-package-config-packing    [validateForm]="validateForm" [loading]="loading"  id="package-config" ></app-package-config-packing>
-      </nz-link>
-      <nz-link nzHref="#template-Config"  [nzTitle]="template_config_title">
-       <app-package-config-template [validateForm]="validateForm" id="template-config" ></app-package-config-template>
-       </nz-link>
-    </nz-anchor>
-    <footer-toolbar errorCollect>
-      <button nz-button nzType="primary"  style="  margin-left: 30px;" [nzLoading]="loading" (click)="onPreview()">预览</button>
-      <button nz-button nzType="primary"  style=" margin-left: 30px;" [nzLoading]="loading" (click)="submitForm($event)" [disabled]="!validateForm.valid">保存</button>
-      <button nz-button nzType="primary"  style="  margin-left: 30px;" [nzLoading]="loading" (click)="onDownload()">
-        <span nz-icon nzType="download"></span> 下载</button>
-    </footer-toolbar>
-  </form>
+          </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="version" nzRequired> 版本号 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group   >
+            <input nz-input formControlName="version"  nzSize="small" name="version"    minlength="1" placeholder="请输入版本号" />
+          </nz-input-group>
+        </nz-form-control>
+          <nz-form-label  nzSpan="3" nzFor="date"  nzRequired> 版本日期 </nz-form-label>
+          <nz-form-control  nzSpan="8" >
+            <nz-input-group   >
+            <nz-date-picker formControlName="date" name="date" ></nz-date-picker>
+        </nz-input-group>
+          </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="stage" nzRequired> 阶段 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group   >
+            <input nz-input formControlName="stage"  nzSize="small" name="stage"    minlength="1" placeholder="请输入阶段" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+</div>
+<div class="custom-container"   id="compile-config">
+  <div class="custom-container-title">
+    编译组
   </div>
+  <p>
+     需要把那些服务、组件等，做到部署包里面去，也就是说你的部署包，由哪些服务组成！
+  </p>
+  <app-package-config-compile [validateForm]="validateForm"  [loading]="loading" [ProjectList]="projectList"></app-package-config-compile>
+</div>
+<div class="custom-container"   id="package-config">
+  <div class="custom-container-title">
+    打包组
+  </div>
+  <p>
+    需要做什么样类型的包，以及配置每个包有那些文件、镜像、chart组成。
+  </p>
+  <app-package-config-packing    [validateForm]="validateForm" [loading]="loading"   ></app-package-config-packing>
+</div>
+
+<div class="custom-container"   id="template-config">
+  <div class="custom-container-title">
+    打包模板
+  </div>
+  <p>
+    配置每个包有那些文件、镜像、chart组成。
+  </p>
+  <app-package-config-template [validateForm]="validateForm" ></app-package-config-template>
+</div>
+<footer-toolbar errorCollect>
+  <button nz-button nzType="primary"  style="  margin-left: 30px;" [nzLoading]="loading" (click)="onPreview()">预览</button>
+  <button nz-button nzType="primary"  style=" margin-left: 30px;" [nzLoading]="loading" (click)="submitForm($event)" [disabled]="!validateForm.valid">保存</button>
+  <button nz-button nzType="primary"  style="  margin-left: 30px;" [nzLoading]="loading" (click)="onDownload()">
+    <span nz-icon nzType="download"></span> 下载</button>
+</footer-toolbar>
+</form>
+</div>

@@ -88,7 +88,13 @@ export class BuildHistorylistComponent implements OnInit {
     &pageSize=${this.cacheQueryObject.pageSize}&pageIndex=${this.cacheQueryObject.pageIndex}`;
 
       const response = (await Promise.race([
-        fetch(url),
+        fetch(url,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${this.accountService.userValue?.token}`
+            },
+          }),
         new Promise(function (resolve, reject) {
           setTimeout(() => reject(new Error('request timeout')), 5 * 5000);
         })

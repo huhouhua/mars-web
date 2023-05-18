@@ -1,8 +1,8 @@
 export class User {
-  accessToken?: AccessToken;
-  session?: Session;
+  gitLabAccessToken?: AccessToken;
+  gitLabSession?: Session;
+  token?:string
 }
-
 export class AccessToken {
   access_token?: string;
   token_type?: string;

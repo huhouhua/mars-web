@@ -43,6 +43,7 @@ import { FooterToolbarComponent } from './shared/components/footer-toolbar/foote
 import { RouterModule } from '@angular/router';
 import { routes } from './pages/routes/routes';
 import { UserService } from './helpers/user-service';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 registerLocaleData(zh);
 
@@ -101,6 +102,11 @@ registerLocaleData(zh);
     {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
     multi: true,
   },
   UserService

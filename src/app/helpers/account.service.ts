@@ -24,17 +24,18 @@ export class AccountService {
         return this.userSubject.value;
     }
     public get userId(){
-        return this.userSubject.value?.session?.id;
+        return this.userSubject.value?.gitLabSession?.id;
     }
     public get userName(){
-        return this.userSubject.value?.session?.username;
+        return this.userSubject.value?.gitLabSession?.username;
     }
     login(username: string, password: string) {
        return this.backendService.login<ApiResult>(username,password).pipe(map(res=>{
             if (res.status === ApiResultType.Success) {
                 const user = {
-                    accessToken:res.data.accessToken,
-                    session:res.data.session
+                    gitLabAccessToken:res.data.gitLabAccessToken,
+                    gitLabSession:res.data.gitLabSession,
+                    token:res.data.token,
                 }
                 localStorage.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);
@@ -43,12 +44,7 @@ export class AccountService {
     }
     logout() {
         localStorage.removeItem('user');
-        
-        return this.backendService.logOut<ApiResult>().pipe(map(res=>{
-            if (res.status === ApiResultType.Success) {
-                this.userSubject.next(null);
-                this.router.navigate(['/login']);
-            }
-        }))
+        this.userSubject.next(null);
+        this.router.navigate(['/login']);
     }
 }

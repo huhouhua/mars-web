@@ -16,7 +16,6 @@ RUN npm config set registry https://registry.npmmirror.com/ && \
     npm install
 RUN ng build
 
-
 FROM alpine:3.17 AS remove_exif
 
 RUN sed -i "s@https\?://[^/]*@http://mirrors.aliyun.com@" /etc/apk/repositories && \

@@ -8,7 +8,8 @@ export const OsOptions:string[] =[
   "openEuler"
 ]
  export const ArchOptions:string[] =[
-    "arm64"
+    "arm64",
+    "amd64"
   ]
   export const PackageOptions:string[] =[
     "install",
