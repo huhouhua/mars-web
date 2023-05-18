@@ -45,6 +45,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -90,7 +91,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     NzSkeletonModule,
     IconsProviderModule,
     NzMentionModule,
-    NzTimelineModule
+    NzTimelineModule,
+    NzCalendarModule
   ],
   declarations: [
     PageNotFoundComponent,
@@ -136,7 +138,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     NzFormModule,
     IconsProviderModule,
     NzTimelineModule,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NzCalendarModule
   ],
   providers: [],
 })

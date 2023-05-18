@@ -1,4 +1,6 @@
 import { Routes } from "@angular/router";
+import { AuthGuard } from "src/app/helpers/auth.guard";
+import { PageNotFoundComponent } from "src/app/shared/components/page-not-found/page-not-found.component";
 import { LayoutComponent } from "../layout/layout.component";
 import { LoginComponent } from "../login/components/login.component";
 import { PackageConfigDetailComponent } from "../package-config/components/config-detail/config-detail.component";
@@ -14,6 +16,7 @@ export  const routes: Routes = [
         {
          path:'build-list',
          component:BuildlistComponent,
+         canActivate:[AuthGuard],
          data:{ 
            title:'构建器'
          },
@@ -21,16 +24,20 @@ export  const routes: Routes = [
         {
           path:'package-config-list',
           component:PackageConfiglistComponent,
+          canActivate:[AuthGuard],
           data:{title:'包配置'},
         },
         {     
          path:"package-config-list/detail/config/:configId",
          component:PackageConfigDetailComponent,
+         canActivate:[AuthGuard],
          data: { title: '包配置详情' },
       },
      ]
 },
     { path: 'login', component: LoginComponent },
+
+    { path: '**', component:PageNotFoundComponent,  canActivate:[AuthGuard] }
   // {
   //   path:"**",
   //   component:PageNotFoundComponent

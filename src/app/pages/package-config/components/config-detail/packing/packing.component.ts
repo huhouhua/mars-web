@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { MetaData, NgEventBus } from 'ng-event-bus';
 import { EventBus } from '../shared/event-bus';
-import { ArchOptions, ChildrenData, GenerateTemplateContext, PackageOptions, PackingControl, TemplateFileControl } from '../shared/options';
+import { ArchOptions, ChildrenData, GenerateTemplateContext, OsOptions, PackageOptions, PackingControl, TemplateFileControl } from '../shared/options';
 import { GenerateTemplateService } from '../shared/generate-template.service';
 import { cloneDeep, forEach, uniq, uniqBy } from 'lodash-es';
 import { FormService } from '../shared/form.service';
@@ -28,6 +28,7 @@ export class PackagePackingComponent implements OnInit {
   @Input() loading: boolean = false;
   public listOfControl: PackingControl[] = [];
   public archOptions:string[] =ArchOptions;
+  public osOptions:string[] =OsOptions;
   public packageOptions:string[] = PackageOptions;
   constructor(
     private fb: FormBuilder,
@@ -65,7 +66,7 @@ export class PackagePackingComponent implements OnInit {
 
     this.validateForm.addControl(
       `${newId}_packing_os`,
-      new FormControl(null, Validators.required)
+      new FormControl("CentOS", Validators.required)
     );
     this.validateForm.addControl(
       `${newId}_packing_arch`,

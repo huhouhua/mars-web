@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from 'src/app/pages/services/backend.service';
 import { ApiResult, ApiResultType, Member, MemberRole, Option } from 'src/app/shared/common.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenerateTemplateContext, GitLabProject } from './shared/options';
 import { GenerateService } from './shared/generate.service';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -35,6 +35,7 @@ export class PackageConfigDetailComponent implements OnInit {
     private generateService: GenerateService,
     private downloadUtilityService: DownloadUtilityService,
     private eventBus: NgEventBus,
+    private router: Router,
     private fromService: FormService,
     private drawerService: NzDrawerService,
     private notification: NzNotificationService) {
@@ -156,6 +157,7 @@ export class PackageConfigDetailComponent implements OnInit {
       this.loading = false;
       if (res.status === ApiResultType.Success) {
         this.notification.success('提示',"保存成功!");
+        this.router.navigateByUrl('/package-config-list');
       }
     },err=>{
       this.loading = false;

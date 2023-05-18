@@ -19,6 +19,11 @@ export class BackendService {
         password:password
       } );
     }
+  
+    public logOut<ApiResult>() :Observable<any>{
+      const url = `api/${this.apiVersion}/auth/logout`;
+      return this.http.post(url,{});
+    }
 
     public getProjecBuildFileFromGitlab<ApiResult>(projectId:string, branchName:string) :Observable<any>{
       const url = `api/${this.apiVersion}/gitLab/project/${projectId}/file/build`;
@@ -29,7 +34,10 @@ export class BackendService {
           }
         });
     }
-    
+    public GetAllUserFromGitLab<ApiResult>():Observable<any>{
+      const url = `api/${this.apiVersion}/gitLab/user/all`;
+      return this.http.get(url);
+    }
     public getProjectListFromGitlab<ApiResult>() :Observable<any>{
       const url = `api/${this.apiVersion}/gitLab/project/list`;
       return this.http.get(url);

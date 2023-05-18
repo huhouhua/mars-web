@@ -19,6 +19,7 @@ import { BackendService } from 'src/app/pages/services/backend.service';
 import { CreateBuildComponent } from '../create-build/create-build.component';
 import { BuildComponent } from '../build/build.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { UserService } from 'src/app/helpers/user-service';
 
 @Component({
   selector: 'app-build-template-list',
@@ -48,13 +49,22 @@ export class BuildTemplatelistComponent implements OnInit {
     private backendService: BackendService,
     private notification: NzNotificationService,
     private router: Router,
+    private userService: UserService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
     this.refreshData();
   }
-
+  /**
+   * 用户 id 转换 用户名字
+   * @param id
+   * @returns str
+   */
+  getNameFunc(id: number): string {
+    return this.userService.getNameFunc(id);
+  }
   public clickSearch() {
     this.refreshData();
   }

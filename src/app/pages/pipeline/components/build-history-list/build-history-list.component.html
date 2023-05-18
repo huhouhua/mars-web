@@ -86,7 +86,7 @@ nzFrontPagination="false"
   <td>
     <nz-tag [nzColor]="hadnlerStatusColor(data.status)">{{ data.statusDescription }}</nz-tag>
   </td>
-   <td>huhouhua</td>
+   <td>{{getNameFunc(data.creatorUserId) }}</td>
    <td>{{data.creationTime}}</td>
     <td nzRight="0px">
       <nz-divider nzType="vertical"></nz-divider>

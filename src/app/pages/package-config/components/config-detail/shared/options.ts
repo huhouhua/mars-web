@@ -2,11 +2,18 @@
  import { FormGroup } from "@angular/forms";
 import { Option } from "src/app/shared/common.type";
 
+export const OsOptions:string[] =[
+  "CentOS",
+  "Kylin",
+  "openEuler"
+]
  export const ArchOptions:string[] =[
     "arm64"
   ]
   export const PackageOptions:string[] =[
-    "install"
+    "install",
+    "upgrade",
+    "patch"
   ]
   export const TypeOptions:Option[] =[
     {

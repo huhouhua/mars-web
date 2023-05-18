@@ -14,8 +14,11 @@
       <tr  *ngFor="let control of nzTable.data; let i = index">
           <td>
             <nz-form-item class="mb-sm">
-            <nz-form-control nzErrorTip="请填写os">
-               <input  nz-input  formControlName="{{ control.controlValue.id+'_packing_os' }}" placeholder="请填写os" >
+            <nz-form-control nzErrorTip="请选择os">
+              <nz-select formControlName="{{ control.controlValue.id+'_packing_os' }}"  nzShowSearch="true"  nzPlaceHolder="请选择os">
+                <nz-option [nzLabel]="opt" [nzValue]="opt" *ngFor="let opt of osOptions">
+                </nz-option>
+                  </nz-select>
             </nz-form-control>
             </nz-form-item>
           </td>

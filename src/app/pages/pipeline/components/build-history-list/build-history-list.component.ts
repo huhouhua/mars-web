@@ -20,6 +20,8 @@ import { CreateBuildComponent } from '../create-build/create-build.component';
 import { BuildComponent } from '../build/build.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { poll } from 'poll';
+import { UserService } from 'src/app/helpers/user-service';
+import { AccountService } from 'src/app/helpers/account.service';
 @Component({
   selector: 'app-build-history-list',
   templateUrl: './build-history-list.component.html',
@@ -52,15 +54,26 @@ export class BuildHistorylistComponent implements OnInit {
     private backendService: BackendService,
     private notification: NzNotificationService,
     private router: Router,
+    private userService: UserService,
+    private accountService:AccountService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.refreshData();
     this.onLoad();
   }
-  ngOnDestroy(){
-    clearInterval(this.timeout); 
+
+  ngOnDestroy() {
+    clearInterval(this.timeout);
+  }
+  /**
+   * 用户 id 转换 用户名字
+   * @param id
+   * @returns str
+   */
+  getNameFunc(id: number): string {
+    return this.userService.getNameFunc(id);
   }
   public async clickSearch() {
     await this.refreshData();
@@ -78,16 +91,14 @@ export class BuildHistorylistComponent implements OnInit {
         fetch(url),
         new Promise(function (resolve, reject) {
           setTimeout(() => reject(new Error('request timeout')), 5 * 5000);
-        }),
+        })
       ])) as any;
       const result = await response.json();
       if (result.status === ApiResultType.Success) {
-        console.log(result);
         this.listData = result.data;
-
         this.total = result.data.totalItemCount;
       }
-    } catch (err) {
+    } catch (err:any) {
       console.log(err);
     }
   }
@@ -110,7 +121,7 @@ export class BuildHistorylistComponent implements OnInit {
     clearInterval(this.timeout); // 先关闭定时器
     // 后面的代码可以确保没有请求在执行了
     await this.refreshData(); // 再请求数据
-    await delay(5*1000); // 因为 clearInterval 会立刻执行异步任务，所以延时 3 秒再重新启动定时器。不要浪费请求...
+    await delay(5 * 1000); // 因为 clearInterval 会立刻执行异步任务，所以延时 3 秒再重新启动定时器。不要浪费请求...
     this.onLoad();
   }
   public hadnlerStatusColor(status: number): string {

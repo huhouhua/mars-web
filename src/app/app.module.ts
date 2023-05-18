@@ -13,7 +13,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NgEventBus } from 'ng-event-bus';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { AddHeaderInterceptor } from './shared/headerInterceptor';
+import {  ErrorInterceptor } from './helpers/error.Interceptor';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './pages/login/components/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
@@ -42,6 +42,7 @@ import { PackageConfigTemplateComponent } from './pages/package-config/component
 import { FooterToolbarComponent } from './shared/components/footer-toolbar/footer-toolbar.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './pages/routes/routes';
+import { UserService } from './helpers/user-service';
 
 registerLocaleData(zh);
 
@@ -94,11 +95,16 @@ registerLocaleData(zh);
     CommonModule,
     SharedModule,
   ],
-  providers: [NgEventBus, { provide: NZ_I18N, useValue: zh_CN },{
+  providers: [
+    NgEventBus, 
+    { provide: NZ_I18N, useValue: zh_CN },
+    {
     provide: HTTP_INTERCEPTORS,
-    useClass: AddHeaderInterceptor,
+    useClass: ErrorInterceptor,
     multi: true,
-  }],
+  },
+  UserService
+],
   bootstrap: [AppComponent]
   
 })

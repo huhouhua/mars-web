@@ -127,7 +127,7 @@ export class FormService {
             control.controlValue.target = element.target;
 
              //清除默认的Charts
-             element.source = this.clearDefaultImage(element.source,compiles);
+             element.source = this.clearDefaultCharts(element.source,compiles);
 
             element.source.forEach((source:any,sourceIndex:number)=>{
                 let children = new ChildrenData();
@@ -200,25 +200,30 @@ export class FormService {
     }
 
   private clearDefaultImage(sources:string[],compiles:Compile[]):string[]{
-    const images = compiles.map(q=>{
+    compiles.forEach(q=>{
       const search  = q.name.search('-');
+      let tag ='';
       if(search>=0){
-        return `{{ index .${q.name}_image }}`
+        tag = `{{ index .${q.name}_image }}`
       }
-        return `{{ ${q.name}_image }}`
+        tag =`{{ ${q.name}_image }}`
+        sources = sources.filter(item => item != tag)
      });
-     return this.distinct(sources,images)
+
+        return sources;
   }
 
   private clearDefaultCharts(sources:string[],compiles:Compile[]):string[]{
-    const charts = compiles.map(q=>{
+    compiles.forEach(q=>{
       const search  = q.name.search('-');
+      let tag ='';
       if(search>=0){
-        return `{{ index .${q.name}_chart }}`
+        tag = `{{ index .${q.name}_chart }}`
       }
-        return `{{ ${q.name}_chart }}`
-   });
-     return this.distinct(sources,charts)
+        tag =`{{ ${q.name}_chart }}`
+        sources = sources.filter(item => item != tag)
+     });
+   return sources;
   }
 
   private distinct(a:string[],b:string[]):string[]{

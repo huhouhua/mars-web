@@ -28,6 +28,7 @@ export class GenerateTemplateService {
       os:'',
       arch:'',
       fullName:'',
+      path:'',
    },
    directory:{
       ruijie:{}
@@ -59,7 +60,8 @@ export class GenerateTemplateService {
   private setBaseInfo(template:any, packing:Packing):void{
    template.spec.os = packing.os  == null ? '':packing.os,
    template.spec.arch =packing.arch == null ? '':packing.arch,
-   template.spec.fullName="";
+   template.spec.fullName=`${packing.os}-${packing.arch}-${packing.type}.tar.gz`;
+   template.spec.path =`${packing.type}/${packing.os}-${packing.arch}/backup`
   }
   private setFile(template:any,templateFiles:TemplateFile[]):void{
    templateFiles.forEach(element => {

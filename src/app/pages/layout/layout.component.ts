@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/helpers/account.service';
 
 @Component({
   selector: 'app-layout',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent  implements OnInit{
-  ngOnInit(): void {
-      
-  }
   isCollapsed = false;
+  public userName:string | undefined;
+  constructor(private accountService:AccountService){}
+  ngOnInit(): void {
+      this.userName = this.accountService.userName;
+  }
+  public onlogOut(){
+    this.accountService.logout().subscribe(res=>{
+    });
+  }
 }

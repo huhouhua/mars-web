@@ -49,11 +49,14 @@
       <nz-header>
         <div class="app-header">
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-              <i class="trigger"
-                 nz-icon
-                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-              ></i>
+            <i
+              class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
           </span>
+          <span class="header-login" (click)="onlogOut()">退出</span>
+          <span class="header-info">{{ userName }}</span>
         </div>
       </nz-header>
       <nz-content>

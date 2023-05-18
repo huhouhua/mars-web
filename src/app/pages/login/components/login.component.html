@@ -56,6 +56,7 @@
                 <button 
                   type="submit"
                   nz-button 
+                  [nzLoading]="loading"
                   style="width: 100px;" 
                   [disabled]="!validateForm.valid"
                   nzType="primary"
