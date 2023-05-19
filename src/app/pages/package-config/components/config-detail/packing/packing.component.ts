@@ -88,7 +88,7 @@ export class PackagePackingComponent implements OnInit {
       return Number(newId);
   }
   
-  private setValue(id:number){
+  private setValue(id:number):void{
     const  control = this.listOfControl.find(q=>q.controlValue.id == id);
     if(!control){
       return;
@@ -115,7 +115,6 @@ export class PackagePackingComponent implements OnInit {
   public removeField(value: PackingControl, e: MouseEvent): void {
     e.preventDefault();
     if (this.listOfControl.length > 0) {
-      console.log(this.listOfControl);
       this.removeFieldControl(value);
       this.listOfControl =[...this.listOfControl]
     }
@@ -133,7 +132,7 @@ export class PackagePackingComponent implements OnInit {
     // this.validateForm.removeControl(`${value.controlValue.id}_packing_template_file_items`);
     // this.validateForm.removeControl(`${value.controlValue.id}_packing_template_image_items`);
   }
-  public viewClick(value: PackingControl, e: MouseEvent){
+  public viewClick(value: PackingControl, e: MouseEvent):void{
     const  pack = this.generateTemplateService.GetPackingOfValidateForm(value.controlValue.id,this.validateForm);
     this.eventBus.cast(EventBus.packageView, pack);
   }
