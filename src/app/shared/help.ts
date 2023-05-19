@@ -12,3 +12,11 @@ export function hadnlerUpdateTime(object: any): string {
     return object.creationTime;
   }
   
+export function removeBodyStyle():void{
+  const body = document.getElementsByTagName('body')[0];
+  body.classList.remove('login-body');
+}
+export function addBodyStyle():void{
+const body = document.getElementsByTagName('body')[0];
+body.classList.add('login-body');
+}

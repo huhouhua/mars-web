@@ -16,7 +16,7 @@ import { EventBus } from './shared/event-bus';
 import { FormService } from './shared/form.service';
 
 @Component({
-  selector: 'app-package-config-detail.component',
+  selector: 'app-package-config-detail',
   templateUrl: './config-detail.component.html',
   styleUrls: ['./config-detail.component.less'],
 })
@@ -57,7 +57,7 @@ export class PackageConfigDetailComponent implements OnInit {
         this.template_config_title = `${control.data.template}(打包模板)`;
     });
   }
-  private getConfig(){
+  private getConfig():void{
     this.loading = true;
     this.backendService.getPackageConfigDetail<ApiResult>(this.packageConfigId).subscribe(
       (res) => {
@@ -91,7 +91,7 @@ export class PackageConfigDetailComponent implements OnInit {
     console.log(e);
   }
 
-  public onPreview(){
+  public onPreview():void{
     const yamlAllData =  this.generateService.GenerateAllYaml(this.validateForm,this.projectList);
        this.drawerService.create({
          nzTitle: `配置预览`,
@@ -104,7 +104,7 @@ export class PackageConfigDetailComponent implements OnInit {
        });
   }
 
-  public onDownload(){
+  public onDownload():void{
     try {
       const tar = new Tar();
       const yamlAllData =  this.generateService.GenerateAllYaml(this.validateForm,this.projectList);
@@ -122,7 +122,7 @@ export class PackageConfigDetailComponent implements OnInit {
     }
 
   }
-  public submitForm(e?: MouseEvent){
+  public submitForm(e?: MouseEvent):void{
     if(e==undefined){
       return;
     }

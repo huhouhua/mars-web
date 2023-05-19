@@ -27,7 +27,7 @@ import { EventBus } from './event-bus';
 export class FormService {
     
     constructor(private eventBus: NgEventBus){}
-    public SetFromValue(gitLabProject:GitLabProject[], yamlData:string, validateForm: FormGroup){
+    public SetFromValue(gitLabProject:GitLabProject[], yamlData:string, validateForm: FormGroup):void{
            if(yamlData == ''){
               return;
            }
@@ -43,7 +43,7 @@ export class FormService {
           this.setValueOfPacking(productYaml.packing,packageYamls,validateForm,compiles);
     }
 
-    private setValueOfProduct(productYaml:any, validateForm: FormGroup){
+    private setValueOfProduct(productYaml:any, validateForm: FormGroup):void{
         const date = productYaml.date;
         let dateValue = `${date.substr(0,4)}-${date.substr(4,2)}-${date.substr(6,2)}`
         // validateForm.get('date')?.setValue('');
@@ -53,7 +53,7 @@ export class FormService {
         validateForm.get('stage')?.setValue(productYaml.stage);
         validateForm.get('version')?.setValue(productYaml.version);
     }
-    private setValueOfCompile(compile:any[],gitLabProject:GitLabProject[]){
+    private setValueOfCompile(compile:any[],gitLabProject:GitLabProject[]):void{
         compile.forEach(element => {
              let project = gitLabProject.find(q=>q.sshUrlRepo == element.git);
            this.eventBus.cast(EventBus.setCompileForm,{
@@ -62,7 +62,7 @@ export class FormService {
            });
         });
     }
-    private setValueOfPacking(packing:any[],packageYamls:any[],validateForm: FormGroup,compiles:Compile[]){
+    private setValueOfPacking(packing:any[],packageYamls:any[],validateForm: FormGroup,compiles:Compile[]):void{
         packing.forEach((element:any,index:number) => {
           let template = packageYamls.find(q=>q.key == element.template);
           let yamlData = YAML.load(template.value) as any;
@@ -153,7 +153,7 @@ export class FormService {
          });
     }
 
-    private setValueOfFileConfig(pack:Packing,validateForm: FormGroup){
+    private setValueOfFileConfig(pack:Packing,validateForm: FormGroup):void{
       pack.medaData.TemplateFiles.forEach((element,index)=>{
        validateForm.addControl(
         `${pack.id}_${index}_template_file_target`,
@@ -183,13 +183,15 @@ export class FormService {
        );
        })
     }
-    public setRemoveOfFileConfig(pack:Packing,validateForm: FormGroup){
+    public setRemoveOfFileConfig(pack:Packing,validateForm: FormGroup):void{
+     if(pack.medaData==undefined){
+         return;
+     }
       pack.medaData.TemplateFiles.forEach((element,index)=>{
        validateForm.removeControl(`${pack.id}_${index}_template_file_target`);
        validateForm.removeControl(`${pack.id}_${index}_template_file_before`);
        validateForm.removeControl(`${pack.id}_${index}_template_file_after`);
       })
-      
       pack.medaData.TemplateImages.forEach((element,index)=>{
         validateForm.removeControl(`${pack.id}_${index}_template_image_target`);
        })

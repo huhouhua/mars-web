@@ -4,41 +4,53 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    name: tool-fontend-svc
+    name: devops-tool-fontend-svc
     namespace: devops-tool
     labels:
-      service: tool-fontend
+      app: devops-tool-fontend
   spec:
     selector:
-      app: tool-fontend
+      app: devops-tool-fontend
     ports:
     - name: tool-port
       port: 4200
       targetPort: 5000
       nodePort: 31000
       protocol: TCP
-
+    type: NodePort
+    
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: tool-fontend
+    name: devops-tool-fontend
     namespace: devops-tool
     labels:
-      service: tool-fontend
-      fromApp: tool-fontend
+      app: devops-tool-fontend
   spec:
     replicas: 3
     selector:
       matchLabels:
-        app: tool-fontend
+        app: devops-tool-fontend
     template:
       metadata:
         labels:
-          app: tool-fontend
+          app: devops-tool-fontend
       spec:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - devops-tool
+                topologyKey: kubernetes.io/hostname
+              weight: 100
         containers:
-        - image: 172.17.162.231/platform-tool/fontend:v1.0.2
-          name: tool-fontend
+        - image: 172.17.162.231/platform-tool/fontend:v1.0.3
+          name: fontend
           imagePullPolicy: Always
           ports:
           - containerPort: 5000
