@@ -20,7 +20,7 @@ import { CreateBuildComponent } from '../create-build/create-build.component';
 import { BuildComponent } from '../build/build.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { poll } from 'poll';
-import { UserService } from 'src/app/helpers/user-service';
+import { UserService } from 'src/app/helpers/user.service';
 import { AccountService } from 'src/app/helpers/account.service';
 @Component({
   selector: 'app-build-history-list',

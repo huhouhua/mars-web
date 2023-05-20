@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 import { CreatePackageConfigComponent } from '../components/create-package-config/create-package-config.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UpdatePackageConfigComponent } from '../components/update-package-config/update-package-config.component';
-import { UserService } from 'src/app/helpers/user-service';
+import { UserService } from 'src/app/helpers/user.service';
 @Component({
   selector: 'app-package-config-list',
   templateUrl: './package-config-list.component.html',

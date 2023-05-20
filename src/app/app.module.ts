@@ -42,7 +42,7 @@ import { PackageConfigTemplateComponent } from './pages/package-config/component
 import { FooterToolbarComponent } from './shared/components/footer-toolbar/footer-toolbar.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './pages/routes/routes';
-import { UserService } from './helpers/user-service';
+import { UserService } from './helpers/user.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 registerLocaleData(zh);

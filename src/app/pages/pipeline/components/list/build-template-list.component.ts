@@ -19,7 +19,7 @@ import { BackendService } from 'src/app/pages/services/backend.service';
 import { CreateBuildComponent } from '../create-build/create-build.component';
 import { BuildComponent } from '../build/build.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { UserService } from 'src/app/helpers/user-service';
+import { UserService } from 'src/app/helpers/user.service';
 
 @Component({
   selector: 'app-build-template-list',

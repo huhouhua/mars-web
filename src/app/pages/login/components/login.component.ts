@@ -5,7 +5,7 @@ let { log, info, warn, error } = console;
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AccountService } from 'src/app/helpers/account.service';
-import { UserService } from 'src/app/helpers/user-service';
+import { UserService } from 'src/app/helpers/user.service';
 import { ApiResult, ApiResultType } from 'src/app/shared/common.type';
 import { addBodyStyle, removeBodyStyle } from 'src/app/shared/help';
 import { BackendService } from '../../services/backend.service';
