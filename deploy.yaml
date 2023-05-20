@@ -27,7 +27,13 @@ items:
     labels:
       app: devops-tool-fontend
   spec:
-    replicas: 3
+    replicas: 4
+    revisionHistoryLimit: 5
+    strategy:
+      rollingUpdate:
+         maxSurge: 50%
+         maxUnavailable: 50%
+      type: RollingUpdate
     selector:
       matchLabels:
         app: devops-tool-fontend
@@ -65,4 +71,7 @@ items:
           env:
           - name: WEBAPI__SERVER
             value: '172.17.206.81:32538'
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
 kind: List
