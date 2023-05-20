@@ -64,10 +64,20 @@ export class LoginComponent implements OnInit,OnDestroy {
           return;
      },err=>{
       this.loading = false;
-      this.notification.error('错误',`${err.error.message}，登录失败！`);
+      this.notification.warning('提示',`${this.paresError(err)}，登录失败，请检查账号和密码是否正确！`);
      })
   }
-   
+  private paresError(err:any):string{
+      try {
+        var obj = JSON.parse(err);
+        if(obj?.error_description){
+           return obj.error_description;
+        }
+      } catch (error) {
+        
+      }
+      return '';
+  }
 
   private clear():void{
     addBodyStyle();
