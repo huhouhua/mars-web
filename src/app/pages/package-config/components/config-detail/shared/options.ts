@@ -1,5 +1,6 @@
  
  import { FormGroup } from "@angular/forms";
+import { type } from "os";
 import { Coverage } from "src/app/pages/test-template/components/detail-unit-test-template/unit-test-template/unit-test-template.component";
 import { Option } from "src/app/shared/common.type";
 
@@ -57,7 +58,7 @@ export const OsOptions:string[] =[
  export class UnitTestTemplate{
       type:number = 1;
       name:string ='';
-      id:number =0;
+      id:string ='';
       coverages:CoverageTemplate[] =[];
  }
 export class CoverageTemplate extends Coverage{
@@ -146,7 +147,11 @@ export class CoverageTemplate extends Coverage{
     packageItems = new Map<string,string>();
     testTemplateYaml:string ='';
   }
-  export class GitLabProject{
-     id:number =0;
+  export class ComplieProject{
+     gitLabProjectId:number =0;
      sshUrlRepo:string ='';
+     unitTestTemplate:any={
+       id:0,
+       type:0
+     }
   }

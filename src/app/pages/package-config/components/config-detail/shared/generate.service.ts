@@ -101,19 +101,18 @@ export class GenerateService {
                 template.compile.push(obj);
                 let test:any = {
                    name:obj.name,
+                   type:element.testTemplate.UnitTestTemplate.name,
                    unit:[] =[]
                 } 
-
-                // element.testTemplate.UnitTestTemplate.coverages.forEach(cvg=>{
-                //   let coverage = {
-                //      type:element.testTemplate.UnitTestTemplate.name,
-                //      counter:cvg.typeName.toLocaleUpperCase(),
-                //      value:cvg.typeName.toLocaleUpperCase(),
-                //      minimum:cvg.min == 100 ? 1: `0.${cvg.min}`,
-                //      maximum:cvg.max == 100 ? 1: `0.${cvg.max}`,
-                //   }
-                //   test.unit.push(coverage)
-                // })
+                element.testTemplate.UnitTestTemplate.coverages.forEach(cvg=>{
+                  let coverage = {
+                     counter:cvg.typeName.toLocaleUpperCase(),
+                     value:cvg.value.toLocaleUpperCase(),
+                     minimum:cvg.min == 100 ? 1: `0.${cvg.min}`,
+                     maximum:cvg.max == 100 ? 1: `0.${cvg.max}`,
+                  }
+                  test.unit.push(coverage)
+                })
                 testTemplate.test.push(test);
         });
     }
@@ -164,8 +163,6 @@ export class GenerateService {
           }
           if (isOsExist && isBranchExist && isTypeExist && isTemplate && isTemplateContent) {
             template.packing.id =Number(key.replace('_packing_template_medaData',''));
-            console.log('pack',template.packing);
-          
             template.yamlData =this.generateTemplateService.GenerateTemplateYaml(template.packing,validateForm,template.packing.medaData);
             packingTemplateList.push(template);
             template = new PackingTemplate();

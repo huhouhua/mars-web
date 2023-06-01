@@ -64,39 +64,46 @@ export class PackageConfigQualityComponent implements OnInit {
         private generateTemplateService:GenerateTemplateService,
       ) {}
     ngOnInit(): void {
-        this.eventBus.on(EventBus.compileView).subscribe((control: MetaData) => {
+        this.eventBus.on(EventBus.compileView).subscribe(async (control: MetaData) =>  {
             this.disabled =false;
-            this.Context = control.data;
-              this.onTemplateTypeChange(this.Context.UnitTestTemplate.type);
+            // this.Context = control.data;
+            //  await this.onTemplateTypeChange(this.Context.UnitTestTemplate.type);
+
+            await this.onTemplateTypeChange(control.data.UnitTestTemplate.type,control.data);
+
          });
     }
-     public onTemplateTypeChange(type:number){
+     public async onTemplateTypeChange(type:number,context?:GenerateTestContext):Promise<void>{
         this.loading = true;
-        this.backendService.getTestTemplateList<ApiResult>({
+        await this.backendService.getTestTemplateList<ApiResult>({
             type:type,
             category:2
-        }).subscribe(
-          (res) => {
-            if (res.status === ApiResultType.Success) {
-              this.templates = res.data.testTemplateViewModels;
-              let typeOption = this.types.find(q=>q.value == type);
-
-              if(typeOption){
-                this.Context.UnitTestTemplate.name = typeOption.name;
-              }
+        }).toPromise().then(res=>{
+          if (res.status === ApiResultType.Success) {
+            this.templates = res.data.testTemplateViewModels;
+            let typeOption = this.types.find(q=>q.value == type);
+            if(context){
+              this.Context = context;
+         }
+            if(typeOption){
+              this.Context.UnitTestTemplate.name = typeOption.name;
             }
-            this.loading = false;
-
-            this.Coverages=[];
-            this.onTemplateChange(this.Context.UnitTestTemplate.id);
-          },
-          (err) => {
-            this.loading = false;
           }
-        );
+          this.loading = false;
+
+          this.Coverages=[];
+          this.onTemplateChange(this.Context.UnitTestTemplate.id);
+        }).catch(res=>{
+          this.loading = false;
+        })
      }
 
-     public onTemplateChange(id:number){
+     public onTemplateChange(id:string){
+       if(id==null){
+            this.Coverages=[];
+            this.Context.UnitTestTemplate.coverages=[];
+            return;
+       }
             const template = this.templates.find(q=>q.id == id);
         if(template == undefined){
             return;

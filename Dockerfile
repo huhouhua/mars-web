@@ -1,4 +1,4 @@
-FROM node:16 AS build
+FROM node:16.20 AS build
 
 # RUN echo 'deb http://mirrors.aliyun.com/debian/ stretch main' > /etc/apt/sources.list \
 #     && echo 'deb http://mirrors.aliyun.com/debian/ stretch-updates main' >>/etc/apt/sources.list \

@@ -7,8 +7,9 @@ import { cloneDeep, uniq, uniqBy } from 'lodash-es';
 import {
     ChildrenData,
   Compile,
+  ComplieProject,
   GenerateTemplateContext,
-  GitLabProject,
+  GenerateTestContext,
   Packing,
   TemplateCharts,
   TemplateChartsControl,
@@ -27,7 +28,7 @@ import { EventBus } from './event-bus';
 export class FormService {
     
     constructor(private eventBus: NgEventBus){}
-    public SetFromValue(gitLabProject:GitLabProject[], yamlData:string, validateForm: FormGroup):void{
+    public SetFromValue(complieProjects:ComplieProject[], yamlData:string, validateForm: FormGroup):void{
            if(yamlData == ''){
               return;
            }
@@ -37,7 +38,7 @@ export class FormService {
           // console.log(productYaml);
           // console.log(packageYamls);
           this.setValueOfProduct(productYaml.product,validateForm);
-          this.setValueOfCompile(productYaml.compile,gitLabProject);
+          this.setValueOfCompile(productYaml.compile,complieProjects);
           const compiles =  this.GetfileCompileList(validateForm);
 
           this.setValueOfPacking(productYaml.packing,packageYamls,validateForm,compiles);
@@ -53,13 +54,20 @@ export class FormService {
         validateForm.get('stage')?.setValue(productYaml.version.stage);
         validateForm.get('version')?.setValue(productYaml.version.version);
     }
-    private setValueOfCompile(compile:any[],gitLabProject:GitLabProject[]):void{
+    private setValueOfCompile(compile:any[],complieProjects:ComplieProject[]):void{
         compile.forEach(element => {
-             let project = gitLabProject.find(q=>q.sshUrlRepo == element.git);
-           this.eventBus.cast(EventBus.setCompileForm,{
-             projectId:project == null? '':project.id,
+             let project = complieProjects.find(q=>q.sshUrlRepo == element.git);
+             const ctx = new GenerateTestContext();
+             ctx.UnitTestTemplate.id = project?.unitTestTemplate.id;
+             ctx.UnitTestTemplate.type = project?.unitTestTemplate.type;
+             element.testTemplate = ctx;
+            this.eventBus.cast(EventBus.setCompileForm,{
+             projectId:project == null? '':project.gitLabProjectId,
+             unitTestTemplate:project?.unitTestTemplate,
              compile:element
            });
+           this.eventBus.cast(EventBus.compileView,element.testTemplate)
+          
         });
     }
     private setValueOfPacking(packing:any[],packageYamls:any[],validateForm: FormGroup,compiles:Compile[]):void{

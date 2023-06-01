@@ -23,7 +23,7 @@ import { YamlAllData } from '../shared/options';
 export class PackagePreviewComponent implements OnInit {
   @Input() yamlAllData!: YamlAllData;
   public yamlDataItems: any[] = [];
-
+  public testYaml:string ='';
   public codeItem: string = '';
   public options = {
     lineNumbers: true,
@@ -34,9 +34,12 @@ export class PackagePreviewComponent implements OnInit {
     theme: 'material',
     //cursorBlinkRate: 500 // hide cursor
   };
+
+
   public code = '';
   public name: string ='';
   public loading = false;
+  private indexArray:number[] =[];
   @ViewChild('editor') private editorContainer: ElementRef | undefined;
   @ViewChild('editorItems') private editorContainerItems: ElementRef | undefined;
   @ViewChild('editortestTemplate') private editorContainerTestTemplate: ElementRef | undefined;
@@ -52,7 +55,6 @@ export class PackagePreviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.yamlAllData);
     for (let [key, value] of this.yamlAllData.packageItems.entries()) {
       this.yamlDataItems.push({
         name: key,
@@ -70,6 +72,16 @@ export class PackagePreviewComponent implements OnInit {
      this.codeItem =item.value;
   }
 
+  public onSelectedIndexChange(index:number){
+    const tabindex = this.indexArray.findIndex(q=>q == index);
+    if(tabindex>=0){
+       return;
+    }
+   this.indexArray.push(index);
+    if(index==2){
+        this.testYaml = this.yamlAllData.testTemplateYaml;
+    }
+  }
   scrollEditorToTop() {
     try {
       if (this.editorContainer) {

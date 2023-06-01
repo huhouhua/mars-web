@@ -1,4 +1,4 @@
-   <nz-tabset>
+   <nz-tabset (nzSelectedIndexChange)="onSelectedIndexChange($event)">
         <nz-tab nzTitle="主文件">
             <div nz-row [nzGutter]="24" #editor> 
                 <div  nz-col [nzMd]="24">
@@ -32,7 +32,7 @@
             <div nz-row [nzGutter]="24" #editortestTemplate> 
                 <div  nz-col [nzMd]="24">
                     <ngx-codemirror
-                    [(ngModel)]="yamlAllData.productYaml"
+                    [(ngModel)]="testYaml"
                     [options]="options"
                     [ngModelOptions]="{standalone: true}" 
                     ngDefaultControl >

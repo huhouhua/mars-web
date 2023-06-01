@@ -10,14 +10,14 @@
           <nz-form-item class="mb-sm" *ngIf="!disabled" >
             <nz-form-label  nzSpan="3" > 工程类型</nz-form-label>
             <nz-form-control  nzSpan="8" >
-                <nz-select      nzShowSearch="true" [ngModelOptions]="{standalone: true}"    [(ngModel)]="Context.UnitTestTemplate.type"   [nzLoading]="loading" (ngModelChange)="onTemplateTypeChange($event)"  nzPlaceHolder="请选择工程类型">
+                <nz-select      nzShowSearch="true" [ngModelOptions]="{standalone: true}"   [(ngModel)]="Context.UnitTestTemplate.type"   [nzLoading]="loading" (ngModelChange)="onTemplateTypeChange($event)"  nzPlaceHolder="请选择工程类型">
                     <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of types">
                      </nz-option>
                  </nz-select>
             </nz-form-control>
               <nz-form-label  nzSpan="4" > 模板 </nz-form-label>
               <nz-form-control  nzSpan="8" >
-                <nz-select    nzShowSearch="true" [ngModelOptions]="{standalone: true}"   [(ngModel)]="Context.UnitTestTemplate.id"   (ngModelChange)="onTemplateChange($event)"  [nzLoading]="loading"  nzPlaceHolder="请选择模板">
+                <nz-select    nzShowSearch="true" [ngModelOptions]="{standalone: true}"   nzAllowClear="true" [(ngModel)]="Context.UnitTestTemplate.id"   (ngModelChange)="onTemplateChange($event)"  [nzLoading]="loading"  nzPlaceHolder="请选择模板">
                     <nz-option [nzLabel]="t.name" [nzValue]="t.id" *ngFor="let t of templates">
                     </nz-option>
                 </nz-select>

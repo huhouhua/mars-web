@@ -4,7 +4,7 @@ import { BackendService } from 'src/app/pages/services/backend.service';
 import { ApiResult, ApiResultType, Member, MemberRole, Option } from 'src/app/shared/common.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GenerateTemplateContext, GitLabProject } from './shared/options';
+import { GenerateTemplateContext, ComplieProject } from './shared/options';
 import { GenerateService } from './shared/generate.service';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { PackagePreviewComponent } from './preview/package-preview.component';
@@ -63,7 +63,7 @@ export class PackageConfigDetailComponent implements OnInit {
       (res) => {
         if (res.status === ApiResultType.Success) {
             let data = res.data.packageConfigDetailViewModel;
-            this.fromService.SetFromValue(data.gitLabProjects as GitLabProject[],data.metaData,this.validateForm);
+            this.fromService.SetFromValue(data.complieProjects as ComplieProject[],data.metaData,this.validateForm);
         }
         this.loading = false;
       },
@@ -114,6 +114,7 @@ export class PackageConfigDetailComponent implements OnInit {
       for (let [key, value] of yamlAllData.packageItems.entries()) {
          tar.append(key,this.downloadUtilityService.base64toUint8Array(btoa(value)));
       }
+      tar.append('quality/testfile.yml',yamlAllData.testTemplateYaml);
       const blob = new Blob([tar.out], { type: 'application/octet-stream' });
       FileSaver.saveAs(blob, `${fileName}.tar`);
     } catch (error) {
@@ -130,16 +131,21 @@ export class PackageConfigDetailComponent implements OnInit {
       e.preventDefault();
     }
      let compileList =  this.fromService.GetfileCompileList(this.validateForm);
-     const projectIds = compileList.map(q=>q.git);
-     let gitlabProjects = new Array<GitLabProject>();
-     projectIds.forEach(id => {
-        const project = this.projectList.find(q=>q.id == id );
-        let obj:GitLabProject ={
-            id:Number(id),
-            sshUrlRepo:project.ssh_url_to_repo
+     let complieProjects = new Array<ComplieProject>();
+     compileList.forEach(compile => {
+      console.log(compile)
+        const project = this.projectList.find(q=>q.id == compile.git );
+        let obj:ComplieProject ={
+            gitLabProjectId:project.id,
+            sshUrlRepo:project.ssh_url_to_repo,
+            unitTestTemplate: {
+              id:compile.testTemplate.UnitTestTemplate.id,
+              type:compile.testTemplate.UnitTestTemplate.type
+            }
         };
-         gitlabProjects.push(obj);
+        complieProjects.push(obj);
     });
+
     let yaml:any ={};
     const yamlAllData =  this.generateService.GenerateAllYaml(this.validateForm,this.projectList);
     yaml.productYaml =  yamlAllData.productYaml;
@@ -151,7 +157,7 @@ export class PackageConfigDetailComponent implements OnInit {
     yaml.packageYaml=JSON.stringify(yamlItmes,null, '\t'); 
     this.loading = true;
     this.backendService.updatePackageMetadata<ApiResult>(this.packageConfigId,{
-      gitLabProjects:gitlabProjects,
+      complieProjects:complieProjects,
       metaData:JSON.stringify(yaml),
     }).subscribe(res=>{
       this.loading = false;

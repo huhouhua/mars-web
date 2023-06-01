@@ -44,10 +44,9 @@ export class PackageConfigCompileComponent implements OnInit {
     this.eventBus.on(EventBus.setCompileForm).subscribe((control: MetaData) => {
          let id = this.addField(undefined,control.data.compile);
          this.setValue(id,control.data.projectId);
-         console.log(111);
     });
   }
-  public addField(e?: MouseEvent, value?: any):number {
+  public addField(e?: MouseEvent, value?: any,):number {
     if (e) {
       e.preventDefault();
     }
@@ -100,7 +99,7 @@ export class PackageConfigCompileComponent implements OnInit {
     this.validateForm.get(`${id}_compile_name`)?.setValue(control?.controlValue.name);
     this.validateForm.get(`${id}_compile_branch`)?.setValue(control?.controlValue.branch);
     this.validateForm.get(`${id}_compile_git`)?.setValue(projectId);
-     
+    control.controlValue.testTemplate.id = id;
     this.validateForm.get(`${id}_compile_test_template_medata`)?.setValue(control?.controlValue.testTemplate);
     this.onProjectChange(projectId.toString(),control);
     this.onBranchChange(control?.controlValue.branch,control);
