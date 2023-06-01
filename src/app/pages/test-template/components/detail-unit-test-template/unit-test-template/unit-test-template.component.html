@@ -1,0 +1,271 @@
+
+<form nz-form  [formGroup]="validateForm" > 
+
+<nz-tabset >
+    <nz-tab   [nzTitle]="titleTemplate" >
+        <ng-template #titleTemplate>
+            类
+          </ng-template>
+            <nz-form-item class="mb-sm">
+              <nz-form-label  nzSpan="3" > 类型</nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                  <span>CLASS</span>
+                </nz-input-group>
+              </nz-form-control>
+                <nz-form-label  nzSpan="4" > 值 </nz-form-label>
+                <nz-form-control  nzSpan="8" >
+                  <nz-input-group  >
+                    <span>MISSEDCOUNT</span>
+                
+                  </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item class="mb-sm">
+               
+                <nz-form-label  nzSpan="3"  nzFor="class_min" nzRequired> 最小覆盖率 </nz-form-label>
+                <nz-form-control  nzSpan="8" >
+                    <nz-input-group   >
+                      <nz-input-number
+                      name="class_min" 
+                      formControlName="class_min"
+                      [nzMin]="50"
+                      [nzMax]="100"
+                      [nzStep]="5"
+                      [nzFormatter]="formatterPercent"
+  
+                    ></nz-input-number>
+                </nz-input-group>
+                </nz-form-control>
+
+              <nz-form-label  nzSpan="4"  nzFor="class_max"  nzRequired> 最大覆盖率 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                    <nz-input-number
+                    name="class_max" 
+                    formControlName="class_max"
+                    [nzMin]="50"
+                    [nzMax]="100"
+                    [nzStep]="5"
+                    [nzFormatter]="formatterPercent"
+                  ></nz-input-number>
+                </nz-input-group>
+              </nz-form-control>
+    
+            </nz-form-item>
+        
+    </nz-tab>
+    <nz-tab   [nzTitle]="titleTemplate2" >
+        <ng-template #titleTemplate2>
+            方法
+          </ng-template>
+          <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" > 类型</nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <span>METHOD</span>
+              </nz-input-group>
+            </nz-form-control>
+              <nz-form-label  nzSpan="4" > 值 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group  >
+                  <span>COVEREDRATIO</span>
+              
+                </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mb-sm">
+              <nz-form-label  nzSpan="3" nzFor="method_min"  nzRequired> 最小覆盖率 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                    <nz-input-number
+                    name="method_min" 
+                    formControlName="method_min"
+                    [nzMin]="50"
+                    [nzMax]="100"
+                    [nzStep]="5"
+                    [nzFormatter]="formatterPercent"
+
+                  ></nz-input-number>
+                </nz-input-group>
+              </nz-form-control>
+
+            <nz-form-label  nzSpan="4" nzFor="method_max"    nzRequired> 最大覆盖率 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                  <nz-input-number
+                  name="method_max" 
+                  formControlName="method_max"
+                  [nzMin]="50"
+                  [nzMax]="100"
+                  [nzStep]="5"
+                  [nzFormatter]="formatterPercent"
+                ></nz-input-number>
+              </nz-input-group>
+            </nz-form-control>
+    
+
+          </nz-form-item>
+    </nz-tab>
+    <nz-tab  [nzTitle]="titleTemplate3" >
+        <ng-template #titleTemplate3>
+            行
+          </ng-template>
+          <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" > 类型</nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <span>LINE</span>
+              </nz-input-group>
+            </nz-form-control>
+              <nz-form-label  nzSpan="4" > 值 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group  >
+                  <span>COVEREDRATIO</span>
+              
+                </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mb-sm">
+              <nz-form-label  nzSpan="3" nzFor="line_min"  nzRequired> 最小覆盖率 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                    <nz-input-number
+                    name="line_min" 
+                    formControlName="line_min"
+                    [nzMin]="50"
+                    [nzMax]="100"
+                    [nzStep]="5"
+                    [nzFormatter]="formatterPercent"
+
+                  ></nz-input-number>
+                </nz-input-group>
+              </nz-form-control>
+
+            <nz-form-label  nzSpan="4" nzFor="line_max"    nzRequired> 最大覆盖率 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                  <nz-input-number
+                  name="line_max" 
+                    formControlName="line_max"
+                  [nzMin]="50"
+                  [nzMax]="100"
+                  [nzStep]="5"
+                  [nzFormatter]="formatterPercent"
+                ></nz-input-number>
+              </nz-input-group>
+            </nz-form-control>
+    
+
+          </nz-form-item>
+    </nz-tab>
+    <nz-tab  [nzTitle]="titleTemplate4" >
+        <ng-template #titleTemplate4>
+            指令
+          </ng-template>
+          <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" > 类型</nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <span>INSTRUCTION</span>
+              </nz-input-group>
+            </nz-form-control>
+              <nz-form-label  nzSpan="4" > 值 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group  >
+                  <span>COVEREDRATIO</span>
+              
+                </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mb-sm">
+              <nz-form-label  nzSpan="3" nzFor="instruction_min"  nzRequired> 最小覆盖率 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                    <nz-input-number
+                    name="instruction_min" 
+                    formControlName="instruction_min"
+                    [nzMin]="50"
+                    [nzMax]="100"
+                    [nzStep]="5"
+                    [nzFormatter]="formatterPercent"
+
+                  ></nz-input-number>
+                </nz-input-group>
+              </nz-form-control>
+
+            <nz-form-label  nzSpan="4"  nzFor="instruction_max" nzRequired> 最大覆盖率 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                  <nz-input-number
+                  name="instruction_max" 
+                    formControlName="instruction_max"
+                  [nzMin]="50"
+                  [nzMax]="100"
+                  [nzStep]="5"
+                  [nzFormatter]="formatterPercent"
+                ></nz-input-number>
+              </nz-input-group>
+            </nz-form-control>
+    
+
+          </nz-form-item>
+    </nz-tab>
+    <nz-tab  [nzTitle]="titleTemplate5" >
+        <ng-template #titleTemplate5>
+            分支
+          </ng-template>
+          <nz-form-item class="mb-sm">
+            <nz-form-label  nzSpan="3" > 类型</nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                <span>BRANCH</span>
+              </nz-input-group>
+            </nz-form-control>
+              <nz-form-label  nzSpan="4" > 值 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group  >
+                  <span>COVEREDRATIO</span>
+              
+                </nz-input-group>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mb-sm">
+              <nz-form-label  nzSpan="3" nzFor="branch_min" nzRequired> 最小覆盖率 </nz-form-label>
+              <nz-form-control  nzSpan="8" >
+                <nz-input-group   >
+                    <nz-input-number
+                    name="branch_min" 
+                    formControlName="branch_min"
+                    [nzMin]="50"
+                    [nzMax]="100"
+                    [nzStep]="5"
+                    [nzFormatter]="formatterPercent"
+
+                  ></nz-input-number>
+                </nz-input-group>
+              </nz-form-control>
+
+            <nz-form-label  nzSpan="4"  nzFor="branch_max" nzRequired> 最大覆盖率 </nz-form-label>
+            <nz-form-control  nzSpan="8" >
+              <nz-input-group   >
+                  <nz-input-number
+                  name="branch_max" 
+                  formControlName="branch_max"
+                  [nzMin]="50"
+                  [nzMax]="100"
+                  [nzStep]="5"
+                  [nzFormatter]="formatterPercent"
+                ></nz-input-number>
+              </nz-input-group>
+            </nz-form-control>
+    
+
+          </nz-form-item>
+    </nz-tab>
+  </nz-tabset>
+  
+</form>
+        

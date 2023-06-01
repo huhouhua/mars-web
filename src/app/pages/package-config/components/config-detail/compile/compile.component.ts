@@ -16,7 +16,7 @@ import {
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { CompileControl } from '../shared/options';
+import { CompileControl, GenerateTestContext } from '../shared/options';
 import { MetaData, NgEventBus } from 'ng-event-bus';
 import { EventBus } from '../shared/event-bus';
 
@@ -44,6 +44,7 @@ export class PackageConfigCompileComponent implements OnInit {
     this.eventBus.on(EventBus.setCompileForm).subscribe((control: MetaData) => {
          let id = this.addField(undefined,control.data.compile);
          this.setValue(id,control.data.projectId);
+         console.log(111);
     });
   }
   public addField(e?: MouseEvent, value?: any):number {
@@ -79,6 +80,13 @@ export class PackageConfigCompileComponent implements OnInit {
       `${newId}_compile_file_content`,
       new FormControl([])
     );
+    const context = new GenerateTestContext();
+    context.id = Number(newId);
+    this.validateForm.addControl(
+      `${newId}_compile_test_template_medata`,
+      new FormControl(context)
+    );
+
     this.listOfControl = [...this.listOfControl];
     return Number(newId);
   }
@@ -91,7 +99,9 @@ export class PackageConfigCompileComponent implements OnInit {
     }
     this.validateForm.get(`${id}_compile_name`)?.setValue(control?.controlValue.name);
     this.validateForm.get(`${id}_compile_branch`)?.setValue(control?.controlValue.branch);
-     this.validateForm.get(`${id}_compile_git`)?.setValue(projectId);
+    this.validateForm.get(`${id}_compile_git`)?.setValue(projectId);
+     
+    this.validateForm.get(`${id}_compile_test_template_medata`)?.setValue(control?.controlValue.testTemplate);
     this.onProjectChange(projectId.toString(),control);
     this.onBranchChange(control?.controlValue.branch,control);
   }
@@ -110,6 +120,12 @@ export class PackageConfigCompileComponent implements OnInit {
     this.validateForm.removeControl(`${value.id}_compile_name`);
     this.validateForm.removeControl(`${value.id}_compile_git`);
     this.validateForm.removeControl(`${value.id}_compile_branch`);
+    this.validateForm.removeControl(`${value.id}_compile_test_template_medata`);
+  }
+  public viewClick(value: CompileControl, e: MouseEvent):void{    
+    // const  pack = this.generateTemplateService.GetPackingOfValidateForm(value.controlValue.id,this.validateForm);
+    const context = this.validateForm.get(`${value.id}_compile_test_template_medata`)?.value;
+    this.eventBus.cast(EventBus.compileView,context);
   }
   public onBranchChange(value: string, control: CompileControl){
     if(value==''){

@@ -47,12 +47,16 @@
             <span>/Buildfile.yml</span>
           </nz-form-item>
         </td>
-        <td>
-          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+        <td >
+          <div class="delete-div">
+            <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+            <i nz-icon nzType="edit" class="dynamic-delete-button" nzTheme="outline" (click)="viewClick(control,$event)"></i>
+          </div>
+         
         </td>
     </tr>
     <tr> 
-   <td colSpan="4">
+   <td colSpan="5">
     <nz-form-item>
       <nz-form-control>
           <button nz-button nzType="dashed" [nzLoading]="loading" class="add-button" (click)="addField($event)">

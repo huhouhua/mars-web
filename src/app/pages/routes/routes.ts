@@ -6,9 +6,11 @@ import { LoginComponent } from "../login/components/login.component";
 import { PackageConfigDetailComponent } from "../package-config/components/config-detail/config-detail.component";
 import { PackageConfiglistComponent } from "../package-config/list/package-config-list.component";
 import { BuildlistComponent } from "../pipeline/list/build-list.component";
+import { TestTemplateListComponent } from "../test-template/list/test-template-list.component";
+import { UnitTestTemplateDetailComponent } from "../test-template/components/detail-unit-test-template/detail-unit-test-template.component";
 
-export  const routes: Routes = [
-    { path: '', component:LayoutComponent,
+export  const routes: Routes = [ {
+      path: '', component:LayoutComponent,
       children:[
         {
          path:'',redirectTo:'build-list',pathMatch:'full'
@@ -35,9 +37,35 @@ export  const routes: Routes = [
       },
      ]
 },
+{
+  path:'test-template',component:LayoutComponent,
+  children:[
+    {
+      path:'',redirectTo:'list',pathMatch:'full'
+     },
+     {
+      path:'list',
+      component:TestTemplateListComponent,
+      canActivate:[AuthGuard],
+      data:{ 
+        title:'模板库'
+      },
+     },
+     {
+      path:'list/unit-test-detail/:templateId',
+      component:UnitTestTemplateDetailComponent,
+      canActivate:[AuthGuard],
+      data:{ 
+        title:'模板详情'
+      },
+     },
+  ]
+},
     { path: 'login', component: LoginComponent },
 
     { path: '**', component:PageNotFoundComponent,  canActivate:[AuthGuard] }
+
+
   // {
   //   path:"**",
   //   component:PageNotFoundComponent

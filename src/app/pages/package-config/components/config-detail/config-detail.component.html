@@ -12,6 +12,7 @@
       <nz-anchor (nzClick)="handleClick($event)">
         <nz-link nzHref="#product-definition" nzTitle="产品定义"></nz-link>
         <nz-link nzHref="#compile-config" nzTitle="编译组"></nz-link>
+        <nz-link nzHref="#quality" nzTitle="测试模板"></nz-link>
         <nz-link nzHref="#package-config" nzTitle="打包组"></nz-link>
         <nz-link nzHref="#template-config" nzTitle="打包模板">
           <nz-link nzHref="#template-config" nzTitle="文件配置"></nz-link>
@@ -77,6 +78,16 @@
   </p>
   <app-package-config-compile [validateForm]="validateForm"  [loading]="loading" [ProjectList]="projectList"></app-package-config-compile>
 </div>
+<div class="custom-container"   id="quality">
+  <div class="custom-container-title">
+    测试模板
+  </div>
+  <p>
+    测试用例，为了提高发布质量，所以需要配置相关规则！
+  </p>
+  <app-package-config-quality [validateForm]="validateForm"  [loading]="loading" ></app-package-config-quality>
+</div>
+
 <div class="custom-container"   id="package-config">
   <div class="custom-container-title">
     打包组

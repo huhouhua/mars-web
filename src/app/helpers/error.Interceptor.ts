@@ -20,7 +20,8 @@ import { AccountService } from './account.service';
               this.accountService.logout();
           }
           const error = err.error?.message || err.statusText;
-          console.error(err);
+          console.error(error);
+          this.notification.error("错误",error);
           return throwError(() => error);
       }))
   }

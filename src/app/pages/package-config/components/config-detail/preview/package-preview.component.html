@@ -28,6 +28,18 @@
                 </div>
             </div>
         </nz-tab>
+        <nz-tab nzTitle="测试文件">
+            <div nz-row [nzGutter]="24" #editortestTemplate> 
+                <div  nz-col [nzMd]="24">
+                    <ngx-codemirror
+                    [(ngModel)]="yamlAllData.productYaml"
+                    [options]="options"
+                    [ngModelOptions]="{standalone: true}" 
+                    ngDefaultControl >
+                  </ngx-codemirror>
+                </div>
+            </div>
+        </nz-tab>
       </nz-tabset>
 <div class="drawer-footer">
 <button type="button" (click)="cancel()" class="ant-btn"><span>返回</span></button>

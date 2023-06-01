@@ -265,7 +265,7 @@ export class GenerateTemplateService {
    if(search>=0){
      return `{{ index .${q.name}_image }}`
    }
-     return `{{ ${q.name}_image }}`
+     return `{{ .${q.name}_image }}`
   });
   sources.push(...images);
 }
@@ -275,7 +275,7 @@ private appendDefaultChart(sources:string[],compiles:Compile[]):void{
    if(search>=0){
      return `{{ index .${q.name}_chart }}`
    }
-     return `{{ ${q.name}_chart }}`
+     return `{{ .${q.name}_chart }}`
 });
 sources.push(...charts);
 }

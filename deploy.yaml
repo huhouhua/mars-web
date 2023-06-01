@@ -55,7 +55,7 @@ items:
                 topologyKey: kubernetes.io/hostname
               weight: 100
         containers:
-        - image: 172.17.162.231/platform-tool/fontend:v1.0.3
+        - image: 172.17.162.231/platform-tool/fontend:v1.0.4
           name: fontend
           imagePullPolicy: Always
           ports:

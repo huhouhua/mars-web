@@ -44,6 +44,14 @@ import { RouterModule } from '@angular/router';
 import { routes } from './pages/routes/routes';
 import { UserService } from './helpers/user.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { TestTemplateListComponent } from './pages/test-template/list/test-template-list.component';
+import { CreateTestTemplateComponent } from './pages/test-template/components/template-selected/create-template/create-template.component';
+import { TestTemplateSelectedComponent } from './pages/test-template/components/template-selected/template-selected.component';
+import { UnitTestTemplateDetailComponent } from './pages/test-template/components/detail-unit-test-template/detail-unit-test-template.component';
+import { UnitTestTemplateComponent } from './pages/test-template/components/detail-unit-test-template/unit-test-template/unit-test-template.component';
+import { TestTemplateDetailComponent } from './pages/test-template/components/detail-template/detail-template.component';
+import { EditTestTemplateComponent } from './pages/test-template/components/detail-template/edit-template/edit-template.component';
+import { PackageConfigQualityComponent } from './pages/package-config/components/config-detail/quality/quality.component';
 
 registerLocaleData(zh);
 
@@ -80,13 +88,21 @@ registerLocaleData(zh);
     PackageConfigTemplatePreviewComponent,
     PackageConfigTemplateImageComponent,
     PackageConfigTemplateChartsComponent,
-    PackagePreviewComponent
-
+    PackagePreviewComponent,
+    TestTemplateListComponent,
+    CreateTestTemplateComponent,
+    TestTemplateSelectedComponent,
+    UnitTestTemplateDetailComponent,
+    UnitTestTemplateComponent,
+    TestTemplateDetailComponent,
+    EditTestTemplateComponent,
+    PackageConfigQualityComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
+    
     HttpClientModule,
     BrowserAnimationsModule,
     IconsProviderModule,

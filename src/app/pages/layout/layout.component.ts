@@ -47,10 +47,26 @@ export class LayoutComponent  implements OnInit{
         }
       ]
     };
-
+    const test = {
+      name: "测试",
+      icon:"dot-chart",
+      isOpen: true,
+      router:"",
+      breadcrumb:[] =[],
+      children:[
+        {
+          name: "模板库",
+          icon:"",
+          isOpen: true,
+          router:"/test-template/list",
+          children:[]=[],
+          breadcrumb:[] =[],
+        }
+      ]
+    };
     const arr = new Array<Menu>();
     arr.push(tool)
-    
+    arr.push(test)
     const openMenu= arr.find(q=>q.isOpen);
       if(openMenu!=null){
           this.breadcrumbOfSelected(openMenu.children);

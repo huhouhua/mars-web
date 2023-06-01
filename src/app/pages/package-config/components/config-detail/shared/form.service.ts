@@ -44,14 +44,14 @@ export class FormService {
     }
 
     private setValueOfProduct(productYaml:any, validateForm: FormGroup):void{
-        const date = productYaml.date;
+        const date = productYaml.version.date;
         let dateValue = `${date.substr(0,4)}-${date.substr(4,2)}-${date.substr(6,2)}`
         // validateForm.get('date')?.setValue('');
         validateForm.get('date')?.setValue(new Date(dateValue));
         validateForm.get('name')?.setValue(productYaml.name);
-        validateForm.get('prefix')?.setValue(productYaml.prefix);
-        validateForm.get('stage')?.setValue(productYaml.stage);
-        validateForm.get('version')?.setValue(productYaml.version);
+        validateForm.get('prefix')?.setValue(productYaml.version.prefix);
+        validateForm.get('stage')?.setValue(productYaml.version.stage);
+        validateForm.get('version')?.setValue(productYaml.version.version);
     }
     private setValueOfCompile(compile:any[],gitLabProject:GitLabProject[]):void{
         compile.forEach(element => {
@@ -208,7 +208,7 @@ export class FormService {
       if(search>=0){
         tag = `{{ index .${q.name}_image }}`
       }
-        tag =`{{ ${q.name}_image }}`
+        tag =`{{ .${q.name}_image }}`
         sources = sources.filter(item => item != tag)
      });
 
@@ -222,7 +222,7 @@ export class FormService {
       if(search>=0){
         tag = `{{ index .${q.name}_chart }}`
       }
-        tag =`{{ ${q.name}_chart }}`
+        tag =`{{ .${q.name}_chart }}`
         sources = sources.filter(item => item != tag)
      });
    return sources;
@@ -244,6 +244,7 @@ export class FormService {
       let isBranchExist: Boolean = false;
       let isGitExist: Boolean = false;
       let isCompileFileContent: Boolean = false;
+      let isTestTemplateMedata:boolean = false;
       for (const key in controls) {
         if (key.endsWith('_compile_name')) {
           isNameExist = true;
@@ -261,13 +262,19 @@ export class FormService {
           isCompileFileContent = true;
           compile.buildfileContent = validateForm.get(key)?.value;
         }
-        if (isNameExist && isBranchExist && isGitExist && isCompileFileContent) {
+        if (key.endsWith('_compile_test_template_medata')) {
+          isTestTemplateMedata = true;
+          compile.testTemplate = validateForm.get(key)?.value;
+        }
+
+        if (isNameExist && isBranchExist && isGitExist && isCompileFileContent && isTestTemplateMedata) {
           fileCompileList.push(compile);
           compile = new Compile();
           isNameExist = false;
           isBranchExist = false;
           isGitExist = false;
           isCompileFileContent = false;
+          isTestTemplateMedata = false;
         }
       }
       return fileCompileList;

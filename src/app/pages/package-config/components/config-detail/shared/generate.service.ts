@@ -32,7 +32,7 @@ export class GenerateService {
         
     }
   private template: any = {
-   apiVersion:"2.0",
+   apiVersion:2.1,
    product:{
     name:'',
     version:{
@@ -46,17 +46,26 @@ export class GenerateService {
    packing:[],
   };
   templateItems = new Map<string,string>();
-  
+  testTemplate:any={
+     version: 'v1',
+     test:[]
+  }
+
   public GenerateAllYaml(validateForm:FormGroup,projectList: any[] ):YamlAllData {
     let yaml = new YamlAllData();
-    const  template =cloneDeep(this.template);
+     const  template =cloneDeep(this.template);
+     const  testTemplate =cloneDeep(this.testTemplate);
+
     this.setBaseInfo(validateForm,template);
-    this.setCompile(validateForm,projectList,template);
+    this.setCompile(validateForm,projectList,template,testTemplate);
     this.setPacking(validateForm,template);
     yaml.productYaml = YAML.dump(template, {
         lineWidth: 5000,
       });
     yaml.packageItems = this.templateItems;
+    yaml.testTemplateYaml = YAML.dump(testTemplate,{
+      lineWidth: 5000,
+    });
     return yaml;
   }
 
@@ -67,16 +76,16 @@ export class GenerateService {
    let date = validateForm.get('date')?.value;
    let version =  validateForm.get('version')?.value;
    template.product.name = name ==null ? '':name;
-   template.product.prefix = prefix ==null ? '':prefix;
-   template.product.stage = stage ==null ? '':stage;
-   template.product.date = date ==null ? '':date;
-    if(template.product.date!=''){
-        template.product.date = getTime(template.product.date as Date);
+   template.product.version.prefix = prefix ==null ? '':prefix;
+   template.product.version.stage = stage ==null ? '':stage;
+   template.product.version.date = date ==null ? '':date;
+    if(template.product.version.date!=''){
+        template.product.version.date = getTime(template.product.version.date as Date);
     }
-   template.product.version = version ==null ? '':version;
+   template.product.version.version = version ==null ? '':version;
    }
 
-   private setCompile(validateForm:FormGroup,projectList: any[],template:any):void{
+   private setCompile(validateForm:FormGroup,projectList: any[],template:any,testTemplate:any):void{
        let compileList = this.formService.GetfileCompileList(validateForm);
        compileList.forEach(element => {
             let obj ={
@@ -90,6 +99,22 @@ export class GenerateService {
                     obj.git=project.ssh_url_to_repo;
                 }
                 template.compile.push(obj);
+                let test:any = {
+                   name:obj.name,
+                   unit:[] =[]
+                } 
+
+                // element.testTemplate.UnitTestTemplate.coverages.forEach(cvg=>{
+                //   let coverage = {
+                //      type:element.testTemplate.UnitTestTemplate.name,
+                //      counter:cvg.typeName.toLocaleUpperCase(),
+                //      value:cvg.typeName.toLocaleUpperCase(),
+                //      minimum:cvg.min == 100 ? 1: `0.${cvg.min}`,
+                //      maximum:cvg.max == 100 ? 1: `0.${cvg.max}`,
+                //   }
+                //   test.unit.push(coverage)
+                // })
+                testTemplate.test.push(test);
         });
     }
     private setPacking(validateForm:FormGroup,template:any):void{

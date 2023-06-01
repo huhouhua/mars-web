@@ -34,6 +34,7 @@ export class BackendService {
           }
         });
     }
+    
     public GetAllUserFromGitLab<ApiResult>():Observable<any>{
       const url = `api/${this.apiVersion}/gitLab/user/all`;
       return this.http.get(url);
@@ -50,6 +51,49 @@ export class BackendService {
         }
       });
     }
+
+
+    public getTestTemplate<ApiResult>(id:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate/${id}`;
+      return this.http.get(url,{
+        params:{
+          id:id
+        }
+      });
+    }
+
+    public getTestTemplateList<ApiResult>(data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate/list`;
+      return this.http.get(url,{
+        params:data
+      });
+    }
+
+    public getTestTemplatePagedList<ApiResult>(data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate/pagedlist`;
+      return this.http.get(url,{
+        params:data
+      });
+    }
+    public createTestTemplate<ApiResult>(data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate`;
+      return this.http.post(url,data);
+    }
+    
+    public updateTestTemplate<ApiResult>(id:string, data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate/${id}`;
+      return this.http.put(url,data);
+    } 
+      public updateUnitTestTemplate<ApiResult>(id:string, data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate/${id}/unittest`;
+      return this.http.put(url,data);
+    }
+    public deleteTestTemplate<ApiResult>(id:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/testtemplate/${id}`;
+      return this.http.delete(url);
+    }
+
+
     public getPackageConfig<ApiResult>(id:string) :Observable<any>{
       const url = `api/${this.apiVersion}/packageconfig/${id}`;
       return this.http.get(url,{

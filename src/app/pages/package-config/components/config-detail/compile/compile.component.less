@@ -2,12 +2,18 @@
 .add-button {
     width: 100%;
   }
+  .add-button {
+    width: 100%;
+  }
+  .delete-div{
+         position: absolute;
+        top: 16px;
+  }
   .dynamic-delete-button {
     cursor: pointer;
-    position: absolute;
-    top: 16px;
     font-size: 24px;
     color: #999;
+    width: 40px;
     transition: all 0.3s;
   }
   .associated-items {
@@ -21,8 +27,23 @@
     .ant-layout{
       background: #f0f2f5;
     }
+  
   }
+
   body{
     background-color: #fff !important;
     background: none;
   }
+  .associated-items {
+    margin-bottom: 0;
+  }
+  
+  .dynamic-delete-button:hover {
+    color: #777;
+  }
+
+
+  .delete-div{
+    position: absolute;
+   top: 16px;
+}

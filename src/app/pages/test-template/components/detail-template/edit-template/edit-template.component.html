@@ -1,0 +1,51 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item class="mb-sm">
+      <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 模板名 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group   >
+          <input nz-input formControlName="name"  nzSize="small" name="name"   maxlength="15"  minlength="1" placeholder="请输入模板名" />
+        </nz-input-group>
+      </nz-form-control>
+        <nz-form-label  nzSpan="4" nzFor="type" nzRequired> 工程类型 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group  >
+            <nz-select formControlName="type"  nzShowSearch="true"   nzPlaceHolder="请选择工程类型">
+                <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of types">
+                </nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-sm">
+      <nz-form-label  nzSpan="3" nzFor="tag" nzRequired> 标签 </nz-form-label>
+      <nz-form-control  nzSpan="20" >
+        <nz-input-group   >
+            <nz-select formControlName="tag"  nzShowSearch="true"   nzPlaceHolder="请选择标签">
+                <nz-option [nzLabel]="t.type" [nzValue]="t.type" *ngFor="let t of tags">
+                </nz-option>
+            </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="description" > 描述 </nz-form-label>
+        <nz-form-control  nzSpan="20" >
+          <nz-input-group   >
+            <textarea nz-input name="description"
+            formControlName="description" [nzAutosize]="{ minRows: 4, maxRows: 10 }"
+            placeholder="描述下这个模板！"></textarea>
+      </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+          <div *nzModalFooter>
+            <button nz-button nzType="default" [nzLoading]="loading" (click)="onCancel()" >关闭</button>
+            <button nz-button nzType="primary"  [nzLoading]="loading" (click)="submitForm()" [disabled]="!validateForm.valid">保存</button>
+          </div>
+  
+        </nz-form-control>
+      </nz-form-item>
+</form>
+

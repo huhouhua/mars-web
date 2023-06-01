@@ -39,6 +39,8 @@ export class PackagePreviewComponent implements OnInit {
   public loading = false;
   @ViewChild('editor') private editorContainer: ElementRef | undefined;
   @ViewChild('editorItems') private editorContainerItems: ElementRef | undefined;
+  @ViewChild('editortestTemplate') private editorContainerTestTemplate: ElementRef | undefined;
+
   constructor(
     private fb: FormBuilder,
     private modal: NzDrawerRef,
@@ -50,11 +52,7 @@ export class PackagePreviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // if(this.yamlAllData.packageItems.size>0){
-    //   const item = this.yamlAllData.packageItems.entries().next().value;
-    //   this.name =item[0];
-    //   this.codeItem =item[1];
-    // }
+    console.log(this.yamlAllData);
     for (let [key, value] of this.yamlAllData.packageItems.entries()) {
       this.yamlDataItems.push({
         name: key,
@@ -79,6 +77,9 @@ export class PackagePreviewComponent implements OnInit {
       }
       if (this.editorContainerItems) {
         this.editorContainerItems.nativeElement.parentNode.parentNode.scrollTop = 0;
+      }
+      if (this.editorContainerTestTemplate) {
+        this.editorContainerTestTemplate.nativeElement.parentNode.parentNode.scrollTop = 0;
       }
     } catch (err) {
       console.log(err);

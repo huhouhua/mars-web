@@ -46,6 +46,7 @@ import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
+import {  NzImageModule } from 'ng-zorro-antd/image';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -92,7 +93,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     IconsProviderModule,
     NzMentionModule,
     NzTimelineModule,
-    NzCalendarModule
+    NzCalendarModule,
+    NzImageModule
   ],
   declarations: [
     PageNotFoundComponent,
@@ -139,7 +141,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     IconsProviderModule,
     NzTimelineModule,
     PageNotFoundComponent,
-    NzCalendarModule
+    NzCalendarModule,
+    NzImageModule
   ],
   providers: [],
 })

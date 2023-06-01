@@ -1,0 +1,112 @@
+<nz-page-header class="site-page-header" >
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>测试</nz-breadcrumb-item>
+      <nz-breadcrumb-item>模板库</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <div nz-row>
+    <div nz-col nzSpan="4">
+     <div>
+         <h3>操作</h3>
+       <ul>
+          <li>
+            <span nz-icon nzType="plus" nzTheme="outline"> </span> <a (click)="openCreateTemplateClick($event)"> 新增模板</a>
+          </li>
+       </ul>
+    </div>
+    <div class="title-margin">
+        <h3>类别</h3>
+    <ul>
+   
+        <li>
+           <nz-tag nzColor="default" nzMode="checkable" [nzChecked]="false"  (nzCheckedChange)="categoryParameterClick(1,$event)"> 接口测试模板</nz-tag>
+        </li>
+        <li>
+          <nz-tag nzColor="default" nzMode="checkable" [nzChecked]="false"   (nzCheckedChange)="categoryParameterClick(2,$event)">单元测试模板</nz-tag>
+        </li>
+    </ul>
+    </div>
+    <div class="title-margin">
+        <h3>类型</h3>
+    <ul>
+
+        <li>
+          <nz-tag nzColor="default" nzMode="checkable"  [nzChecked]="false" (nzCheckedChange)="typeParameterClick(1,$event)"> Java</nz-tag>
+        </li>
+        <li>
+          <nz-tag nzColor="default" nzMode="checkable" [nzChecked]="false" (nzCheckedChange)="typeParameterClick(2,$event)"> Golang</nz-tag>
+        </li>
+    </ul>
+</div>
+    </div>
+      <div nz-col nzSpan="19">
+  <!-- 查询条件 -->
+  <div  class="search-div">
+    <div class="template-div">
+      <div class="search-template">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input type="text" nz-input placeholder="搜索模板" [(ngModel)]="cacheQueryObject.name" (keyup.enter)="refreshData()" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+          <nz-list
+          [nzLoading]="loading"
+          [nzGrid]="{ gutter: 24, xs: 24, md: 12, lg: 12, xl: 8, xxl: 8 }"
+          [nzDataSource]="listData?.testTemplateViewModels"
+          [nzRenderItem]="item"
+          class="list-card-animation">
+          <ng-template #item let-item>
+            <nz-list-item (click)="navigateDetail(item,$event)" class="list-card-animation-item">
+               
+          <div class="list-content">
+          <nz-card >
+            <nz-card-meta
+            [nzTitle]="title"
+            [nzDescription]="item.description"
+            [nzAvatar]="avatarTemplate">
+          </nz-card-meta>
+      
+          <ng-template #avatarTemplate>
+              <img *ngIf="item.type == 2" src="../../../../assets/image/test/golang.jpg" width="80px" height="80px">
+              <img *ngIf="item.type == 1" src="../../../../assets/image/test/java.png" width="80px" height="80px">
+            </ng-template>
+
+            <div style="cursor: pointer;" class="card-body ellipsis">
+              
+              <button nz-button nzType="default" (click)="removeClick(item.id,$event)" nzSize="small">删除</button>
+            </div>
+          </nz-card>
+      
+          <!-- title -->
+          <ng-template #title>
+            <div nz-tooltip  class="ellipsis">{{item.name}}
+              <div class="template-tag" >
+                  <nz-tag  *ngFor="let data of item.tagDisplayNames" [nzColor]="'green'">{{data}}</nz-tag>
+                  <nz-tag *ngIf="item.category==1" [nzColor]="'rgb(77 119 215)'">{{item.categoryDescription}}</nz-tag>
+                  <nz-tag *ngIf="item.category==2" [nzColor]="'rgb(189 144 16)'">{{item.categoryDescription}}</nz-tag>
+              </div>
+            </div>
+          </ng-template>
+
+          
+      </div>
+            </nz-list-item>
+          </ng-template>
+            </nz-list>
+    <!-- 分页 -->
+    <div class="page-div">
+      <nz-pagination 
+        (nzPageIndexChange)="pageIndexChange($event)"
+        [nzPageIndex]="cacheQueryObject.pageIndex"
+        [nzPageSize]="cacheQueryObject.pageSize" 
+        [nzShowTotal]="totalTemplate"
+        [nzTotal]="total">
+      </nz-pagination>
+        <ng-template #totalTemplate let-total> 总数 {{ total }} 个 </ng-template>
+    </div>
+      </div>
+  </div>

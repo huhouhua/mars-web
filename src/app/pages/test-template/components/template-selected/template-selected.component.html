@@ -1,0 +1,42 @@
+<div nz-row class="template-title">
+    <div nz-col nzSpan="6">
+        <img
+        nz-image
+        width="115px"
+        height="115px"
+        nzSrc="../../../../../assets/image/test/test.jpeg"
+        alt=""/>
+       
+    </div>
+    <div nz-col nzSpan="18">
+        <nz-descriptions [nzColon]="false" nzTitle="新增模板">
+            <nz-descriptions-item >新增模板是............................................................................................................
+                新增模板是新增模板是新增模板是新增模板是新增模板是新增模板是新增模板是新增模板是新增模板是</nz-descriptions-item>
+
+          </nz-descriptions>
+    </div>
+  </div>
+
+  <div >
+    <div class="template-selected" nz-row  (click)="unitTestClick()" >
+        <div nz-col nzSpan="2">
+            <span nz-icon nzType="dropbox" nzTheme="outline" ></span>
+        </div>
+        <div nz-col nzSpan="22">
+         <p>单元测试模板</p>
+        </div>
+      </div>
+      <div class="template-selected" nz-row >
+        <div nz-col nzSpan="2">
+            <span nz-icon nzType="branches" nzTheme="outline"></span>
+        </div>
+        <div nz-col nzSpan="22">
+         <p>接口测试模板</p>
+        </div>
+      </div>
+  </div>
+  <div  class="selected-footer">
+    <div *nzModalFooter>
+    
+    </div>
+  </div>

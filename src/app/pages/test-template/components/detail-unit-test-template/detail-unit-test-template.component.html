@@ -1,0 +1,20 @@
+<div class="custom-container"   >
+    <div class="custom-container-title">
+      基础信息
+      <div class="operation">
+        <button nz-button nzType="primary" (click)="onEditClick()" nzGhost>编辑</button>
+      </div>
+    </div>
+    <app-test-template-detail [TemplateId]="templateId"   [TestTemplate]="testTemplate"  [loading]="loading"></app-test-template-detail>
+  </div>
+
+  <div class="custom-container"   >
+    <div class="custom-container-title">
+      覆盖率
+    </div>
+    <app-unit-test-template [TemplateId]="templateId"  [validateForm]="validateForm"  ></app-unit-test-template>
+  </div>
+  <footer-toolbar >
+    <a nz-button nzType="default" href="/test-template/list"  style=" margin-left: 30px;" [nzLoading]="loading"   >返回</a>
+    <button nz-button nzType="primary"  style="  margin-left: 30px;"  (click)="submitForm()"  [disabled]="!validateForm.valid"  [nzLoading]="loading"> 保存</button>
+  </footer-toolbar>

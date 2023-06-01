@@ -1,0 +1,25 @@
+<div nz-row>
+    <div nz-col nzSpan="3">
+        <img *ngIf="TestTemplate.type == 2" src="../../../../assets/image/test/golang.jpg" width="80px" height="80px">
+        <img *ngIf="TestTemplate.type == 1" src="../../../../assets/image/test/java.png" width="80px" height="80px">
+    </div>
+    <div nz-col nzSpan="21">
+        <nz-descriptions>
+            <nz-descriptions-item nzTitle="模板名">{{TestTemplate.name}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="类别">
+                <nz-tag *ngIf="TestTemplate.category==1"
+                    [nzColor]="'rgb(77 119 215)'">{{TestTemplate.categoryDescription}}</nz-tag>
+                <nz-tag *ngIf="TestTemplate.category==2"
+                    [nzColor]="'rgb(189 144 16)'">{{TestTemplate.categoryDescription}}</nz-tag>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="类型">{{ TestTemplate.typeDisplayName }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="描述">{{ TestTemplate.description }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="标签">
+                <nz-tag *ngFor="let data of TestTemplate.tagDisplayNames" [nzColor]="'green'">{{data}}</nz-tag>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="最近编辑时间">{{ TestTemplate.updateTime }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="创建人">{{ getNameFunc(TestTemplate.creatorUserId)}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="创建时间">{{ TestTemplate.creationTime }}</nz-descriptions-item>
+        </nz-descriptions>
+    </div>
+</div>
