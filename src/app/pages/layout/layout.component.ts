@@ -13,7 +13,7 @@ export class LayoutComponent  implements OnInit{
   currentSelectedOfBreadcrumb: readonly Breadcrumb[] =[];
   constructor(private accountService:AccountService){}
   ngOnInit(): void {
-      this.userName = this.accountService.userName;
+      this.userName = this.accountService.username;
       this.initListOfMenu();
   }
   public onlogOut(){

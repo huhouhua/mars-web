@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { BackendService } from '../pages/services/backend.service';
 import { ApiResult, ApiResultType } from '../shared/common.type';
 import { User } from './user';
+import { parseJwt } from '../shared/util/jwt-util';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -25,7 +26,7 @@ export class AccountService {
     }
     return id;
   }
-  public get userName(): string {
+  public get username(): string {
     const name = this.userSubject.value?.gitLabSession?.username;
     if (!name) {
       return '';
@@ -45,9 +46,10 @@ export class AccountService {
     return this.backendService.login<ApiResult>(username, password).pipe(
       map((res) => {
         if (res.status === ApiResultType.Success) {
+          const profile= parseJwt(res.data.token)
           const user = {
-            gitLabAccessToken: res.data.gitLabAccessToken,
-            gitLabSession: res.data.gitLabSession,
+            gitLabAccessToken: profile.accessToken,
+            gitLabSession: profile.session,
             token: res.data.token,
           };
           this.setStorageUser(user);
