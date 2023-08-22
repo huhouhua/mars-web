@@ -1,5 +1,5 @@
 export class ApiResult {
-    status: ApiResultType | undefined;
+    code: ApiResultType | undefined;
     message?: string;
     data?: any;
   }
@@ -17,7 +17,10 @@ export interface Option{
     name: string,
     value: number
 }
-
+export interface OptionAny{
+  name: any,
+  value: any
+}
 export interface MemberRole{
    value: number,
    displayName : string,

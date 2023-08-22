@@ -6,6 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { BackendService } from '../../services/backend.service';
 import { ApiResult, ApiResultType, Option } from 'src/app/shared/common.type';
+import { UserService } from 'src/app/helpers/user.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { CreateAppComponent } from '../components/app/create-app/create-app.component';
+import { EditAppComponent } from '../components/app/edit-app/edit-app.component';
+import { removeBodyStyle } from 'src/app/shared/help';
 // import { UserService } from '@user/user-service';
 
 @Component({
@@ -18,99 +23,85 @@ export class ApplistComponent implements OnInit {
   public colorList = ['#f56a00', '#1890ff', '#7265e6', '#ffbf00', '#00a2ae', '#00a2ae'];
   public apps: any[] = [];
   public loading = true;
-  public teams:any[]=[];
   public query:Query ={
-    pageSize: 9999,
-    appName: '',
-    teamIds: [],
+    page_size: 9999,
+    name: ''
   };
 
   public inputValue: string = '@afc163';
   public suggestions = ['afc163', 'benjycui', 'yiminghe', 'RaoHai', '中文', 'にほんご'];
 
-  public teamList:any[] =[
-    {
-       
-        value:1,
-        status: false,
-        name:"中间件团队"
-    },
-    {
-        value:2,
-        status: false,
-        name:"架构团队"
-    },
-    {
-        value:3,
-        status: false,
-        name:"数据中团队"
-    },
-    {
-        value:4,
-        status: false,
-        name:"DevOps团队"
-    },
-    {
-        value:5,
-        status: false,
-        name:"大数据团队"
-    },
-  ];
-
   constructor(
     public msg: NzMessageService,
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private modal: NzModalService,
+    private userService: UserService,
     private backendService: BackendService,
     private activatedRoute: ActivatedRoute,
-  ) // private userService: UserService,
-  {}
-
-  async ngOnInit() {
-    // if (this.userService.getCurrentUsers().size === 0) {
-    //   await this.userService.loadUsers();
-    // }
-    this.getappList();
+  )
+  {
+    removeBodyStyle();
   }
 
+  async ngOnInit() {
+    this.refreshData();
+  }
 
-
-  getappList() {
+  refreshData() {
     this.loading = true;
     this.backendService.applicationList<ApiResult>(this.query).subscribe(res => {
       this.loading = false;
-      if (res.status === ApiResultType.Success) {
-        this.apps = res.data.applicationLists;
+      if (res.code === ApiResultType.Success) {
+        this.apps = res.data.application_view_models;
       }
     });
   }
-
-  changeTeam(status: boolean, item: any) {
-    console.log(item);
-    this.selectedTeam(status, item);
-    this.getappList();
-  }
-  getTeams(id:number):string {
-    return this.teamList.find(q=>q.value == id).name;
-  }
-  selectedTeam(status: boolean, item:any) {
-    if (status) {
-      this.query.teamIds.unshift(item.value);
-    } else {
-      this.query.teamIds = this.query.teamIds.filter(t => t !== item.value);
-    }
+   /**
+   * 用户 id 转换 用户名字
+   * @param id
+   * @returns str
+   */
+   getNameFunc(id:number): string {
+    return this.userService.getNameFunc(id);
   }
 
   goApp(id:string) {
-    this.router.navigateByUrl(`/app-list/detail/${id}`);
+    this.router.navigateByUrl(`/app/detail/${id}`);
   }
 
   search() {
-    this.getappList();
+    this.refreshData();
   }
+
+  public openCreateAppModal() {
+    this.modal.create({
+      nzTitle: '新建应用',
+      nzWidth: 750,
+      nzContent: CreateAppComponent,
+      nzOnOk: (ret) => {
+        this.refreshData();
+      },
+    });
+  }
+
+  public openEditModal(app: any) {
+    console.log(app);
+    this.modal.create({
+      nzTitle: '编辑应用',
+      nzWidth: 750,
+      nzComponentParams: {
+        applicationId: app.id,
+      },
+      nzContent: EditAppComponent,
+      nzOnOk: (ret) => {
+        this.refreshData();
+      },
+    });
+  }
+
 }
 class Query{
-  pageSize:number =9999;
-  appName:string = '';
-  teamIds: number[] =[];
+  page_size:number =9999;
+  name:string = '';
 }

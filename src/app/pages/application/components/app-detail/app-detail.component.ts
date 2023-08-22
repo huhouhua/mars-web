@@ -12,14 +12,15 @@ import { DetailService } from './detail.service';
 import { BackendService } from 'src/app/pages/services/backend.service';
 import { ApiResult, ApiResultType } from 'src/app/shared/common.type';
 import { Option } from 'src/app/shared/common.type';
+import { UserService } from 'src/app/helpers/user.service';
+import { removeBodyStyle } from 'src/app/shared/help';
 
 interface Application {
+  id?:string
   name?: string;
   description?: string;
-  creationTime?: string;
-  author?: string;
-  builderPageName?:string
-  packageBuildId?: number
+  creation_time?: string;
+  creation_user_id?: number;
 }
 @Component({
   selector: 'app-detail',
@@ -32,17 +33,6 @@ export class AppDetailComponent implements OnInit {
   loading = false;
   appLoading = false;
 
-  public buildList:Option[] =[
-    {
-        value:1,
-        name:"新包构建器"
-    },
-    {
-        value:2,
-        name:"老包构建器"
-    },
-  ];
-
 
  public  application: Application | undefined;
   public id:string ='';
@@ -53,30 +43,39 @@ export class AppDetailComponent implements OnInit {
   constructor(
     public notifySvc: NzNotificationService,
     private activeRouter: ActivatedRoute,
+    private userService: UserService,
     private router: Router,
     public detail: DetailService,
     private backendService: BackendService,
-  ) {}
+  ) {
+    removeBodyStyle();
+  }
 
   ngOnInit() {
     this.id = this.activeRouter.snapshot.paramMap.get('applicationId') ?? '';
-
-    this.getApp(this.id);
+    this.loadApp(this.id);
   }
 
-  getApp(id: any) {
+  loadApp(id: any) {
     this.appLoading = true;
     this.backendService.getApplication<ApiResult>(id).subscribe(res => {
         this.appLoading = false;
-      if (res.status === ApiResultType.Success) {
-        this.application = res.data;
-    
+      if (res.code === ApiResultType.Success) {
+        this.application = res.data.application_view_model;
+        
       }
     },err=>{
         this.appLoading = false;
     });
   }
-
+   /**
+   * 用户 id 转换 用户名字
+   * @param id
+   * @returns str
+   */
+   getNameFunc(id:number): string {
+    return this.userService.getNameFunc(id);
+  }
   onBuildLogData(event:any) {
     this.buildLogData = event;
   }
@@ -97,9 +96,9 @@ export class AppDetailComponent implements OnInit {
     this.backendService.deleteApplication<ApiResult>(this.id).subscribe(
       res => {
         this.loading = false;
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           this.notifySvc.success('删除成功！', '');
-          this.router.navigateByUrl(`/delivery/application/list`);
+          this.router.navigateByUrl(`/app/list`);
         }
       },
       err => {

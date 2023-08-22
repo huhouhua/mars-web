@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit,OnDestroy {
     // 初始化
     async ngOnInit(): Promise<void> {
       this.clear();
-      this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || 'build-list';
+      this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || 'app/list';
       this.validateForm = this.login.group({
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],

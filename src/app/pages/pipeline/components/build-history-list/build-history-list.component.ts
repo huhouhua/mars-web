@@ -156,7 +156,7 @@ export class BuildHistorylistComponent implements OnInit {
     // this.loading = true;
     // this.backendService.deleteBuild<ApiResult>(trigger.id).subscribe(res=>{
     //   this.loading = false;
-    //   if (res.status === ApiResultType.Success) {
+    //   if (res.code === ApiResultType.Success) {
     //     this.notification.success('提示',"删除成功！");
     //      this.refreshData();
     //   }

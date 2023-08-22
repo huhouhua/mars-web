@@ -134,7 +134,7 @@ export class PackageConfigCompileComponent implements OnInit {
     control.brancheLoading = true;
     this.backendService.getProjecBuildFileFromGitlab<ApiResult>(projectId,value).subscribe(
       (res) => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           this.validateForm.get(`${control.id}_compile_file_content`)?.setValue(res.data.buildList);
         }
         control.brancheLoading = false;
@@ -151,7 +151,7 @@ export class PackageConfigCompileComponent implements OnInit {
     control.brancheLoading = true;
     this.backendService.getBranchListFromGitlab<ApiResult>(value, '').subscribe(
       (res) => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           control.branches = res.data;
         }
         control.brancheLoading = false;

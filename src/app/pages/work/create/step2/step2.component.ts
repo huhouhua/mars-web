@@ -44,7 +44,7 @@ export class CreateStep2Component implements OnInit {
     this.loading = true;
     this.backendService.productAll<ApiResult>().subscribe(res => {
        this.loading = false;
-      if (res.status === ApiResultType.Success) {
+      if (res.code === ApiResultType.Success) {
         this.productOptions = res.data.productList;
         this.productOptions.forEach(res=>{
           res.showName =  `${res.name}(${res.code})`;

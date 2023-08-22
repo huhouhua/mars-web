@@ -65,7 +65,7 @@ export class PackageConfiglistComponent implements OnInit {
       .getPackageConfigList<ApiResult>(this.cacheQueryObject)
       .subscribe(
         (res) => {
-          if (res.status === ApiResultType.Success) {
+          if (res.code === ApiResultType.Success) {
             this.listData = res.data;
             this.total = this.listData.totalItemCount;
           }
@@ -110,7 +110,7 @@ export class PackageConfiglistComponent implements OnInit {
     this.backendService.deletePackageConfig<ApiResult>(config.id).subscribe(
       (res) => {
         this.loading = false;
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           this.notification.success('提示', '删除成功！');
           this.refreshData();
         }

@@ -54,7 +54,7 @@ export class TestTemplateListComponent implements OnInit {
       .getTestTemplatePagedList<ApiResult>(this.cacheQueryObject)
       .subscribe(
         (res) => {
-          if (res.status === ApiResultType.Success) {
+          if (res.code === ApiResultType.Success) {
             this.listData = res.data;
             this.total = this.listData.totalItemCount;
           }
@@ -97,7 +97,7 @@ public removeClick(id:string,event:any){
   this.backendService.deleteTestTemplate<ApiResult>(id)
     .subscribe(
       (res) => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           this.notification.success('提示',"删除成功!");
           this.refreshData();
         }

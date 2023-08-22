@@ -79,7 +79,7 @@ export class EditTestTemplateComponent implements OnInit {
         this.loading = true;
         this.backendService.updateTestTemplate<ApiResult>( this.TestTemplate.id, this.data).subscribe(res=>{
           this.loading = false;
-          if (res.status === ApiResultType.Success) {
+          if (res.code === ApiResultType.Success) {
             this.NewTestTemplate = res.data.testTemplateViewModel;
             this.notification.success('提示',"编辑成功!");
             this.modal.triggerOk();

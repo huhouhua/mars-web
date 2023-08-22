@@ -45,11 +45,11 @@ export class AccountService {
   public login(username: string, password: string): Observable<void> {
     return this.backendService.login<ApiResult>(username, password).pipe(
       map((res) => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           const profile= parseJwt(res.data.token)
           const user = {
-            gitLabAccessToken: profile.accessToken,
-            gitLabSession: profile.session,
+            gitLabAccessToken: profile.gitlab.accessToken,
+            gitLabSession: profile.gitlab.session,
             token: res.data.token,
           };
           this.setStorageUser(user);

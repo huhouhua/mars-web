@@ -37,7 +37,7 @@ export class UnitTestTemplateDetailComponent implements OnInit {
         this.loading = true;
         this.backendService.getTestTemplate<ApiResult>(this.templateId).subscribe(
           (res) => {
-            if (res.status === ApiResultType.Success) {
+            if (res.code === ApiResultType.Success) {
               this.testTemplate = res.data.testTemplateViewModel;
               this.unitTestTemplate = res.data.unitTestTemplateViewModel;
               this.setForm(this.unitTestTemplate);
@@ -124,7 +124,7 @@ submitForm() {
     this.loading = true;
     this.backendService.updateUnitTestTemplate<ApiResult>(this.templateId, this.data).subscribe(res=>{
       this.loading = false;
-      if (res.status === ApiResultType.Success) {
+      if (res.code === ApiResultType.Success) {
         this.notification.success('提示',"保存成功!");
         this.router.navigateByUrl('/test-template/list');
       }

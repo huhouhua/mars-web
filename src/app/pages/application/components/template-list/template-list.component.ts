@@ -10,11 +10,16 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BackendService } from 'src/app/pages/services/backend.service';
-import { CreateTemplateComponent } from '../create-template/create-template.component';
+import { CreateTemplateComponent } from '../template/create-template/create-template.component';
 import { ApiResult, ApiResultType, Member, MemberRole, Option } from 'src/app/shared/common.type';
-import { CreateBuildPackageComponent } from '../create-build-package/create-build-package.component';
+import { CreatePublishComponent } from '../publish/create-publish/create-publish.component';
+import { UserService } from 'src/app/helpers/user.service';
 
 // import { UserService } from '@services/user/user-service';
+import { map } from 'rxjs/operators';
+import { EditTemplateComponent } from '../template/edit-template/edit-template.component';
+import { removeBodyStyle } from 'src/app/shared/help';
+import { DetailService } from '../app-detail/detail.service';
 
 
 const count = 5;
@@ -28,10 +33,10 @@ export class TemplateListComponent implements OnInit {
   @Input() appName: string ='';
   public initLoading = true; // bug
   public listData: any = {
-    pageCount: Number,
-    pageIndex: Number,
-    pageSize: Number,
-    totalItemCount: Number,
+    page_count: Number,
+    page_index: Number,
+    page_size: Number,
+    total_item_count: Number,
   };
   typeOptions: Option[] = [
     { name: '结构化配置模版', value: 1 },
@@ -43,14 +48,25 @@ export class TemplateListComponent implements OnInit {
     private router: Router,
     private msg: NzMessageService,
     private modal:NzModalService,
-  
+    private userService: UserService,
     private backendService: BackendService,
-  ) // private userService: UserService,
-  {}
+    public detail: DetailService,
+  ) 
+  {
+    removeBodyStyle();
+  }
 
   ngOnInit(): void {
  
     this.getData();
+  }
+   /**
+   * 用户 id 转换 用户名字
+   * @param id
+   * @returns str
+   */
+   getNameFunc(id:number): string {
+    return this.userService.getNameFunc(id);
   }
 
   async getData(): Promise<void> {
@@ -60,8 +76,17 @@ export class TemplateListComponent implements OnInit {
 
     this.initLoading = true;
     this.backendService
-      .templateList<ApiResult>({ pageSize: 9999, applicationId: this.applicationId })
+      .templateList<ApiResult>({app_id:this.applicationId, page_size: 9999 })
       .subscribe((res: any) => {
+        // if(res.data.application_template_view_models!=null){
+        //   this.listData = res.data.map(res=>{
+        //     res.loading = true
+        //     return res
+        //   })
+
+        // }else{
+        //   this.listData =res.data
+        // }
         this.listData = res.data;
         this.initLoading = false;
       });
@@ -69,7 +94,7 @@ export class TemplateListComponent implements OnInit {
 
 
   configTpl(item: any): void {
-     this.router.navigateByUrl(`/app-list/detail/template/config/${item.id}`);
+     this.router.navigateByUrl(`/app/detail/template/config/${item.id}`);
   }
 
   public handlerType(type:number):string{
@@ -90,61 +115,51 @@ export class TemplateListComponent implements OnInit {
         });
   }
 
-  build(item: any): void {
+  editStructure(item: any) {
+    this.modal.create({
+        nzTitle:'编辑模板',
+        nzWidth:700,
+        nzComponentParams:{
+            templateId: item.id,
+        },
+        nzContent:EditTemplateComponent,
+        nzOnOk:(ret)=>{
+            this.ngOnInit();
+        },
+        });
+  }
+
+  publish(item: any): void {
 
     this.modal.create({
-      nzTitle:'发包',
+      nzTitle:'发布',
       nzWidth:700,
       nzComponentParams:{
           templateId: item.id,
+          applicationId:this.applicationId
       },
-      nzContent:CreateBuildPackageComponent,
+      nzContent:CreatePublishComponent,
       nzOnOk:(ret)=>{
-          this.ngOnInit();
+        this.detail.pos =1
       },
       });
 
-
-    // this.modal
-    //   .create(
-    //     BuildPackRestructureComponent,
-    //     {
-    //       templateId: item.id,
-    //       applicationId: this.applicationId,
-    //       title: item.name,
-    //     },
-    //     {
-    //       size: 'xl',
-    //       modalOptions: {
-    //         nzClosable: false,
-    //         nzMaskClosable: false,
-    //         nzKeyboard: false,
-    //       },
-    //     },
-    //   )
-    //   .subscribe(res => {
-    //     this.getData();
-    //     this.initLoading = false;
-    //     this.detail.pos = 1;
-    //   });
   }
 
   removeTemplate(item: any): void {
-    // if (!this.ciLoading) {
-    //   this.ciLoading = true;
-    //   this.backendService.releaseTemplateDelete<ApiResult>(item.id).subscribe(
-    //     res => {
-    //       this.ciLoading = false;
-    //       if (res.status === ApiResultType.Success) {
-    //         this.msg.success('操作完成！');
-    //         this.initLoading = true;
-    //         this.getData();
-    //       }
-    //     },
-    //     err => {
-    //       this.ciLoading = false;
-    //     },
-    //   );
-    // }
+    this.initLoading = true;
+    this.backendService.deleteTemplate<ApiResult>(item.id).subscribe(
+      res => {
+        this.initLoading = false;
+        if (res.code === ApiResultType.Success) {
+          this.msg.success('操作完成！');
+          this.initLoading = true;
+          this.getData();
+        }
+      },
+      err => {
+        this.initLoading = false;
+      },
+    );
   }
 }

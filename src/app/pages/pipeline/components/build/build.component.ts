@@ -48,7 +48,7 @@ export class BuildComponent implements OnInit {
         this.listLoading = true;
         this.backendService.fromVersionList<ApiResult>(this.buildInfo.platformUrl,this.buildInfo.jobName).subscribe(res => {
            this.listLoading = false;
-           if (res.status === ApiResultType.Success) {
+           if (res.code === ApiResultType.Success) {
             this.fromVersionlist = res.data;
           }
         },err=>{
@@ -59,7 +59,7 @@ export class BuildComponent implements OnInit {
         this.listLoading = true;
         this.backendService.toVersionList<ApiResult>(this.buildInfo.platformUrl,this.buildInfo.jobName).subscribe(res => {
            this.listLoading = false;
-           if (res.status === ApiResultType.Success) {
+           if (res.code === ApiResultType.Success) {
             this.toVersionList = res.data;
           }
         },err=>{
@@ -85,7 +85,7 @@ export class BuildComponent implements OnInit {
     console.log(this.buildInfo)
     this.backendService.build<ApiResult>(this.buildInfo.id,this.data).subscribe(res=>{
       this.loading = false;
-      if (res.status === ApiResultType.Success) {
+      if (res.code === ApiResultType.Success) {
         this.notification.success('提示',"创建成功");
         this.modal.triggerOk();
       }

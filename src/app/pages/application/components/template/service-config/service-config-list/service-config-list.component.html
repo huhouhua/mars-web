@@ -1,0 +1,67 @@
+<nz-card [nzBordered]="false">
+
+
+    <div style="margin-bottom: 16px;">
+      <button nz-button nzType="primary"  (click)="openService()">新增服务</button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <!-- <li nz-menu-item>
+            <a  (click)="openStructure()">结构化配置模版</a>
+          </li>
+          <li nz-menu-item>
+            <a (click)="openRaw()">raw配置模版</a>
+          </li> -->
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <nz-table
+      #templateList
+      nzShowPagination
+      nzShowQuickJumper
+      nzShowSizeChanger
+      [nzData]="listData"
+      class="demo-loadmore-list"
+      [nzPageSize]="10"
+      [nzTotal]="listData.length"
+      [nzPageSizeOptions]="[5, 10, 20]"
+      [nzScroll]="{ x: '1024px' }"
+      [nzLoading]="loading"
+    >
+      <thead>
+        <tr>
+          <th nzLeft="0px">服务名</th>
+          <th>部署方式</th>
+          <th>优先级</th>
+          <th>创建人</th>
+          <th>更新时间</th>
+          <th nzRight="0px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of templateList.data">
+      
+            <td>
+                {{ item.name}}
+          </td>
+          <td>
+           Helm 
+        </td>
+            <td>
+            {{item.deploy_priority}}
+            </td>
+            <td>
+              {{ getNameFunc(item.creation_user_id)}}
+                </td>
+                <td>
+                    {{ item.update_time}}
+                       </td>
+          <td nzRight="0px">
+            <a (click)="openEdit(item)">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="是否要删除操作？" (nzOnConfirm)="remove(item)">移除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+  

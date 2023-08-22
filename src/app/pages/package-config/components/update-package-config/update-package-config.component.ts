@@ -43,7 +43,7 @@ export class UpdatePackageConfigComponent implements OnInit {
     this.loading = true;
     this.backendService.updatePackageConfig<ApiResult>(this.packageConfig.id,this.data).subscribe(res=>{
       this.loading = false;
-      if (res.status === ApiResultType.Success) {
+      if (res.code === ApiResultType.Success) {
         this.notification.success('提示',"修改成功！");
         this.modal.triggerOk();
       }

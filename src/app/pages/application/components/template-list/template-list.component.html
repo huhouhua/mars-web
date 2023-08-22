@@ -3,23 +3,13 @@
 
     <div style="margin-bottom: 16px;">
       <button nz-button nzType="primary"  (click)="openStructure()">新增模板</button>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu>
-          <!-- <li nz-menu-item>
-            <a  (click)="openStructure()">结构化配置模版</a>
-          </li>
-          <li nz-menu-item>
-            <a (click)="openRaw()">raw配置模版</a>
-          </li> -->
-        </ul>
-      </nz-dropdown-menu>
     </div>
     <nz-table
       #templateList
       nzShowPagination
       nzShowQuickJumper
       nzShowSizeChanger
-      [nzData]="listData?.templates"
+      [nzData]="listData?.application_template_view_models"
       class="demo-loadmore-list"
       [nzPageSize]="10"
       [nzTotal]="listData.length"
@@ -29,8 +19,7 @@
     >
       <thead>
         <tr>
-          <th nzLeft="0px">模板名称</th>
-          <th>模板类型</th>
+          <th nzLeft="0px">模板名</th>
           <th>创建人</th>
           <th>创建时间</th>
           <th>更新人</th>
@@ -48,24 +37,23 @@
             </nz-list-item-meta>
           </td>
           <td>
-            {{ handlerType(item.type) }}
+            {{ getNameFunc(item.creation_user_id)}}  
           </td>
           <td>
-            张三
+            {{ item.creation_time }}  
           </td>
           <td>
-           {{ item.creationTime}}
+            {{ getNameFunc(item.update_user_id)}}  
           </td>
           <td>
-            李四
-          </td>
-          <td>
-            {{ item.updateTime}}
+            {{ item.update_time }}  
            </td>
           <td nzRight="0px">
             <a (click)="configTpl(item)">配置</a>
             <nz-divider nzType="vertical"></nz-divider>
-            <a  (click)="build(item)">发包</a>
+            <a  (click)="editStructure(item)">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a  (click)="publish(item)">发布</a>
             <nz-divider nzType="vertical"></nz-divider>
             <a nz-popconfirm nzPopconfirmTitle="是否要删除操作？" (nzOnConfirm)="removeTemplate(item)">移除</a>
           </td>

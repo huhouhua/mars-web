@@ -56,7 +56,7 @@ public total = 0;
       };
       this.backendService.productList<ApiResult>(pageQueryParameter).subscribe(
         res => {
-          if (res.status === ApiResultType.Success) {
+          if (res.code === ApiResultType.Success) {
             this.listData = res.data;
             this.total = this.listData.totalItemCount;
           }

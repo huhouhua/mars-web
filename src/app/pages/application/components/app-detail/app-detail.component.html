@@ -1,7 +1,7 @@
 <div class="header">
     <nz-breadcrumb>
         <nz-breadcrumb-item
-          ><a href="#/delivery/application/list">应用列表</a>
+          ><a href="/app/list">应用列表</a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item><a>应用详情</a></nz-breadcrumb-item>
       </nz-breadcrumb>
@@ -16,19 +16,15 @@
                     <div class="name">{{application?.name}}</div>
                 </div>
                 <div class="detail ellipsis">
+                    <p nz-tooltip >
+                       作者: {{ getNameFunc(application?.creation_user_id)}}  
+                    </p>
                     <p nz-tooltip >描述：{{application?.description}}</p>
                     <div>
                         <p>创建时间:</p> 
-                        <p nz-tooltip  class="ellipsis">{{application?.creationTime}}</p>
+                        <p nz-tooltip  class="ellipsis">{{application?.creation_time}}</p>
                     </div>
-                    <p nz-tooltip >
-                        负责人：{{application?.author}}
-                    </p>
-                    <p>包构建器: 新包构建器</p>
-                </div>
-                <nz-divider nzDashed></nz-divider>
-                <div class="tags">
-                    <div class="tagsTitle">标签</div>
+
                 </div>
                 <nz-divider nzDashed></nz-divider>
                 <div class="detail">
@@ -46,13 +42,14 @@
         <nz-card class="tabsCard" [nzBordered]="false" [nzTitle]="tagTitleTpl">
             <ng-template #tagTitleTpl>
                 <nz-tabset nzSize="large" [nzSelectedIndex]="detail.pos" (nzSelectedIndexChange)="tabChange($event)">
-                    <nz-tab [nzTitle]="'发行模板'">
+                    <nz-tab [nzTitle]="'应用模板'">
                         <app-template-list [applicationId]="id" ></app-template-list>
                     </nz-tab>
-                    <nz-tab [nzTitle]="'发行包'">
-                        <!-- <app-tplpack  [applicationId]="id" 
+                    <nz-tab [nzTitle]="'发布记录'">
+                        <app-publish-release-list
+                        [applicationId]="id"
                         (onBuildLog)="onBuildLogData($event)" 
-                        (onShowBuildLog)="showBuildLog($event)" ></app-tplpack> -->
+                        (onShowBuildLog)="showBuildLog($event)" ></app-publish-release-list>
                     </nz-tab>
                 </nz-tabset>
             </ng-template>

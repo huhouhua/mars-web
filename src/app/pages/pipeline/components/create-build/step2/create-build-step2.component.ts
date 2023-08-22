@@ -64,7 +64,7 @@ export class CreateBuildStep2Component implements OnInit {
         this.listLoading = true;
         this.backendService.fromVersionList<ApiResult>(this.stepContext.item.platformUrl,this.stepContext.item.jobName).subscribe(res => {
            this.listLoading = false;
-           if (res.status === ApiResultType.Success) {
+           if (res.code === ApiResultType.Success) {
             this.fromVersionlist = res.data;
           }
         },err=>{
@@ -75,7 +75,7 @@ export class CreateBuildStep2Component implements OnInit {
         this.listLoading = true;
         this.backendService.toVersionList<ApiResult>(this.stepContext.item.platformUrl,this.stepContext.item.jobName).subscribe(res => {
            this.listLoading = false;
-           if (res.status === ApiResultType.Success) {
+           if (res.code === ApiResultType.Success) {
             this.toVersionList = res.data;
           }
         },err=>{

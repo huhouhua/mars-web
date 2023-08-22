@@ -161,7 +161,7 @@ public create(){
    this.loading = true;
       this.backendService.createBuild<ApiResult>(data).subscribe(res => {
           this.loading = false;
-         if (res.status === ApiResultType.Success) {
+         if (res.code === ApiResultType.Success) {
           this.notification.success('提示',"创建成功");
           this.modal.triggerOk();
          }

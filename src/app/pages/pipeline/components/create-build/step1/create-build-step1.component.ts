@@ -89,7 +89,7 @@ export class CreateBuildStep1Component implements OnInit {
     this.listLoading = true;
     this.backendService.jobList<ApiResult>(platformUrl).subscribe(res => {
        this.listLoading = false;
-      if (res.status === ApiResultType.Success) {
+      if (res.code === ApiResultType.Success) {
         this.jobNameList = res.data.jobs;
       }
     },err=>{

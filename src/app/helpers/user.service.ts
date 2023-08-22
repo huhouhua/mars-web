@@ -42,7 +42,7 @@ export class UserService {
       .GetAllUserFromGitLab<ApiResult>()
       .toPromise()
       .then(res => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           this.setCurrentUsers(res.data);
           this.setCacheUsers();
         }

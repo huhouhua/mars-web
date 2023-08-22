@@ -1,0 +1,100 @@
+
+<button (click)="refreshData()" style="margin-bottom:20px" nz-button nzType="primary">刷新
+</button>
+
+
+<!-- 查询条件 -->
+<div  class="search-div">
+   
+<div>
+  <input type="text" nz-input placeholder="请输入发布名称" [(ngModel)]="cacheQueryObject.name" (keyup.enter)="refreshData()" />
+</div>
+<div>
+  <button (click)="refreshData()" nz-button nzType="primary">搜索</button>
+</div>
+
+</div>
+
+<!-- 发布记录列表 -->
+
+<nz-table
+#basicTable
+nzShowPagination
+nzShowQuickJumper
+nzShowSizeChanger
+[nzData]="listData.publish_history_view_models"
+nzFrontPagination="false"
+(nzPageSizeChange)="pageSizeChange($event)"
+(nzPageIndexChange)="pageIndexChange($event)"
+[nzPageSize]="listData.page_size"
+[nzPageIndex]="listData.page_index"
+[nzTotal]="listData.total_item_count"
+[nzShowTotal]="totalTemplate"
+[nzPageSizeOptions]="[10, 20, 30]"
+[nzScroll]="{ x: '1024px' }"
+[nzLoading]="loading"
+>
+
+<thead>
+<tr>
+  <th>发布名</th>
+  <th>模板</th>
+  <th>版本号</th>
+  <th>状态</th>
+  <th>环境</th>
+  <th>发布人</th>
+  <th>发布时间</th>
+  <th nzRight="0px">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let data of basicTable.data">
+ <td>{{ data.name }}</td>
+ <td>{{ data.app_template_name }}</td>
+ <td>{{ data.version }}</td>
+ <td>   <nz-tag [nzColor]="hadnlerStatusColor(data.status)"> {{ data.status }}</nz-tag></td>
+ <td>{{data.env_name}}</td>
+ <td>{{ getNameFunc(data.creation_user_id)}}</td>
+ <td>{{ data.creation_time}}</td>
+ <!-- <td>
+  <div class="stage-td">
+    <div>
+      <div *ngIf="data.status === 0 || data.status === 1 || data.status === 2">
+        <i nz-icon nzType="right-circle" nzTheme="twotone" [nzTwotoneColor]="'#999'" [title]="data.statusDescription"></i>
+      </div>
+      <div  *ngIf="data.status === 3 || data.status ===4" (click)="showBuildLog(data)" class="cursor-pointer">
+        <i
+          *ngIf="data.status === 3"
+          nz-icon
+          nzType="sync"
+          nzTheme="outline"
+          [nzSpin]="true"
+          [title]="data.statusDescription"></i>
+
+          <i
+          *ngIf="data.status === 4"
+          nz-icon
+          nzType="check-circle"
+          nzTheme="twotone"
+          [nzTwotoneColor]="'#52c41a'"
+          [title]="data.statusDescription"></i>
+      </div>
+    </div>
+  </div>
+ </td> -->
+  <td nzRight="0px">
+    <nz-divider nzType="vertical"></nz-divider>
+     <a>查看</a>
+    <nz-divider nzType="vertical"></nz-divider>
+  </td>
+</tr>
+</tbody>
+  <!-- 分页 -->
+  <div class="page-div">
+      <ng-template #totalTemplate let-total> 总数 {{ total }} 个 </ng-template>
+     
+    </div>
+  
+</nz-table>
+
+

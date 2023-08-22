@@ -61,7 +61,7 @@ export class PackageConfigDetailComponent implements OnInit {
     this.loading = true;
     this.backendService.getPackageConfigDetail<ApiResult>(this.packageConfigId).subscribe(
       (res) => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
             let data = res.data.packageConfigDetailViewModel;
             this.fromService.SetFromValue(data.complieProjects as ComplieProject[],data.metaData,this.validateForm);
         }
@@ -76,7 +76,7 @@ export class PackageConfigDetailComponent implements OnInit {
     this.loadingWithProjectList = true;
     this.backendService.getProjectListFromGitlab<ApiResult>().subscribe(
       (res) => {
-        if (res.status === ApiResultType.Success) {
+        if (res.code === ApiResultType.Success) {
           this.projectList = res.data;
            this.getConfig();
         }
@@ -161,7 +161,7 @@ export class PackageConfigDetailComponent implements OnInit {
       metaData:JSON.stringify(yaml),
     }).subscribe(res=>{
       this.loading = false;
-      if (res.status === ApiResultType.Success) {
+      if (res.code === ApiResultType.Success) {
         this.notification.success('提示',"保存成功!");
         this.router.navigateByUrl('/package-config-list');
       }

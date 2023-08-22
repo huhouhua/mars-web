@@ -1,0 +1,165 @@
+
+<nz-page-header class="site-page-header"  >
+  <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>应用模板</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a href="/app/detail/template/config/{{ templateId }}">服务列表</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>新增服务</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<div class="ant-advanced-search-form">
+ <form nz-form [formGroup]="validateForm"  >
+  <div class="custom-container">
+    <div class="custom-container-title">
+      基础信息
+    </div>
+    <div >
+      <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="mode" nzRequired> 部署方式 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group>
+           <span>Helm</span>
+          </nz-input-group>
+        </nz-form-control>
+          <nz-form-label  nzSpan="3" nzFor="name" nzRequired> 服务名 </nz-form-label>
+          <nz-form-control  nzSpan="8" >
+            <nz-input-group  >
+              <input nz-input formControlName="name"  nzSize="small" name="name"   maxlength="15"  minlength="1" placeholder="请输入服务名" />
+            </nz-input-group>
+          </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="mb-sm">
+        <nz-form-label  nzSpan="3" nzFor="description"> 描述 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group   >
+            <textarea nz-input name="description"
+            formControlName="description" [nzAutosize]="{ minRows: 4, maxRows: 10 }" placeholder="请输入描述信息"></textarea>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+</div>
+  <div class="custom-container-title">
+    服务配置
+  </div>
+  <div >
+    <nz-form-item class="mb-sm">
+      <nz-form-label  nzSpan="3" nzFor="deploy_strategy" nzRequired> 部署策略 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group>
+          <nz-select formControlName="deploy_strategy"   nzPlaceHolder="请选择部署策略">
+            <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of strategyList">
+            </nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+        <nz-form-label  nzSpan="3" nzFor="deploy_priority" nzRequired> 优先级 </nz-form-label>
+        <nz-form-control  nzSpan="8" >
+          <nz-input-group  >
+            <nz-input-number
+            name="deploy_priority" 
+            formControlName="deploy_priority"
+            [nzMin]="1"
+            [nzMax]="30"
+            [nzStep]="1" ></nz-input-number>
+          </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-sm">
+      <nz-form-label  nzSpan="3" nzFor="respository" nzRequired> 仓库地址 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group  >
+          <input nz-input formControlName="respository"  nzSize="small" name="respository"    minlength="1" placeholder="请输入仓库地址" />
+        </nz-input-group>
+      </nz-form-control>
+
+      <nz-form-label  nzSpan="3" nzFor="package_name" nzRequired> 包名 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group  >
+          <input nz-input formControlName="package_name"  nzSize="small" name="package_name"   placeholder="请输入包名" />
+        </nz-input-group>
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item class="mb-sm">
+      <nz-form-label  nzSpan="3" nzFor="version" nzRequired> 版本 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group  >
+          <input nz-input formControlName="version"  nzSize="small" name="version"   placeholder="请输入版本号" />
+        </nz-input-group>
+      </nz-form-control>
+      <nz-form-label  nzSpan="3" nzFor="namespace" nzRequired> 命名空间 </nz-form-label>
+      <nz-form-control  nzSpan="8" >
+        <nz-input-group  >
+          <input nz-input formControlName="namespace"  nzSize="small" name="namespace"   placeholder="请输入命名空间" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+
+<div class="custom-container" >
+  <div class="custom-container-title">
+    参数
+  </div>
+  <p>
+    部署时，设置额外的参数
+  </p>
+
+  <nz-table #nzTable [nzData]="listOfControl" [nzLoading]="loading" [nzPageSize]="1000" nzSize="middle"
+  [nzShowPagination]="false" [nzHideOnSinglePage]="true">
+  <thead>
+    <tr>
+      <th>key</th>
+      <th>value</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let control of nzTable.data; let i = index">
+      <td>
+        <nz-form-item class="mb-sm">
+        <nz-form-control nzErrorTip="key">
+           <input  nz-input  formControlName="{{ control.controlValue.id+'_key' }}"  >
+        </nz-form-control>
+        </nz-form-item>
+      </td>
+      <td>
+        <nz-form-item class="mb-sm">
+        <nz-form-control nzErrorTip="value">
+           <input  nz-input  formControlName="{{ control.controlValue.id+'_value' }}"  >
+        </nz-form-control>
+        </nz-form-item>
+      </td>
+        <td>
+          <div class="delete-div">
+              <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+           
+          </div>
+        </td>
+    </tr>
+    <tr> 
+   <td colSpan="5">
+    <nz-form-item>
+      <nz-form-control>
+          <button nz-button nzType="dashed" [nzLoading]="loading" class="add-button" (click)="addField($event)">
+              <i nz-icon nzType="plus"></i>
+              添加
+          </button>
+      </nz-form-control>
+  </nz-form-item>
+   </td>
+</tr>
+  </tbody>
+</nz-table>
+
+</div>
+<footer-toolbar errorCollect>
+  <button nz-button   style="  margin-left: 30px;" [nzLoading]="loading" (click)="cancel()">取消</button>
+  <button nz-button nzType="primary"  style=" margin-left: 30px;" [nzLoading]="loading" (click)="submitForm()" [disabled]="!validateForm.valid">提交</button>
+</footer-toolbar>
+</form>
+
+</div>

@@ -22,51 +22,85 @@ export class LayoutComponent  implements OnInit{
 
   private initListOfMenu(){
   
-    const tool = {
-      name: "工具箱",
-      icon:"tool",
-      isOpen: true,
-      router:"",
-      breadcrumb:[] =[],
-      children:[
-        {
-          name: "构建器",
-          icon:"",
-          isOpen: true,
-          router:"/build-list",
-          children:[]=[],
-          breadcrumb:[] =[],
-        },
-        {
-          name: "包配置",
-          icon:"",
-          isOpen: true,
-          router:"/package-config-list",
-          children:[]=[],
-          breadcrumb:[] =[],
-        }
-      ]
-    };
-    const test = {
-      name: "测试",
+    
+    const app = {
+      name: "应用",
       icon:"dot-chart",
       isOpen: true,
       router:"",
       breadcrumb:[] =[],
       children:[
         {
-          name: "模板库",
+          name: "应用列表",
           icon:"",
           isOpen: true,
-          router:"/test-template/list",
+          router:"/app/list",
+          children:[]=[],
+          breadcrumb:[] =[],
+        },
+        {
+          name: "环境列表",
+          icon:"",
+          isOpen: true,
+          router:"/env/list",
           children:[]=[],
           breadcrumb:[] =[],
         }
       ]
     };
+
+
+
+    // const tool = {
+    //   name: "工具箱",
+    //   icon:"tool",
+    //   isOpen: true,
+    //   router:"",
+    //   breadcrumb:[] =[],
+    //   children:[
+    //     {
+    //       name: "构建器",
+    //       icon:"",
+    //       isOpen: true,
+    //       router:"/build/list",
+    //       children:[]=[],
+    //       breadcrumb:[] =[],
+    //     },
+    //     {
+    //       name: "包配置",
+    //       icon:"",
+    //       isOpen: true,
+    //       router:"/build/package-config-list",
+    //       children:[]=[],
+    //       breadcrumb:[] =[],
+    //     }
+    //   ]
+    // };
+
+
+
+    // const test = {
+    //   name: "测试",
+    //   icon:"dot-chart",
+    //   isOpen: true,
+    //   router:"",
+    //   breadcrumb:[] =[],
+    //   children:[
+    //     {
+    //       name: "模板库",
+    //       icon:"",
+    //       isOpen: true,
+    //       router:"/test-template/list",
+    //       children:[]=[],
+    //       breadcrumb:[] =[],
+    //     }
+    //   ]
+    // };
     const arr = new Array<Menu>();
-    arr.push(tool)
-    arr.push(test)
+    arr.push(app)
+
+    // arr.push(tool)
+    // arr.push(test)
     const openMenu= arr.find(q=>q.isOpen);
       if(openMenu!=null){
           this.breadcrumbOfSelected(openMenu.children);

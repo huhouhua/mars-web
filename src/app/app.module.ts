@@ -52,6 +52,24 @@ import { UnitTestTemplateComponent } from './pages/test-template/components/deta
 import { TestTemplateDetailComponent } from './pages/test-template/components/detail-template/detail-template.component';
 import { EditTestTemplateComponent } from './pages/test-template/components/detail-template/edit-template/edit-template.component';
 import { PackageConfigQualityComponent } from './pages/package-config/components/config-detail/quality/quality.component';
+import { ApplistComponent } from './pages/application/list/app-list.component';
+import { TemplateListComponent } from './pages/application/components/template-list/template-list.component';
+import { AppDetailComponent } from './pages/application/components/app-detail/app-detail.component';
+import { CreateTemplateComponent } from './pages/application/components/template/create-template/create-template.component';
+import { TemplateConfigComponent } from './pages/application/components/template/template-config/template-config.component';
+import { PrviewConfigComponent } from './pages/application/components/prview-config/prview-config.component';
+import { CreateServiceConfig } from './pages/application/components/template/service-config/create-service-config/create-service-config.component';
+import { ServiceConfigList } from './pages/application/components/template/service-config/service-config-list/service-config-list.component';
+import { ConfigAdvancedEditComponent } from './pages/application/components/config-advanced-edit/config-advanced-edit.component';
+import {  CreatePublishComponent } from './pages/application/components/publish/create-publish/create-publish.component';
+import { EnvironmentlistComponent } from './pages/environment/list/environment-list.component';
+import { UpdateEnvironmentComponent } from './pages/environment/components/update-env/update-environment.component';
+import { CreateEnvironmentComponent } from './pages/environment/components/create-env/create-environment.component';
+import { PublishReleaseListComponent } from './pages/application/components/publish/publish-release-list/publish-release-list.component';
+import { CreateAppComponent } from './pages/application/components/app/create-app/create-app.component';
+import { EditAppComponent } from './pages/application/components/app/edit-app/edit-app.component';
+import { EditTemplateComponent } from './pages/application/components/template/edit-template/edit-template.component';
+import { EditServiceConfig } from './pages/application/components/template/service-config/edit-service-config/edit-service-config.component';
 
 registerLocaleData(zh);
 
@@ -60,10 +78,30 @@ registerLocaleData(zh);
     AppComponent,
     LoginComponent,
     LayoutComponent,
+
+    CreateAppComponent,
+    EditAppComponent,
+
+    ApplistComponent,
+    TemplateListComponent,
+    CreateTemplateComponent,
+    EditTemplateComponent,
+    AppDetailComponent,
+    TemplateConfigComponent,
+    PrviewConfigComponent,
+    CreateServiceConfig,
+    EditServiceConfig,
+    ServiceConfigList,
+    ConfigAdvancedEditComponent,
+    CreatePublishComponent,
+
+
+    EnvironmentlistComponent,
+    UpdateEnvironmentComponent,
+    CreateEnvironmentComponent,    
+    PublishReleaseListComponent,
+    
     PackageConfiglistComponent,
-
-
-
     BuildlistComponent,
     CreateBuildComponent,
     CreateBuildStep1Component,

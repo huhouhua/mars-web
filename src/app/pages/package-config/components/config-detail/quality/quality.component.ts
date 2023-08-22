@@ -79,7 +79,7 @@ export class PackageConfigQualityComponent implements OnInit {
             type:type,
             category:2
         }).toPromise().then(res=>{
-          if (res.status === ApiResultType.Success) {
+          if (res.code === ApiResultType.Success) {
             this.templates = res.data.testTemplateViewModels;
             let typeOption = this.types.find(q=>q.value == type);
             if(context){

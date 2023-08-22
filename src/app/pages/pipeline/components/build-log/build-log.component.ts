@@ -25,7 +25,7 @@ export class BuildLogComponent implements OnInit {
     if (id) {
       this._id = id;
     //   this.backendService.releasePackReleasepacksAll(id).subscribe(res => {
-    //     if (res.status === ApiResultType.Success) {
+    //     if (res.code === ApiResultType.Success) {
     //       this.dataDetail = res.data.releasePackViewModel;
     //       this.status = this.dataDetail.status;
     //       if (this.dataDetail.buildPipeline) {

@@ -48,3 +48,72 @@
     padding: 0 10px;
   }
   
+
+  
+.search-div {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  & > div {
+    margin-right: 20px;
+  }
+  & > div:first-child {
+    width: 32%;
+  }
+  nz-tag {
+    cursor: pointer;
+    border: 1px solid #d9d9d9;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  .ant-tag-checkable-checked {
+    border: 1px solid #1890ff;
+  }
+}
+.list-card-animation {
+  padding: 0 10px;
+}
+.page-div {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+::ng-deep{
+  .ant-layout{
+    background: #f0f2f5 !important;
+  }
+}
+
+
+:host ::ng-deep {
+  .ant-card-head {
+    padding: 0 10px;
+    background-color: #f5f5f5;
+    .ant-card-head-title {
+      padding: 12px 0;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .ant-card-extra {
+      padding: 12px 0;
+    }
+  }
+  .ant-card-body {
+    .card-body {
+      padding: 10px;
+      & > p {
+        margin-bottom: 0.4rem;
+      }
+      & > p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

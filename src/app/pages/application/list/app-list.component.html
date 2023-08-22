@@ -1,21 +1,43 @@
-<div class="app-nav">
+<!-- <div class="app-nav">
     <div class="text-center">
-        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="addOnAfterBtn" style="width: 520px;">
-            <input type="text" [(ngModel)]="query.appName" nz-input placeholder="请输入应用名（支持模糊查询）"
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="addOnAfterBtn" style="width: 620px;">
+            <div style="width: 100px;">
+                <button nz-button nzType="primary" (click)="search()" nzSize="large" nzSearch>新增</button>
+            </div>
+
+            <div  style="width: 520px;">
+                <input type="text" [(ngModel)]="query.name" nz-input placeholder="查询应用（应用名）"
                 (keyup.enter)="search()" />
+            </div>
             <ng-template #addOnAfterBtn>
                 <button nz-button nzType="primary" (click)="search()" nzSize="large" nzSearch>搜索</button>
+             
             </ng-template>
         </nz-input-group>
     </div>
-    <div style="display: flex;align-items: center; padding:0 10px; padding-top:10px;">
-        <div style="width: 70px;flex-shrink:0;">所属团队: </div>
-         <nz-tag  *ngFor="let item of teamList; let idx = index" nzMode="checkable" [nzChecked]="item.status"
-        (nzCheckedChange)="changeTeam($event, item)">   {{ item.name }}
-    </nz-tag>
-    </div>
+</div> -->
+
+<nz-page-header class="site-page-header" >
+    <nz-page-header-content>
+        <button (click)="openCreateAppModal()" style="margin-bottom:20px" nz-button nzType="primary">
+            <i nz-icon nzType="plus"></i>新建应用
+          </button>
+    </nz-page-header-content>
+  </nz-page-header>
+
+<!-- 查询条件 -->
+<div  class="search-div">
+     
+  <div>
+    <input type="text" nz-input placeholder="请输入应用名称" [(ngModel)]="query.name" (keyup.enter)="search()" />
+  </div>
+
+  <div>
+    <button (click)="search()" nz-button nzType="primary">搜索</button>
+  </div>
+
 </div>
-<nz-divider></nz-divider>
+
 <nz-list 
     [nzLoading]="loading" 
     [nzRenderItem]="item" 
@@ -32,25 +54,18 @@
                             <div class="app-list-title-name ellipsis">
                                 <a  nz-tooltip >{{ item.name }}</a>
                             </div>
-                            <div class="app-list-title-tag">
-                                <nz-tag nz-tooltip  class="ellipsis" [nzColor]="'#1890ff'">
-                                    {{ getTeams(item.teamId) }}
-                                </nz-tag>
-                            </div>
                         </div>
                     </ng-template>
-                    <ng-template #logo>
+                    <!-- <ng-template #logo>
                         <nz-avatar [ngStyle]="{ 'background-color': colorList[1] }" nzSize="default"
                             nzText="{{item.name[0]}}"></nz-avatar>
-                    </ng-template>
+                    </ng-template> -->
                 </nz-card-meta>
                 <div class="ellipsis item-content">
-                    <p > 创建人: {{ item.author}}  </p>
-                    <p> 创建时间: {{ item.creationTime}}  </p>
+                    <p> 作者: {{ getNameFunc(item.creation_user_id)}}  </p>
+                    <p> 创建时间: {{ item.creation_time}}  </p>
                     <p nz-tooltip > 应用描述:  {{item.description}} </p>
-                   
                 </div>
-
             </nz-card>
         </nz-list-item>
     </ng-template>
