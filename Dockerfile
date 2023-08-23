@@ -27,9 +27,9 @@ WORKDIR /app/dist
 
 RUN find . -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -exec exiftool -all= {} \;
 
-FROM nginx:stable-alpine3.17 AS final
+FROM 172.17.162.231/library/nginx:stable-alpine3.17 AS final
 
-RUN sed -i "s@https\?://[^/]*@http://mirrors.aliyun.com@" /etc/apk/repositories && apk update && apk add -U gettext bash pcre && \
+RUN sed -i "s@https\?://[^/]*@http://mirrors.aliyun.com@" /etc/apk/repositories && apk update && apk add -U gettext bash  pcre && \
     rm /etc/nginx/conf.d/*
 
 WORKDIR /app
@@ -42,6 +42,6 @@ COPY --from=build /app/misc/start.sh .
 
 RUN chmod a+x *.sh
 
-ENV WEBAPI__SERVER 172.17.206.81:32538
+ENV WEBAPI__SERVER mars-apiserver.mars:8080
 
-CMD ./start.sh
+CMD ["bash","./start.sh"]
