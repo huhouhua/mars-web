@@ -1,0 +1,26 @@
+
+<div class="custom-container">
+    <div class="custom-container-title">
+      失败原因
+    </div>
+    <p>
+        {{  err }}
+    </p>
+</div>
+
+<div class="custom-container">
+    <div class="custom-container-title">
+      运行参数
+    </div>
+    <div nz-row [nzGutter]="24" > 
+        <div  nz-col [nzMd]="24">
+            <ngx-codemirror
+            [(ngModel)]="providerToYaml"
+            [options]="options"
+            [ngModelOptions]="{standalone: true}" 
+            ngDefaultControl >
+          </ngx-codemirror>
+        </div>
+    </div>
+</div>
+

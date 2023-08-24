@@ -70,6 +70,9 @@ import { CreateAppComponent } from './pages/application/components/app/create-ap
 import { EditAppComponent } from './pages/application/components/app/edit-app/edit-app.component';
 import { EditTemplateComponent } from './pages/application/components/template/edit-template/edit-template.component';
 import { EditServiceConfig } from './pages/application/components/template/service-config/edit-service-config/edit-service-config.component';
+import { ViewAppDeployComponent } from './pages/application/components/publish/view-deploy/view-deploy.component';
+import { DeployResultlistComponent } from './pages/application/components/publish/deploy-result-list/deploy-result-list.component';
+import { ViewAppDeployFailComponent } from './pages/application/components/publish/view-deploy-fail/view-deploy-fail.component';
 
 registerLocaleData(zh);
 
@@ -81,6 +84,7 @@ registerLocaleData(zh);
 
     CreateAppComponent,
     EditAppComponent,
+
 
     ApplistComponent,
     TemplateListComponent,
@@ -94,8 +98,10 @@ registerLocaleData(zh);
     ServiceConfigList,
     ConfigAdvancedEditComponent,
     CreatePublishComponent,
-
-
+    DeployResultlistComponent,
+    ViewAppDeployComponent,
+    ViewAppDeployFailComponent,
+    
     EnvironmentlistComponent,
     UpdateEnvironmentComponent,
     CreateEnvironmentComponent,    

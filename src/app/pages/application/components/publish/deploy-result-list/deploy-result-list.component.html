@@ -1,0 +1,71 @@
+<!-- 查询条件 -->
+<div  class="search-div">
+     
+  <div>
+    <input type="text" nz-input placeholder="请输入服务名" [(ngModel)]="name" (keyup.enter)="clickSearch()" />
+  </div>
+
+  <div>
+    <button (click)="clickSearch()" nz-button nzType="primary">搜索</button>
+  </div>
+
+</div>
+
+    <!-- 部署结果列表 -->
+  
+    <nz-table
+    #basicTable
+    nzShowPagination
+    nzShowQuickJumper
+    nzShowSizeChanger
+    [nzData]="listData.list"
+    [nzTotal]="listData.total"
+
+    [nzShowTotal]="totalTemplate"
+    [nzPageSizeOptions]="[5, 10, 20]"
+    [nzScroll]="{ x: '1024px' }"
+    [nzLoading]="loading"
+  >
+    <thead>
+      <tr>
+        <th>服务名</th>
+        <th>状态</th>
+        <th>方式</th>
+        <th>优先级</th>
+        <th>策略</th>
+        <th nzRight="0px">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+       <td>
+        {{  data.svc.svc_name }}
+       </td>
+       <td>
+        <nz-tag [nzColor]="statusToColor(data.status)"> {{ statusToText(data.status) }}</nz-tag>
+       </td>
+       <td>
+        {{ data?.svc.mode }}
+      </td>
+      <td>
+        {{ data?.svc.priority }}
+      </td>
+       <td>
+        {{ strategyToTest(data?.svc.strategy) }}
+       </td>
+        <td nzRight="0px">
+          <a (click)="view(data)">结果</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </td>
+      </tr>
+    </tbody>
+        <!-- 分页 -->
+        <div class="page-div">
+            <ng-template #totalTemplate let-total> 总数 {{ total }} 个 </ng-template>
+           
+          </div>
+        
+  </nz-table>
+    
+
+

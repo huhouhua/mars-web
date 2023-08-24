@@ -22,6 +22,9 @@ import {
   import { UserService } from 'src/app/helpers/user.service';
   import { AccountService } from 'src/app/helpers/account.service';
 import { NgEventBus } from 'ng-event-bus';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { ViewAppDeployComponent } from '../view-deploy/view-deploy.component';
+import { DeployResultlistComponent } from '../deploy-result-list/deploy-result-list.component';
   @Component({
     selector: 'app-publish-release-list',
     templateUrl: './publish-release-list.component.html',
@@ -58,7 +61,8 @@ import { NgEventBus } from 'ng-event-bus';
       private userService: UserService,
       private eventBus: NgEventBus,
       private accountService:AccountService,
-      private changeDetector: ChangeDetectorRef
+      private changeDetector: ChangeDetectorRef,
+      private drawerService: NzDrawerService,
       
     ) {}
   
@@ -179,17 +183,18 @@ import { NgEventBus } from 'ng-event-bus';
       this.onShowBuildLog.emit(history);
     }
   
-    public remove(trigger: any) {
-      // this.loading = true;
-      // this.backendService.deleteBuild<ApiResult>(trigger.id).subscribe(res=>{
-      //   this.loading = false;
-      //   if (res.code === ApiResultType.Success) {
-      //     this.notification.success('提示',"删除成功！");
-      //      this.refreshData();
-      //   }
-      // },err=>{
-      //   this.loading = false;
-      // });
+    public view(history:any){
+      this.drawerService.create({
+        nzTitle: `发布清单`,
+        nzContent: DeployResultlistComponent,
+        nzWidth: 1300,
+        nzContentParams:{
+          deployResult:JSON.parse(history.deploy_Result) as []
+        },
+        nzPlacement:"right"
+      });
+
+       
     }
   }
   

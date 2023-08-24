@@ -1,0 +1,60 @@
+
+<div class="custom-container">
+    <div class="custom-container-title">
+      基本信息
+    </div>
+    <nz-descriptions>
+        <nz-descriptions-item nzTitle="relaseName">{{release.name}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="namespace">{{release.namespace}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="status">{{release.info.status}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="chart">{{release.chart.metadata.name}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="chartVersion">{{release.chart.metadata.version}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="appVersion">{{release.chart.metadata.appVersion}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="第一次部署时间">{{release.info.first_deployed}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最后一次部署时间">{{release.info.last_deployed}}</nz-descriptions-item>
+    </nz-descriptions>
+</div>
+
+<nz-tabset (nzSelectedIndexChange)="onSelectedIndexChange($event)">
+    <nz-tab nzTitle="清单">
+        <div nz-row [nzGutter]="24" #editor> 
+            <div  nz-col [nzMd]="24">
+                <ngx-codemirror
+                [(ngModel)]="release.manifest"
+                [options]="options"
+                [ngModelOptions]="{standalone: true}" 
+                ngDefaultControl >
+              </ngx-codemirror>
+            </div>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="参数">
+        <div nz-row [nzGutter]="24" #editorConfig> 
+            <div  nz-col [nzMd]="24">
+                <ngx-codemirror
+                [(ngModel)]="configToYaml"
+                [options]="options"
+                [ngModelOptions]="{standalone: true}" 
+                ngDefaultControl >
+              </ngx-codemirror>
+            </div>
+        </div>
+    </nz-tab>
+
+    <nz-tab nzTitle="notes">
+        <div nz-row [nzGutter]="24" #editorNotes> 
+            <div  nz-col [nzMd]="24">
+                <ngx-codemirror
+                [(ngModel)]="notes"
+                [options]="options"
+                [ngModelOptions]="{standalone: true}" 
+                ngDefaultControl >
+              </ngx-codemirror>
+            </div>
+        </div>
+    </nz-tab>
+  </nz-tabset>
+<div class="drawer-footer">
+<button type="button" (click)="cancel()" class="ant-btn"><span>返回</span></button>
+<button type="button" (click)="scrollEditorToTop()" class="ant-btn"><span>回到顶部</span></button>
+</div>
