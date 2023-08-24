@@ -69,7 +69,7 @@ export class DeployResultlistComponent implements OnInit {
     if(data.status ==1){
         let provider  = JSON.parse(data.svc.provider);
         this.drawerService.create({
-            nzTitle: `查看结果`,
+            nzTitle: `元数据`,
             nzContent: ViewAppDeployFailComponent,
             nzWidth: 1300,
             nzContentParams: {
@@ -85,7 +85,7 @@ export class DeployResultlistComponent implements OnInit {
     release.configToYaml = this.toYaml(release.config);
     release.valuesToYaml = this.toYaml(release.chart.values);
     this.drawerService.create({
-      nzTitle: `查看结果`,
+      nzTitle: `元数据`,
       nzContent: ViewAppDeployComponent,
       nzWidth: 1300,
       nzContentParams: {
