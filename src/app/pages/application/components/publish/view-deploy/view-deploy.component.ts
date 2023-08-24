@@ -52,7 +52,7 @@ import {
     ) {}
   
     ngOnInit(): void {
-        console.log(this.release);
+       
     }
 
     public onSelectedIndexChange(index:number){
@@ -61,6 +61,7 @@ import {
            return;
         }
         if(index==1){
+        
           this.valuesToYaml = this.release.valuesToYaml;
       }
         if(index==2){
