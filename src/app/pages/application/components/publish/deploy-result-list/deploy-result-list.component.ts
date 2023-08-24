@@ -95,7 +95,6 @@ export class DeployResultlistComponent implements OnInit {
     });
 
     console.log(release);
-    console.log(release.manifest);
   }
 
   public strategyToTest(strategy: string): string {
