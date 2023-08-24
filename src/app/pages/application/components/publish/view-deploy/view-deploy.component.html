@@ -28,6 +28,18 @@
             </div>
         </div>
     </nz-tab>
+    <nz-tab nzTitle="value.yaml">
+      <div nz-row [nzGutter]="24" #editorValues> 
+          <div  nz-col [nzMd]="24">
+              <ngx-codemirror
+              [(ngModel)]="valuesToYaml"
+              [options]="options"
+              [ngModelOptions]="{standalone: true}" 
+              ngDefaultControl >
+            </ngx-codemirror>
+          </div>
+      </div>
+  </nz-tab>
     <nz-tab nzTitle="参数">
         <div nz-row [nzGutter]="24" #editorConfig> 
             <div  nz-col [nzMd]="24">

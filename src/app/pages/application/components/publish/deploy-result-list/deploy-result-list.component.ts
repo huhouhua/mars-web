@@ -80,8 +80,10 @@ export class DeployResultlistComponent implements OnInit {
           });
         return
     }
+  
     let release = JSON.parse(data.release);
     release.configToYaml = this.toYaml(release.config);
+    release.valuesToYaml = this.toYaml(release.chart.values);
     this.drawerService.create({
       nzTitle: `查看结果`,
       nzContent: ViewAppDeployComponent,

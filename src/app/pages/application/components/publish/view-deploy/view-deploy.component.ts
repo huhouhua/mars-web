@@ -24,6 +24,7 @@ import {
 
     public configToYaml: string = '';
     public notes:string ='';
+    public valuesToYaml:string='';
     public options = {
       lineNumbers: true,
       readOnly: true, // nocursor can not copy
@@ -38,6 +39,8 @@ import {
     @ViewChild('editor') private editorContainer: ElementRef | undefined;
     @ViewChild('editorNotes') private editorContainerNotes: ElementRef | undefined;
     @ViewChild('editorConfig') private editorContainerConfig: ElementRef | undefined;
+    @ViewChild('editorValues') private editorContainerValues: ElementRef | undefined;
+    
     constructor(
       private fb: FormBuilder,
       private modal: NzDrawerRef,
@@ -49,7 +52,7 @@ import {
     ) {}
   
     ngOnInit(): void {
-        
+        console.log(this.release);
     }
 
     public onSelectedIndexChange(index:number){
@@ -58,9 +61,12 @@ import {
            return;
         }
         if(index==1){
+          this.valuesToYaml = this.release.valuesToYaml;
+      }
+        if(index==2){
             this.configToYaml = this.release.configToYaml;
         }
-        if(index==2){
+        if(index==3){
             this.notes = this.release.info.notes;
         }
 
