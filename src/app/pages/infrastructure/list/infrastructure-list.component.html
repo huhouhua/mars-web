@@ -1,12 +1,12 @@
 <nz-page-header class="site-page-header" >
     <nz-breadcrumb nz-page-header-breadcrumb>
       <nz-breadcrumb-item>基础设施</nz-breadcrumb-item>
-      <nz-breadcrumb-item><a>环境列表</a>
+      <nz-breadcrumb-item><a>基础设施列表</a>
       </nz-breadcrumb-item>
     </nz-breadcrumb>
     <nz-page-header-content>
         <button (click)="openCreateEnvModal()" style="margin-bottom:20px" nz-button nzType="primary">
-            <i nz-icon nzType="plus"></i>新建环境
+            <i nz-icon nzType="plus"></i>新建基础设施
           </button>
     </nz-page-header-content>
   </nz-page-header>
@@ -15,7 +15,7 @@
 <div  class="search-div">
      
   <div>
-    <input type="text" nz-input placeholder="请输入环境名称" [(ngModel)]="cacheQueryObject.name" (keyup.enter)="clickSearch()" />
+    <input type="text" nz-input placeholder="请输入基础设施名称" [(ngModel)]="cacheQueryObject.name" (keyup.enter)="clickSearch()" />
   </div>
 
   <div>
@@ -24,14 +24,14 @@
 
 </div>
 
-    <!-- 构建器列表 -->
+    <!-- 基础设施列表 -->
   
     <nz-table
     #basicTable
     nzShowPagination
     nzShowQuickJumper
     nzShowSizeChanger
-    [nzData]="listData.environment_view_models"
+    [nzData]="listData.infrastructure_view_models"
     [nzPageSize]="listData.page_size"
     [nzPageIndex]="listData.page_index"
     [nzTotal]="listData.total_item_count"
@@ -65,7 +65,7 @@
        <td>
         <nz-badge [nzStatus]="statusToText(data.status)"></nz-badge>
        </td>
-       <td>{{ data.runtime }}</td>
+       <td>{{ data.type }}</td>
        <td>{{getNameFunc(data.creation_user_id)}}</td>
        <td>
         {{  data.creation_time }}

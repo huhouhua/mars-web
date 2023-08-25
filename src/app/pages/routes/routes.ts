@@ -14,6 +14,7 @@ import { TemplateConfigComponent } from '../application/components/template/temp
 import {  CreateServiceConfig } from '../application/components/template/service-config/create-service-config/create-service-config.component';
 import { EnvironmentlistComponent } from '../environment/list/environment-list.component';
 import { EditServiceConfig } from '../application/components/template/service-config/edit-service-config/edit-service-config.component';
+import { InfrastructurelistComponent } from '../infrastructure/list/infrastructure-list.component';
 
 export const routes: Routes = [
   {
@@ -74,6 +75,26 @@ export const routes: Routes = [
       }
     ],
   },
+  {
+    path: 'infra',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full',
+      },
+      {
+        path: 'list',
+        component: InfrastructurelistComponent,
+        canActivate: [AuthGuard],
+        data: {
+          title: '基础设施列表',
+        },
+      }
+    ],
+  },
+
   {
     path: 'build',
     component: LayoutComponent,

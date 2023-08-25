@@ -10,14 +10,15 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormBuilder } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from 'src/app/helpers/user.service';
-import { EditEnvironmentComponent } from '../components/edit-env/edit-environment.component';
-import { CreateEnvironmentComponent } from '../components/create-env/create-environment.component';
+import { EditHelmInfrastructureComponent } from '../components/edit-helm-infra/edit-helm-infrastructure.component';
+import { CreateHelmInfrastructureComponent } from '../components/create-infra-helm/create-helm-infrastructure.component';
+
 @Component({
-  selector: 'app-environment-list',
-  templateUrl: './environment-list.component.html',
-  styleUrls: ['./environment-list.component.less'],
+  selector: 'app-infrastructure-list',
+  templateUrl: './infrastructure-list.component.html',
+  styleUrls: ['./infrastructure-list.component.less'],
 })
-export class EnvironmentlistComponent implements OnInit {
+export class InfrastructurelistComponent implements OnInit {
   public loadData: boolean = false;
   public loading: boolean = false;
   public total = 0;
@@ -62,7 +63,7 @@ export class EnvironmentlistComponent implements OnInit {
   public refreshData() {
     this.loading = true;
     this.backendService
-      .getEnvironmentPagedList<ApiResult>(this.cacheQueryObject)
+      .getInfrastructurePagedList<ApiResult>(this.cacheQueryObject)
       .subscribe(
         (res) => {
           if (res.code === ApiResultType.Success) {
@@ -88,14 +89,13 @@ export class EnvironmentlistComponent implements OnInit {
   }
 
   public edit(env: any) {
-    console.log(env);
     this.modal.create({
-      nzTitle: '编辑环境',
-      nzWidth: 750,
+      nzTitle: '编辑helm',
+      nzWidth: 1000,
       nzComponentParams: {
         environmentId: env.id,
       },
-      nzContent: EditEnvironmentComponent,
+      nzContent: EditHelmInfrastructureComponent,
       nzOnOk: (ret) => {
         this.refreshData();
       },
@@ -104,7 +104,7 @@ export class EnvironmentlistComponent implements OnInit {
 
   public remove(env: any) {
     this.loading = true;
-    this.backendService.deleteEnvironment<ApiResult>(env.id).subscribe(
+    this.backendService.deleteInfrastructure<ApiResult>(env.id).subscribe(
       (res) => {
         this.loading = false;
         if (res.code === ApiResultType.Success) {
@@ -120,9 +120,9 @@ export class EnvironmentlistComponent implements OnInit {
 
   public openCreateEnvModal() {
     this.modal.create({
-      nzTitle: '新建环境',
-      nzWidth: 750,
-      nzContent: CreateEnvironmentComponent,
+      nzTitle: '新建helm',
+      nzWidth: 1000,
+      nzContent: CreateHelmInfrastructureComponent,
       nzOnOk: (ret) => {
         this.refreshData();
       },

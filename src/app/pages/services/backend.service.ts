@@ -125,6 +125,39 @@ export class BackendService {
     }
 
 
+    
+    public getInfrastructure<ApiResult>(id:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/infras/${id}`;
+      return this.http.get(url);
+    }
+
+    public getInfrastructureList<ApiResult>(data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/infras/all`;
+      return this.http.get(url,{
+        params:data
+      });
+    }
+    public getInfrastructurePagedList<ApiResult>(data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/infras`;
+      return this.http.get(url,{
+        params:data
+      });
+    }
+    public createInfrastructure<ApiResult>(data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/infras`;
+      return this.http.post(url,data);
+    }
+    
+    public updateInfrastructure<ApiResult>(id:string, data:any) :Observable<any>{
+      const url = `api/${this.apiVersion}/infras/${id}`;
+      return this.http.put(url,data);
+    }
+    public deleteInfrastructure<ApiResult>(id:string) :Observable<any>{
+      const url = `api/${this.apiVersion}/infras/${id}`;
+      return this.http.delete(url);
+    }
+
+
     public getPackageConfig<ApiResult>(id:string) :Observable<any>{
       const url = `api/${this.apiVersion}/packageconfig/${id}`;
       return this.http.get(url,{

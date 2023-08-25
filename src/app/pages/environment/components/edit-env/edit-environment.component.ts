@@ -6,11 +6,11 @@ import { ApiResult, ApiResultType, Member, MemberRole, Option, OptionAny } from 
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-environment-update.component',
-  templateUrl: './update-environment.component.html',
-  styleUrls: ['./update-environment.component.less'],
+  selector: 'app-environment-edit.component',
+  templateUrl: './edit-environment.component.html',
+  styleUrls: ['./edit-environment.component.less'],
 })
-export class UpdateEnvironmentComponent implements OnInit {
+export class EditEnvironmentComponent implements OnInit {
   validateForm!: FormGroup;
   loading:boolean =false;
   environmentId:string='';
@@ -46,8 +46,8 @@ export class UpdateEnvironmentComponent implements OnInit {
       name: ['',Validators.required],
       kubeConfig: ['',Validators.required],
       description: [''],
-      runtime: ["kubernetes"],
-      status: ["running"],
+      runtime: ["kubernetes",Validators.required],
+      status: ["running",Validators.required],
     };
     this.loadEnv();
     this.validateForm = this.fb.group(group);

@@ -63,7 +63,7 @@ import { ServiceConfigList } from './pages/application/components/template/servi
 import { ConfigAdvancedEditComponent } from './pages/application/components/config-advanced-edit/config-advanced-edit.component';
 import {  CreatePublishComponent } from './pages/application/components/publish/create-publish/create-publish.component';
 import { EnvironmentlistComponent } from './pages/environment/list/environment-list.component';
-import { UpdateEnvironmentComponent } from './pages/environment/components/update-env/update-environment.component';
+import { EditEnvironmentComponent } from './pages/environment/components/edit-env/edit-environment.component';
 import { CreateEnvironmentComponent } from './pages/environment/components/create-env/create-environment.component';
 import { PublishReleaseListComponent } from './pages/application/components/publish/publish-release-list/publish-release-list.component';
 import { CreateAppComponent } from './pages/application/components/app/create-app/create-app.component';
@@ -73,6 +73,9 @@ import { EditServiceConfig } from './pages/application/components/template/servi
 import { ViewAppDeployComponent } from './pages/application/components/publish/view-deploy/view-deploy.component';
 import { DeployResultlistComponent } from './pages/application/components/publish/deploy-result-list/deploy-result-list.component';
 import { ViewAppDeployFailComponent } from './pages/application/components/publish/view-deploy-fail/view-deploy-fail.component';
+import { CreateHelmInfrastructureComponent } from './pages/infrastructure/components/create-infra-helm/create-helm-infrastructure.component';
+import { InfrastructurelistComponent } from './pages/infrastructure/list/infrastructure-list.component';
+import { EditHelmInfrastructureComponent } from './pages/infrastructure/components/edit-helm-infra/edit-helm-infrastructure.component';
 
 registerLocaleData(zh);
 
@@ -103,10 +106,15 @@ registerLocaleData(zh);
     ViewAppDeployFailComponent,
     
     EnvironmentlistComponent,
-    UpdateEnvironmentComponent,
+    EditEnvironmentComponent,
     CreateEnvironmentComponent,    
+
+    InfrastructurelistComponent,
+    EditHelmInfrastructureComponent,
+    CreateHelmInfrastructureComponent,    
+
+
     PublishReleaseListComponent,
-    
     PackageConfiglistComponent,
     BuildlistComponent,
     CreateBuildComponent,

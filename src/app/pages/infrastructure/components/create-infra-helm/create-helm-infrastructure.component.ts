@@ -6,20 +6,13 @@ import { ApiResult, ApiResultType, Member, MemberRole, Option, OptionAny } from 
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-environment-create.component',
-  templateUrl: './create-environment.component.html',
-  styleUrls: ['./create-environment.component.less'],
+  selector: 'app-helm-infrastructure-create.component',
+  templateUrl: './create-helm-infrastructure.component.html',
+  styleUrls: ['./create-helm-infrastructure.component.less'],
 })
-export class CreateEnvironmentComponent implements OnInit {
+export class CreateHelmInfrastructureComponent implements OnInit {
   validateForm!: FormGroup;
   loading:boolean =false;
-
-  public typeList: Option[] = [
-    {
-      value: 0,
-      name: 'kubernetes',
-    },
-  ];
   public status: OptionAny[] = [
     {
       value: 'running',
@@ -44,35 +37,40 @@ export class CreateEnvironmentComponent implements OnInit {
   ngOnInit(): void {
     const group = {
       name: ['',Validators.required],
-      kubeConfig: ['',Validators.required],
+      repoName: ['',Validators.required],
+      repoUrl: ['',Validators.required],
+      repoUsername: [''],
+      repoPassword: [''],
+      insecure_skip_tls_verify: ["true"],
       description: [''],
-      runtime: ["kubernetes",Validators.required],
       status: ["running",Validators.required],
+      type: ["helm"],
     };
     this.validateForm = this.fb.group(group);
   }
   
   public getMetaData():any{
-    let v= this.validateForm.value;
+    let value= this.validateForm.value;
     let metadata = {
-        kube_config:v.kubeConfig,
+      name:value.repoName,
+      url:value.repoUrl,
+      username:value.repoUsername,
+      password:value.repoPassword,
+      insecure_skip_tls_verify:value.insecure_skip_tls_verify,
     }
     return metadata
   }
-  
   get data():any{
     let v= this.validateForm.value;
     v.meta_data= JSON.stringify(this.getMetaData())
     return v
   }
-
-
   onCancel() {
     this.modal.triggerCancel();
   }
   submitForm() {
     this.loading = true;
-    this.backendService.createEnvironment<ApiResult>(this.data).subscribe(res=>{
+    this.backendService.createInfrastructure<ApiResult>(this.data).subscribe(res=>{
       this.loading = false;
       if (res.code === ApiResultType.Success) {
         this.notification.success('提示',"创建成功!");

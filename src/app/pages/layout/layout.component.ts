@@ -38,17 +38,34 @@ export class LayoutComponent  implements OnInit{
           children:[]=[],
           breadcrumb:[] =[],
         },
-        {
-          name: "环境列表",
-          icon:"",
-          isOpen: true,
-          router:"/env/list",
-          children:[]=[],
-          breadcrumb:[] =[],
-        }
       ]
     };
 
+    const infra = {
+      name: "基础设施",
+      icon:"dot-chart",
+      isOpen: true,
+      router:"",
+      breadcrumb:[] =[],
+      children:[
+        {
+      name: "环境列表",
+      icon:"",
+      isOpen: true,
+      router:"/env/list",
+      children:[]=[],
+      breadcrumb:[] =[],
+      },
+      {
+        name: "基础设施列表",
+        icon:"",
+        isOpen: true,
+        router:"/infra/list",
+        children:[]=[],
+        breadcrumb:[] =[],
+        }
+      ]
+    };
 
 
     // const tool = {
@@ -98,6 +115,7 @@ export class LayoutComponent  implements OnInit{
     // };
     const arr = new Array<Menu>();
     arr.push(app)
+    arr.push(infra)
 
     // arr.push(tool)
     // arr.push(test)

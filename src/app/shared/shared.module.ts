@@ -49,6 +49,7 @@ import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import {  NzImageModule } from 'ng-zorro-antd/image';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @NgModule({
   imports: [
@@ -96,7 +97,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     NzTimelineModule,
     NzCalendarModule,
     NzImageModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzRadioModule
   ],
   declarations: [
     PageNotFoundComponent,
@@ -145,7 +147,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     PageNotFoundComponent,
     NzCalendarModule,
     NzImageModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzRadioModule
   ],
   providers: [],
 })
