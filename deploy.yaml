@@ -6,7 +6,7 @@ metadata:
   namespace: mars
 spec:
   rules:
-  - host: mars.ruijie.com
+  - host: mars.preview.ruijie.com
     http:
       paths:
       - path: /
