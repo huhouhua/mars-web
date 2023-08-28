@@ -7,10 +7,10 @@
       </nz-input-group>
     </nz-form-control>
 
-    <nz-form-label  nzSpan="3" nzFor="repoName" nzRequired> 仓库名称 </nz-form-label>
+    <nz-form-label  nzSpan="3" nzFor="repoName"> 仓库名称 </nz-form-label>
     <nz-form-control  nzSpan="8" >
       <nz-input-group   >
-        <input nz-input formControlName="repoName"   name="repoName"   maxlength="15"  minlength="1" placeholder="请输入仓库名称" />
+        <input nz-input formControlName="repoName"    name="repoName"    minlength="1" placeholder="请输入仓库名称" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -32,10 +32,18 @@
     <nz-form-item class="mb-sm">
 
       <nz-form-label  nzSpan="3" nzFor="runtime" > 仓库登录密码 </nz-form-label>
-      <nz-form-control  nzSpan="8" >
-        <nz-input-group   >
-          <input nz-input formControlName="repoPassword"   name="repoPassword"     minlength="1" placeholder="请输入仓库登录密码" />
+      <nz-form-control  nzSpan="8"  >
+        <nz-input-group  [nzSuffix]="suffixTemplate">
+          <input nz-input formControlName="repoPassword" 
+           [type]="passwordVisible ? 'text' : 'password'"  name="repoPassword"     minlength="1" placeholder="请输入仓库登录密码" />
         </nz-input-group>
+        <ng-template #suffixTemplate>
+          <span
+            nz-icon
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+          ></span>
+        </ng-template>
       </nz-form-control>
       <nz-form-label  nzSpan="3" nzFor="status" nzRequired> 状态 </nz-form-label>
       <nz-form-control  nzSpan="8" >
@@ -51,8 +59,8 @@
     <nz-form-label  nzSpan="3" nzFor="status">是否跳过TLS验证</nz-form-label>
     <nz-form-control  nzSpan="8" >
       <nz-radio-group  formControlName="insecure_skip_tls_verify">
-        <label nz-radio nzValue="true">是</label>
-        <label nz-radio nzValue="false">否</label>
+        <label nz-radio [nzValue]="true">是</label>
+        <label nz-radio [nzValue]="false">否</label>
       </nz-radio-group>
     </nz-form-control>
 

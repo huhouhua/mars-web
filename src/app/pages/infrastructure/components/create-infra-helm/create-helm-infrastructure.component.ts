@@ -13,6 +13,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class CreateHelmInfrastructureComponent implements OnInit {
   validateForm!: FormGroup;
   loading:boolean =false;
+  passwordVisible:boolean =false;
   public status: OptionAny[] = [
     {
       value: 'running',
@@ -41,7 +42,7 @@ export class CreateHelmInfrastructureComponent implements OnInit {
       repoUrl: ['',Validators.required],
       repoUsername: [''],
       repoPassword: [''],
-      insecure_skip_tls_verify: ["true"],
+      insecure_skip_tls_verify: [true],
       description: [''],
       status: ["running",Validators.required],
       type: ["helm"],

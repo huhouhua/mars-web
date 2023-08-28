@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { BackendService } from 'src/app/pages/services/backend.service';
 import { ApiResult, ApiResultType, Member, MemberRole, Option, OptionAny } from 'src/app/shared/common.type';
@@ -14,6 +14,7 @@ import { assign } from 'lodash-es';
 export class EditHelmInfrastructureComponent implements OnInit {
   validateForm!: FormGroup;
   loading:boolean =false;
+  passwordVisible:boolean =false;
   environmentId:string='';
   public status: OptionAny[] = [
     {
@@ -39,11 +40,14 @@ export class EditHelmInfrastructureComponent implements OnInit {
   ngOnInit(): void {
     const group = {
       name: ['',Validators.required],
-      repoName: ['',Validators.required],
+      repoName:new FormControl({
+         value:'',
+         disabled:true
+      }),
       repoUrl: ['',Validators.required],
       repoUsername: [''],
       repoPassword: [''],
-      insecure_skip_tls_verify: ["true"],
+      insecure_skip_tls_verify: [true],
       description: [''],
       status: ["running",Validators.required]
     };
