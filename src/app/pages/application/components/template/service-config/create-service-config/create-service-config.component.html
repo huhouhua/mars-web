@@ -70,15 +70,21 @@
     <nz-form-item class="mb-sm">
       <nz-form-label  nzSpan="3" nzFor="respository" nzRequired> 仓库地址 </nz-form-label>
       <nz-form-control  nzSpan="8" >
-        <nz-input-group  >
-          <input nz-input formControlName="respository"  nzSize="small" name="respository"    minlength="1" placeholder="请输入仓库地址" />
+        <nz-input-group>
+          <nz-select formControlName="respository" [nzShowSearch]="true" [nzLoading]="loading" (ngModelChange)="onRepoChange($event)"  nzPlaceHolder="请选择仓库地址">
+            <nz-option [nzLabel]="t.repo_url" [nzValue]="t.id" *ngFor="let t of helmRepo">
+            </nz-option>
+          </nz-select>
         </nz-input-group>
       </nz-form-control>
 
-      <nz-form-label  nzSpan="3" nzFor="package_name" nzRequired> 包名 </nz-form-label>
+      <nz-form-label  nzSpan="3" nzFor="package_name" nzRequired> 包 </nz-form-label>
       <nz-form-control  nzSpan="8" >
         <nz-input-group  >
-          <input nz-input formControlName="package_name"  nzSize="small" name="package_name"   placeholder="请输入包名" />
+          <nz-select formControlName="package_name"   [nzShowSearch]="true"  [nzLoading]="chartSelectLoading" (ngModelChange)="onChartsChange($event)"  nzPlaceHolder="请选择包">
+            <nz-option [nzLabel]="t.Key" [nzValue]="t.Key" *ngFor="let t of selectedChartList">
+            </nz-option>
+          </nz-select>
         </nz-input-group>
       </nz-form-control>
 
@@ -87,7 +93,10 @@
       <nz-form-label  nzSpan="3" nzFor="version" nzRequired> 版本 </nz-form-label>
       <nz-form-control  nzSpan="8" >
         <nz-input-group  >
-          <input nz-input formControlName="version"  nzSize="small" name="version"   placeholder="请输入版本号" />
+          <nz-select formControlName="version"   [nzShowSearch]="true"  [nzLoading]="chartSelectLoading" (ngModelChange)="onChartsChange($event)"  nzPlaceHolder="请选择版本号">
+            <nz-option [nzLabel]="t.version" [nzValue]="t.version" *ngFor="let t of selectedVersionList">
+            </nz-option>
+          </nz-select>
         </nz-input-group>
       </nz-form-control>
       <nz-form-label  nzSpan="3" nzFor="namespace" nzRequired> 命名空间 </nz-form-label>

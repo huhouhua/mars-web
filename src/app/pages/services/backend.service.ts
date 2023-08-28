@@ -25,6 +25,14 @@ export class BackendService {
       return this.http.post(url,{});
     }
 
+    public getAllCharts<ApiResult>(data:any):Observable<any>{
+      const url = `api/resources/helm/charts`;
+      return this.http.get(url,
+        {
+          params:data
+        });
+    }
+
     public getProjecBuildFileFromGitlab<ApiResult>(projectId:string, branchName:string) :Observable<any>{
       const url = `api/${this.apiVersion}/gitlab/project/${projectId}/file/build`;
       return this.http.get(url,

@@ -24,24 +24,11 @@ export class CreateServiceConfig implements OnInit {
   templateId: string = '';
   app_id:string =''
   validateForm!: FormGroup;
+  public helmRepo:any[] =[];
   public listOfControl: any[] = [];
-
-  loading = false;
-  constructor(
-    private fb: FormBuilder,
-    // private modal: NzModalRef,
-    private msgSrv: NzMessageService,
-    private notification: NzNotificationService,
-    private backendService: BackendService,
-    private activeRouter: ActivatedRoute,
-    private drawerService: NzDrawerService,
-    private metadataService: MetadataService,
-
-    private router: Router
-  ) {
-    removeBodyStyle();
-  }
-
+  public selectedChartList:any[] =[];
+  public selectedVersionList:any[] =[];
+  public chartMap: Map<string,any[]> = new Map<string, any[]>()
   public strategyList: OptionAny[] = [
     {
       value: 'recreate',
@@ -56,7 +43,24 @@ export class CreateServiceConfig implements OnInit {
       name: 'failureIgnore(创建失败忽略)',
     },
   ];
+  public loading = false;
+  public chartSelectLoading = false;
+  constructor(
+    private fb: FormBuilder,
+    // private modal: NzModalRef,
+    private msgSrv: NzMessageService,
+    private notification: NzNotificationService,
+    private backendService: BackendService,
+    private activeRouter: ActivatedRoute,
+    private drawerService: NzDrawerService,
+    private metadataService: MetadataService,
+
+    private router: Router
+  ) {
+    removeBodyStyle();
+  }
   ngOnInit() {
+    this.loadRepoList();
     this.templateId =
     this.activeRouter.snapshot.paramMap.get('templateId') ?? '';
     this.app_id = this.activeRouter.snapshot.queryParamMap.get('app_id') ?? '';
@@ -81,10 +85,72 @@ export class CreateServiceConfig implements OnInit {
     );
   }
 
+  private loadRepoList(){
+    this.loading = true;
+    this.backendService.getInfrastructureList<ApiResult>({
+      status:"running",
+      type:"helm"
+    }).subscribe(res=>{
+      this.loading = false;
+      if (res.code === ApiResultType.Success) {
+        let model = res.data.infrastructure_view_models;
+         if(model!=null){
+          this.helmRepo = res.data.infrastructure_view_models
+         }
+      }
+    },err=>{
+      this.loading = false;
+    });
+  }
+
 public initParam(){
   if(this.listOfControl.length==0){
     this.addField(undefined,null)
   }
+}
+
+public onRepoChange(infraId:string){
+    if (this.chartMap.has(infraId)){
+      let cacheList = this.chartMap.get(infraId) as any[]
+      if(cacheList.length>0){
+        this.validateForm.get('package_name')?.setValue(cacheList[0].Key)
+      }else{
+        this.validateForm.get('package_name')?.setValue('')
+      }
+        this.selectedChartList =cacheList
+        return
+    }
+    let infra = this.helmRepo.find(q=>q.id == infraId)
+    this.chartSelectLoading = true;
+    this.backendService.getAllCharts<ApiResult>({
+      repo_name:infra.repo
+    }).subscribe(res=>{
+      this.chartSelectLoading = false;
+      if (res.code === ApiResultType.Success) {
+        this.chartMap.set(infraId,res.data)
+        this.selectedChartList = res.data;
+        if(res.data.length>0){
+          this.validateForm.get('package_name')?.setValue(res.data[0].Key)
+        }else{
+          this.validateForm.get('package_name')?.setValue('')
+        }
+      }
+    },err=>{
+      this.chartSelectLoading = false;
+    });
+}
+
+public onChartsChange(key:string){  
+   let charts = this.selectedChartList.find(q=>q.Key == key)
+    if(charts==undefined){
+      return
+    }
+    if(charts.Group.length>0){
+      this.validateForm.get('version')?.setValue(charts.Group[0].version)
+    }else{
+      this.validateForm.get('version')?.setValue('')
+    }
+    this.selectedVersionList = charts.Group;
 }
   public addField(e?: MouseEvent, value?: any):number {
     if (e) {
@@ -112,7 +178,6 @@ public initParam(){
     this.listOfControl = [...this.listOfControl];
       return Number(newId);
   }
-
     
   public removeField(value: any, e: MouseEvent): void {
     e.preventDefault();
