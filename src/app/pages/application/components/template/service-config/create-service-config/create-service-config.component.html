@@ -93,7 +93,7 @@
       <nz-form-label  nzSpan="3" nzFor="version" nzRequired> 版本 </nz-form-label>
       <nz-form-control  nzSpan="8" >
         <nz-input-group  >
-          <nz-select formControlName="version"   [nzShowSearch]="true"  [nzLoading]="chartSelectLoading" (ngModelChange)="onChartsChange($event)"  nzPlaceHolder="请选择版本号">
+          <nz-select formControlName="version"   [nzShowSearch]="true"  [nzLoading]="chartSelectLoading" (ngModelChange)="onVersionChange($event,'')"  nzPlaceHolder="请选择版本号">
             <nz-option [nzLabel]="t.version" [nzValue]="t.version" *ngFor="let t of selectedVersionList">
             </nz-option>
           </nz-select>
@@ -116,8 +116,18 @@
   <p>
     部署时，设置额外的参数
   </p>
-
-  <nz-table #nzTable [nzData]="listOfControl" [nzLoading]="loading" [nzPageSize]="1000" nzSize="middle"
+  <nz-form-item class="mb-sm">
+    <nz-form-label  nzSpan="5" nzFor="config_mode"> 参数配置方式 </nz-form-label>
+    <nz-form-control  nzSpan="12" >
+      <nz-input-group  >
+      <nz-select formControlName="config_mode"   (ngModelChange)="onConfigModeChange($event)"  nzPlaceHolder="请选择参数配置方式">
+        <nz-option [nzLabel]="t.name" [nzValue]="t.value" *ngFor="let t of configModeList">
+        </nz-option>
+      </nz-select>
+    </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-table #nzTable [nzData]="listOfControl"  *ngIf="configMode==0"  [nzLoading]="loading" [nzPageSize]="1000" nzSize="middle"
   [nzShowPagination]="false" [nzHideOnSinglePage]="true">
   <thead>
     <tr>
@@ -163,7 +173,47 @@
 </tr>
   </tbody>
 </nz-table>
+<div *ngIf="configMode==1"> 
+  <nz-tabset (nzSelectedIndexChange)="onSelectedIndexChange($event)">
+    <nz-tab nzTitle="template.yaml">
+      <div  nz-row [nzGutter]="24">
+        <div  nz-col [nzMd]="24">
+          <ngx-codemirror
+          [(ngModel)]="templateYaml"
+          [options]="optionReadOnly"
+          [ngModelOptions]="{standalone: true}" 
+          ngDefaultControl >
+        </ngx-codemirror>
+      </div>
+      </div>
+    </nz-tab>
+    <nz-tab nzTitle="values.yaml">
+      <div  nz-row [nzGutter]="24">
+        <div  nz-col [nzMd]="24">
+          <ngx-codemirror
+          [(ngModel)]="valuesYaml"
+          [options]="optionReadOnly"
+          [ngModelOptions]="{standalone: true}" 
+          ngDefaultControl >
+        </ngx-codemirror>
+      </div>
+      </div>
+    </nz-tab>
+    <nz-tab nzTitle="参数">
+      <div  nz-row [nzGutter]="24">
+        <div  nz-col [nzMd]="24">
+          <ngx-codemirror
+          [(ngModel)]="configYaml"
+          [options]="options"
+          [ngModelOptions]="{standalone: true}" 
+          ngDefaultControl >
+        </ngx-codemirror>
+      </div>
+      </div>
+    </nz-tab>
+  </nz-tabset>
 
+</div>
 </div>
 <footer-toolbar errorCollect>
   <button nz-button   style="  margin-left: 30px;" [nzLoading]="loading" (click)="cancel()">取消</button>

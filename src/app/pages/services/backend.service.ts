@@ -32,7 +32,13 @@ export class BackendService {
           params:data
         });
     }
-
+    public getChart<ApiResult>(repoName:string, data:any):Observable<any>{
+      const url = `api/resources/helm/charts/${repoName}`;
+      return this.http.get(url,
+        {
+          params:data
+        });
+    }
     public getProjecBuildFileFromGitlab<ApiResult>(projectId:string, branchName:string) :Observable<any>{
       const url = `api/${this.apiVersion}/gitlab/project/${projectId}/file/build`;
       return this.http.get(url,

@@ -16,7 +16,7 @@
 </div>
 
 <nz-tabset (nzSelectedIndexChange)="onSelectedIndexChange($event)">
-    <nz-tab nzTitle="清单">
+    <nz-tab nzTitle="templates.yaml">
         <div nz-row [nzGutter]="24" #editor> 
             <div  nz-col [nzMd]="24">
                 <ngx-codemirror
@@ -40,11 +40,11 @@
           </div>
       </div>
   </nz-tab>
-    <nz-tab nzTitle="参数">
+    <nz-tab nzTitle="运行参数">
         <div nz-row [nzGutter]="24" #editorConfig> 
             <div  nz-col [nzMd]="24">
                 <ngx-codemirror
-                [(ngModel)]="configToYaml"
+                [(ngModel)]="providerYaml"
                 [options]="options"
                 [ngModelOptions]="{standalone: true}" 
                 ngDefaultControl >

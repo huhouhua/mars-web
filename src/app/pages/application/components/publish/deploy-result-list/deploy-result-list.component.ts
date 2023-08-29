@@ -66,8 +66,11 @@ export class DeployResultlistComponent implements OnInit {
       });
   }
   public view(data:any) {
+    let provider  = JSON.parse(data.svc.provider);
+    provider.repo_username
+    provider.repo_password="*********"
+
     if(data.status ==1){
-        let provider  = JSON.parse(data.svc.provider);
         this.drawerService.create({
             nzTitle: `查看元数据`,
             nzContent: ViewAppDeployFailComponent,
@@ -90,6 +93,7 @@ export class DeployResultlistComponent implements OnInit {
       nzWidth: 1300,
       nzContentParams: {
         release: release,
+        providerToYaml: this.toYaml(provider),
       },
       nzPlacement: 'right',
     });

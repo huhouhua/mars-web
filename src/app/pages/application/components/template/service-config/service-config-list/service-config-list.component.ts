@@ -44,9 +44,9 @@ export class ServiceConfigList implements OnInit {
         this.backendService.getAppTemplateServiceList<ApiResult>(this.templateId).subscribe(res => {
           this.loading = false;
           if (res.code === ApiResultType.Success) {
-            if(res.data.application_service_view_model!=null){
-              this.listData = res.data.application_service_view_model;
-            }
+            let list = res.data.application_service_view_model
+
+            this.listData = list == null ? [] : list;
           }
         });
 
