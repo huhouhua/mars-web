@@ -21,8 +21,8 @@ import {
   })
   export class ViewAppDeployComponent implements OnInit {
     @Input() release!: any;
-
-    public configToYaml: string = '';
+    @Input() providerToYaml!: string;
+    public providerYaml: string='';
     public notes:string ='';
     public valuesToYaml:string='';
     public options = {
@@ -34,6 +34,7 @@ import {
       theme: 'material',
       //cursorBlinkRate: 500 // hide cursor
     };
+
     private indexArray:number[] =[];
     public loading = false;
     @ViewChild('editor') private editorContainer: ElementRef | undefined;
@@ -49,7 +50,9 @@ import {
       private router: Router,
       private eventBus: NgEventBus,
       private changeDetector: ChangeDetectorRef
-    ) {}
+    ) {
+      this.providerYaml = this.providerToYaml;
+    }
   
     ngOnInit(): void {
        
@@ -61,11 +64,10 @@ import {
            return;
         }
         if(index==1){
-        
           this.valuesToYaml = this.release.valuesToYaml;
       }
         if(index==2){
-            this.configToYaml = this.release.configToYaml;
+            this.providerYaml = this.providerToYaml;
         }
         if(index==3){
             this.notes = this.release.info.notes;
