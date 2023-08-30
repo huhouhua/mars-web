@@ -31,7 +31,8 @@
         <nz-form-label nzSpan="3"  nzFor="history_version_id" nzRequired>历史版本</nz-form-label>
         <nz-form-control nzSpan="19"  >
                 <nz-select formControlName="history_version_id"  nzPlaceHolder="请选择历史版本">
-                  <nz-option  [nzLabel]="t.version" [nzValue]="t.id" *ngFor="let t of history">
+                  <nz-option nzCustomContent   [nzValue]="t.id" *ngFor="let t of history">
+                   <span>{{t.version}}  ({{ format(t.creation_time) }})</span>
                   </nz-option>
                 </nz-select>
         </nz-form-control>

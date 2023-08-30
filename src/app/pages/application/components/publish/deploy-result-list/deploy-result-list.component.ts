@@ -14,13 +14,14 @@ import { ViewAppDeployComponent } from '../view-deploy/view-deploy.component';
 import * as YAML from 'js-yaml';
 import { ViewAppDeployFailComponent } from '../view-deploy-fail/view-deploy-fail.component';
 import { cloneDeep, uniq, uniqBy } from 'lodash-es';
+import { BackendService } from 'src/app/pages/services/backend.service';
 @Component({
   selector: 'app-deploy-list',
   templateUrl: './deploy-result-list.component.html',
   styleUrls: ['./deploy-result-list.component.less'],
 })
 export class DeployResultlistComponent implements OnInit {
-  @Input() public deployResult: [] = [];
+  @Input() public Id!: string;
   public loadData: boolean = false;
   public loading: boolean = false;
   public total = 0;
@@ -37,6 +38,7 @@ export class DeployResultlistComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modal: NzModalService,
+    private backendService: BackendService,
     private notification: NzNotificationService,
     private router: Router,
     private changeDetector: ChangeDetectorRef,
@@ -44,13 +46,12 @@ export class DeployResultlistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listData.list = this.deployResult.sort((a:any,b:any)=>a.svc.priority-b.svc.priority);
-    this.listData.total = this.deployResult.length;
-    this.cacheListData = cloneDeep( this.listData)
+      this.loadDeploy();
   }
   public clickSearch() {
     if(this.name.trim()==''){
         this.listData = cloneDeep(this.cacheListData)
+        this.total = this.cacheListData.total;
         return;
     }
     let list =  this.cacheListData.list.filter((a:any)=>{
@@ -58,8 +59,31 @@ export class DeployResultlistComponent implements OnInit {
      })
      this.listData.list =  list;
      this.listData.total = list.length;
+     this.total= list.length;
   }
 
+  private loadDeploy(){
+    this.loading = true;
+    this.backendService
+      .getPublishResult<ApiResult>(this.Id)
+      .subscribe(
+        (res) => {
+          if (res.code === ApiResultType.Success) {
+            let deployArray =JSON.parse(res.data.deploy_Result) as Array<any>
+            this.listData.list = deployArray.sort((a:any,b:any)=>a.svc.priority-b.svc.priority);
+            this.listData.total = deployArray.length;
+            this.total = deployArray.length;
+            this.cacheListData = cloneDeep(this.listData)
+          }
+          this.loading = false;
+          this.changeDetector.detectChanges();
+        },
+        (err) => {
+          this.loading = false;
+        }
+      );
+  }
+  
   private toYaml(str:string):string{
    return YAML.dump(str, {
         lineWidth: 5000,

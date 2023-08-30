@@ -312,12 +312,16 @@ export class BackendService {
       }
 
       public getPublishHistoryList<ApiResult>(templateId:string, data:any):Observable<any> {
-        const url = `api/${this.apiVersion}/app-releases/historys/${templateId}`;
+        const url = `api/${this.apiVersion}/app-releases/versions/${templateId}`;
         return this.http.get(url,{
           params:data
         });
       }
 
+      public getPublishResult<ApiResult>(id:string):Observable<any> {
+        const url = `api/${this.apiVersion}/app-releases/deploy/${id}`;
+        return this.http.get(url);
+      }
       
       public getPublishHistoryPageList<ApiResult>(appId:string, data:any):Observable<any> {
         const url = `api/${this.apiVersion}/app-releases/${appId}`;

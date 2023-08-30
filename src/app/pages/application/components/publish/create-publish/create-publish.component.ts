@@ -5,6 +5,7 @@ import { BackendService } from 'src/app/pages/services/backend.service';
 import { ApiResult, ApiResultType, Member, MemberRole, Option } from 'src/app/shared/common.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NgEventBus } from 'ng-event-bus';
+import { dateFormat } from 'src/app/shared/util/util';
 
 @Component({
   selector: 'app-create-publish',
@@ -41,11 +42,13 @@ export class CreatePublishComponent implements OnInit {
     this.validateForm = this.fb.group(group);
     this.getEnvList();
     this.getHistoryList();
+    
   }
   
-  public onSelect(e:any){
-
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
   }
+
   public getEnvList(){
     this.loading = true;
     this.backendService.getEnvironmentList<ApiResult>({
@@ -67,7 +70,7 @@ public getHistoryList(){
   }).subscribe(res => {
      this.loading = false;
     if (res.code === ApiResultType.Success) {
-      this.history = res.data.publish_history_view_models;
+      this.history = res.data.version_view_models;
     }
   },err=>{
     this.loading = false;

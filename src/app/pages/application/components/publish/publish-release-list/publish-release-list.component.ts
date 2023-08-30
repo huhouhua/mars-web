@@ -183,13 +183,14 @@ import { DeployResultlistComponent } from '../deploy-result-list/deploy-result-l
       this.onShowBuildLog.emit(history);
     }
   
-    public view(history:any){
+    public view(historyId:string){
       this.drawerService.create({
         nzTitle: `发布清单`,
         nzContent: DeployResultlistComponent,
         nzWidth: 1300,
         nzContentParams:{
-          deployResult:JSON.parse(history.deploy_Result) as []
+          Id:historyId
+          // deployResult:JSON.parse(history.deploy_Result) as []
         },
         nzPlacement:"right"
       });

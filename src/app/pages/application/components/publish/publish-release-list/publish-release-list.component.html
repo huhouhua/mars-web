@@ -56,35 +56,9 @@ nzFrontPagination="false"
  <td>{{data.env_name}}</td>
  <td>{{ getNameFunc(data.creation_user_id)}}</td>
  <td>{{ data.creation_time}}</td>
- <!-- <td>
-  <div class="stage-td">
-    <div>
-      <div *ngIf="data.status === 0 || data.status === 1 || data.status === 2">
-        <i nz-icon nzType="right-circle" nzTheme="twotone" [nzTwotoneColor]="'#999'" [title]="data.statusDescription"></i>
-      </div>
-      <div  *ngIf="data.status === 3 || data.status ===4" (click)="showBuildLog(data)" class="cursor-pointer">
-        <i
-          *ngIf="data.status === 3"
-          nz-icon
-          nzType="sync"
-          nzTheme="outline"
-          [nzSpin]="true"
-          [title]="data.statusDescription"></i>
-
-          <i
-          *ngIf="data.status === 4"
-          nz-icon
-          nzType="check-circle"
-          nzTheme="twotone"
-          [nzTwotoneColor]="'#52c41a'"
-          [title]="data.statusDescription"></i>
-      </div>
-    </div>
-  </div>
- </td> -->
   <td nzRight="0px">
     <nz-divider nzType="vertical"></nz-divider>
-     <a  (click)="view(data)">查看</a>
+     <a  (click)="view(data.id)">查看</a>
     <nz-divider nzType="vertical"></nz-divider>
   </td>
 </tr>
