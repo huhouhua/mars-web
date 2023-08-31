@@ -12,6 +12,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from 'src/app/helpers/user.service';
 import { EditEnvironmentComponent } from '../components/edit-env/edit-environment.component';
 import { CreateEnvironmentComponent } from '../components/create-env/create-environment.component';
+import { dateFormat } from 'src/app/shared/util/util';
 @Component({
   selector: 'app-environment-list',
   templateUrl: './environment-list.component.html',
@@ -86,7 +87,9 @@ export class EnvironmentlistComponent implements OnInit {
     this.cacheQueryObject.page_index = pageIndex;
     this.refreshData();
   }
-
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
+  }
   public edit(env: any) {
     console.log(env);
     this.modal.create({

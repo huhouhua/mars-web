@@ -14,6 +14,7 @@ import {
   import { BackendService } from 'src/app/pages/services/backend.service';
   import * as YAML from 'js-yaml';
   import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { dateFormat } from 'src/app/shared/util/util';
   @Component({
     selector: 'app-view-deploy',
     templateUrl: './view-deploy.component.html',
@@ -79,7 +80,9 @@ import {
     cancel() {
       this.modal.close();
     }
-    
+    public format(dateStr:any):string{
+      return dateFormat(dateStr);
+    }
     scrollEditorToTop() {
       try {
         if (this.editorContainer) {

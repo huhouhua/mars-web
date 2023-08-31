@@ -12,6 +12,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from 'src/app/helpers/user.service';
 import { EditHelmInfrastructureComponent } from '../components/edit-helm-infra/edit-helm-infrastructure.component';
 import { CreateHelmInfrastructureComponent } from '../components/create-infra-helm/create-helm-infrastructure.component';
+import { dateFormat } from 'src/app/shared/util/util';
 
 @Component({
   selector: 'app-infrastructure-list',
@@ -47,7 +48,9 @@ export class InfrastructurelistComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.refreshData();
   }
-
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
+  }
   /**
    * 用户 id 转换 用户名字
    * @param id

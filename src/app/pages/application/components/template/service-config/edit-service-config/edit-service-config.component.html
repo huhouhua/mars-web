@@ -174,12 +174,13 @@
    </tr>
      </tbody>
    </nz-table>
-   <div *ngIf="configMode==1"> 
+   <div > 
     <nz-tabset>
-      <nz-tab nzTitle="template.yaml">
+      <nz-tab nzTitle="template.yaml" nzForceRender="true">
         <div  nz-row [nzGutter]="24">
           <div  nz-col [nzMd]="24">
             <ngx-codemirror
+            class="template-yaml"
             [(ngModel)]="templateYaml"
             [options]="optionReadOnly"
             [ngModelOptions]="{standalone: true}" 
@@ -188,10 +189,11 @@
         </div>
         </div>
       </nz-tab>
-      <nz-tab nzTitle="values.yaml">
+      <nz-tab nzTitle="values.yaml" nzForceRender="true">
         <div  nz-row [nzGutter]="24">
           <div  nz-col [nzMd]="24">
             <ngx-codemirror
+            class="template-yaml"
             [(ngModel)]="valuesYaml"
             [options]="optionReadOnly"
             [ngModelOptions]="{standalone: true}" 
@@ -200,10 +202,59 @@
         </div>
         </div>
       </nz-tab>
-      <nz-tab nzTitle="参数">
-        <div  nz-row [nzGutter]="24">
+      <nz-tab nzTitle="参数" nzForceRender="true" *ngIf="configMode==0"  >
+        <nz-table #nzTable [nzData]="listOfControl" *ngIf="configMode==0"  [nzLoading]="loading" [nzPageSize]="1000" nzSize="middle"
+        [nzShowPagination]="false" [nzHideOnSinglePage]="true">
+        <thead>
+          <tr>
+            <th>key</th>
+            <th>value</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let control of nzTable.data; let i = index">
+            <td>
+              <nz-form-item class="mb-sm">
+              <nz-form-control nzErrorTip="key">
+                 <input  nz-input  formControlName="{{ control.controlValue.id+'_key' }}"  >
+              </nz-form-control>
+              </nz-form-item>
+            </td>
+            <td>
+              <nz-form-item class="mb-sm">
+              <nz-form-control nzErrorTip="value">
+                 <input  nz-input  formControlName="{{ control.controlValue.id+'_value' }}"  >
+              </nz-form-control>
+              </nz-form-item>
+            </td>
+              <td>
+                <div class="delete-div">
+                    <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+                 
+                </div>
+              </td>
+          </tr>
+          <tr> 
+         <td colSpan="5">
+          <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="dashed" [nzLoading]="loading" class="add-button" (click)="addField($event)">
+                    <i nz-icon nzType="plus"></i>
+                    添加
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+         </td>
+      </tr>
+        </tbody>
+      </nz-table>
+      </nz-tab>
+      <nz-tab nzTitle="参数" nzForceRender="true" *ngIf="configMode==1">
+        <div  nz-row [nzGutter]="24" >
           <div  nz-col [nzMd]="24">
             <ngx-codemirror
+            class="config-yaml"
             [(ngModel)]="configYaml"
             [options]="options"
             [ngModelOptions]="{standalone: true}" 

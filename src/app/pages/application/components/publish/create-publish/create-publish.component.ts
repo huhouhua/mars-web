@@ -62,7 +62,7 @@ export class CreatePublishComponent implements OnInit {
       this.loading = false;
     });
 }
-  
+
 public getHistoryList(){
   this.loading = true;
   this.backendService.getPublishHistoryList<ApiResult>(this.templateId, {

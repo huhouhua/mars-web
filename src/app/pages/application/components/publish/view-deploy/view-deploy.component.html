@@ -10,8 +10,8 @@
         <nz-descriptions-item nzTitle="chart">{{release.chart.metadata.name}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="chartVersion">{{release.chart.metadata.version}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="appVersion">{{release.chart.metadata.appVersion}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="第一次部署时间">{{release.info.first_deployed}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="最后一次部署时间">{{release.info.last_deployed}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="第一次部署时间">{{format(release.info.first_deployed)}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最后一次部署时间">{{format(release.info.last_deployed)}}</nz-descriptions-item>
     </nz-descriptions>
 </div>
 

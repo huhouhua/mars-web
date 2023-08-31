@@ -14,6 +14,7 @@ import { ApiResult, ApiResultType } from 'src/app/shared/common.type';
 import { Option } from 'src/app/shared/common.type';
 import { UserService } from 'src/app/helpers/user.service';
 import { removeBodyStyle } from 'src/app/shared/help';
+import { dateFormat } from 'src/app/shared/util/util';
 
 interface Application {
   id?:string
@@ -67,6 +68,10 @@ export class AppDetailComponent implements OnInit {
     },err=>{
         this.appLoading = false;
     });
+  }
+
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
   }
    /**
    * 用户 id 转换 用户名字

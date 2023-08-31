@@ -291,6 +291,9 @@ public async  onVersionChange(key:string, chartName:string){
 
 public onConfigModeChange(value: number) {
   this.configMode = value;
+  this.templateYaml = this.templateYaml;
+  this.valuesYaml = this.valuesYaml; 
+  this.configYaml = this.configYaml;
 }
 
   public addField(e?: MouseEvent, value?: any):number {

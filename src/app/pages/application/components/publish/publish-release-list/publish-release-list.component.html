@@ -55,7 +55,7 @@ nzFrontPagination="false"
  <td>   <nz-tag [nzColor]="hadnlerStatusColor(data.status)"> {{ data.status }}</nz-tag></td>
  <td>{{data.env_name}}</td>
  <td>{{ getNameFunc(data.creation_user_id)}}</td>
- <td>{{ data.creation_time}}</td>
+ <td>{{  format(data.creation_time)}}</td>
   <td nzRight="0px">
     <nz-divider nzType="vertical"></nz-divider>
      <a  (click)="view(data.id)">查看</a>

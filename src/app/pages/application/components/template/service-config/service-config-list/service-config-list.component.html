@@ -53,7 +53,7 @@
               {{ getNameFunc(item.creation_user_id)}}
                 </td>
                 <td>
-                    {{ item.update_time}}
+                    {{ format(item.update_time)}}
                        </td>
           <td nzRight="0px">
             <a (click)="openEdit(item)">编辑</a>

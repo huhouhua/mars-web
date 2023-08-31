@@ -63,7 +63,7 @@
                 </nz-card-meta>
                 <div class="ellipsis item-content">
                     <p> 作者: {{ getNameFunc(item.creation_user_id)}}  </p>
-                    <p> 创建时间: {{ item.creation_time}}  </p>
+                    <p> 创建时间: {{ format(item.creation_time)}}  </p>
                     <p nz-tooltip > 应用描述:  {{item.description}} </p>
                 </div>
             </nz-card>

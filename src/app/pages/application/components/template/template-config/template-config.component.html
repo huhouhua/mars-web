@@ -12,8 +12,8 @@
         <nz-descriptions nzTitle="模板信息" >
             <nz-descriptions-item nzTitle="模板名">{{ template.name  }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="webhook">  {{ template.web_hook }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="更新时间">{{template?.update_time}}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="创建时间">{{template?.creation_time}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="更新时间">{{ format(template?.update_time)}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="创建时间">{{format(template?.creation_time)}}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="更新人"> {{getNameFunc(template?.update_user_id)}}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="描述"> {{template.description}}</nz-descriptions-item>
           </nz-descriptions>

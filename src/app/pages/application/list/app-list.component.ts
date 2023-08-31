@@ -11,6 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { CreateAppComponent } from '../components/app/create-app/create-app.component';
 import { EditAppComponent } from '../components/app/edit-app/edit-app.component';
 import { removeBodyStyle } from 'src/app/shared/help';
+import { dateFormat } from 'src/app/shared/util/util';
 // import { UserService } from '@user/user-service';
 
 @Component({
@@ -47,7 +48,9 @@ export class ApplistComponent implements OnInit {
   async ngOnInit() {
     this.refreshData();
   }
-
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
+  }
   refreshData() {
     this.loading = true;
     this.backendService.applicationList<ApiResult>(this.query).subscribe(res => {

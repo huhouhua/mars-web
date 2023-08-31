@@ -246,9 +246,7 @@ export class CreateServiceConfig implements OnInit {
     );
   }
 
-  public onConfigModeChange(value: number) {
-    this.configMode = value;
-  }
+
   public addField(e?: MouseEvent, value?: any): number {
     if (e) {
       e.preventDefault();
@@ -284,17 +282,23 @@ export class CreateServiceConfig implements OnInit {
     this.validateForm.removeControl(`${value.controlValue.id}_key`);
     this.validateForm.removeControl(`${value.controlValue.id}_value`);
   }
-
+  public onConfigModeChange(value: number) {
+    this.configMode = value;
+    this.templateYaml = this.templateYaml;
+    this.valuesYaml = this.valuesYaml; 
+    this.configYaml = this.configYaml;
+    
+  }
   public onSelectedIndexChange(index:number){
-    if(index==1){
-      this.templateYaml = this.templateYaml;    
-    }
-    if(index==2){
-      this.valuesYaml = this.valuesYaml;
-      }
-    if(index==3){
-      this.configYaml = this.configYaml;
-    }
+    // if(index==1){
+    //   this.templateYaml = this.templateYaml;    
+    // }
+    // if(index==2){
+    //   this.valuesYaml = this.valuesYaml;
+    //   }
+    // if(index==3){
+    //   this.configYaml = this.configYaml;
+    // }
   }
 
   public getMetdData() {

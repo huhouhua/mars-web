@@ -15,6 +15,7 @@ import * as YAML from 'js-yaml';
 import { ViewAppDeployFailComponent } from '../view-deploy-fail/view-deploy-fail.component';
 import { cloneDeep, uniq, uniqBy } from 'lodash-es';
 import { BackendService } from 'src/app/pages/services/backend.service';
+import { dateFormat } from 'src/app/shared/util/util';
 @Component({
   selector: 'app-deploy-list',
   templateUrl: './deploy-result-list.component.html',
@@ -83,7 +84,7 @@ export class DeployResultlistComponent implements OnInit {
         }
       );
   }
-  
+
   private toYaml(str:string):string{
    return YAML.dump(str, {
         lineWidth: 5000,

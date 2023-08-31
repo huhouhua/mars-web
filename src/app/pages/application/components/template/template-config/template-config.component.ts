@@ -7,6 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { PrviewConfigComponent } from '../../prview-config/prview-config.component';
 import { ApiResult, ApiResultType, Member, MemberRole, Option } from 'src/app/shared/common.type';
 import { UserService } from 'src/app/helpers/user.service';
+import { dateFormat } from 'src/app/shared/util/util';
 
 // import { UserService } from '@services/user/user-service';
 @Component({
@@ -57,6 +58,9 @@ export class TemplateConfigComponent implements OnInit {
    */
  getNameFunc(id:number): string {
   return this.userService.getNameFunc(id);
+}
+public format(dateStr:any):string{
+  return dateFormat(dateStr);
 }
   setUserName() {
     // if (this.userService.getCurrentUsers().size === 0) {

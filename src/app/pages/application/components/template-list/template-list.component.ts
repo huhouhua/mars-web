@@ -20,6 +20,7 @@ import { map } from 'rxjs/operators';
 import { EditTemplateComponent } from '../template/edit-template/edit-template.component';
 import { removeBodyStyle } from 'src/app/shared/help';
 import { DetailService } from '../app-detail/detail.service';
+import { dateFormat } from 'src/app/shared/util/util';
 
 
 const count = 5;
@@ -69,6 +70,10 @@ export class TemplateListComponent implements OnInit {
     return this.userService.getNameFunc(id);
   }
 
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
+  }
+  
   async getData(): Promise<void> {
     // if (this.userService.getCurrentUsers().size === 0) {
     //   await this.userService.loadUsers();

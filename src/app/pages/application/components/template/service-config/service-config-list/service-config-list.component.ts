@@ -8,6 +8,7 @@ import { PrviewConfigComponent } from '../../../prview-config/prview-config.comp
 import { ApiResult, ApiResultType } from 'src/app/shared/common.type';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserService } from 'src/app/helpers/user.service';
+import { dateFormat } from 'src/app/shared/util/util';
 // import { UserService } from '@services/user/user-service';
 @Component({
   selector: 'app-service-config-list',
@@ -38,6 +39,9 @@ export class ServiceConfigList implements OnInit {
    */
   getNameFunc(id:number): string {
     return this.userService.getNameFunc(id);
+  }
+  public format(dateStr:any):string{
+    return dateFormat(dateStr);
   }
     public loadlist(){
         this.loading = true;

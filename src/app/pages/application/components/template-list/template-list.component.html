@@ -40,13 +40,13 @@
             {{ getNameFunc(item.creation_user_id)}}  
           </td>
           <td>
-            {{ item.creation_time }}  
+            {{ format(item.creation_time) }}  
           </td>
           <td>
             {{ getNameFunc(item.update_user_id)}}  
           </td>
           <td>
-            {{ item.update_time }}  
+            {{ format(item.update_time) }}  
            </td>
           <td nzRight="0px">
             <a (click)="configTpl(item)">配置</a>

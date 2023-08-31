@@ -2,6 +2,9 @@
 export function dateFormat(dataStr: any) {
     const date = new Date(dataStr);
     const y = date.getFullYear();
+    if (y == 1){
+        return "";
+    }
     let m: string | number = date.getMonth() + 1;
     m = m < 10 ? `0${String(m)}` : m;
     let d: string | number = date.getDate();

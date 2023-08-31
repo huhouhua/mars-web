@@ -25,6 +25,7 @@ import { NgEventBus } from 'ng-event-bus';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { ViewAppDeployComponent } from '../view-deploy/view-deploy.component';
 import { DeployResultlistComponent } from '../deploy-result-list/deploy-result-list.component';
+import { dateFormat } from 'src/app/shared/util/util';
   @Component({
     selector: 'app-publish-release-list',
     templateUrl: './publish-release-list.component.html',
@@ -80,6 +81,10 @@ import { DeployResultlistComponent } from '../deploy-result-list/deploy-result-l
       clearInterval(this.timeout);
     }
 
+    public format(dateStr:any):string{
+      return dateFormat(dateStr);
+    }
+    
     public refreshData(){
        this.loadList();
     }
