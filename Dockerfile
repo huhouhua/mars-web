@@ -45,4 +45,3 @@ RUN chmod a+x *.sh
 ENV WEBAPI__SERVER mars-apiserver.mars:8080
 
 CMD ./start.sh
-ENTRYPOINT [ "executable" ]
