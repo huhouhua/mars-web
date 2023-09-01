@@ -119,9 +119,7 @@ export class CreateServiceConfig implements OnInit {
     this.initParam();
   }
   public cancel() {
-    this.router.navigateByUrl(
-      `/app-list/detail/template/config/${this.templateId}`
-    );
+    this.router.navigateByUrl(`/app/detail/template/config/${this.templateId}`);
   }
 
   private loadRepoList() {

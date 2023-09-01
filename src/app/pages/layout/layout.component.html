@@ -9,9 +9,8 @@
       <div class="sidebar-logo">
         <div class="logo">
         </div>
- 
+        
       </div>
-    
       <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
 
         <li *ngFor="let menuItem of listOfMenu" nz-submenu [nzOpen]="menuItem.isOpen"  [nzTitle]="menuItem.name"  [nzIcon]="menuItem.icon">
@@ -56,6 +55,23 @@
           </ul>
         </li> -->
       </ul>
+      <nz-footer class="version">
+        <div nz-row class="version-item">
+          <div nz-col nzSpan="5" >
+            <span nz-icon nzType="profile" nzTheme="outline"></span>
+          </div>
+          <div nz-col nzSpan="9">Version</div>
+          <div nz-col nzSpan="8">v1.0.0</div>
+        </div>
+        <div nz-row class="version-item">
+          <div nz-col nzSpan="5" >
+            <span nz-icon nzType="global" nzTheme="outline"></span>
+          </div>
+          <div nz-col nzSpan="18" >
+             <a class="version-api" href="http://mars.preview.swagger.com/docs#" target="_blank">Mars API V1.0</a>
+          </div>
+        </div>
+      </nz-footer>
     </nz-sider>
     <nz-layout [ngClass]="{'custom-layout-content-open':isCollapsed==false,'custom-layout-content-close':isCollapsed==true }">
       <nz-header>
@@ -76,5 +92,6 @@
           <router-outlet></router-outlet>
         </div>
       </nz-content>
+      <nz-footer>mars ©2023 from ruijie devops team make </nz-footer>
     </nz-layout>
   </nz-layout>
