@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo-web": {
+    "mars-web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo-web",
+            "outputPath": "dist/mars-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -79,15 +79,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options":{
-            "browserTarget": "demo-web:build",
+            "browserTarget": "mars-web:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "demo-web:build:production"
+              "browserTarget": "mars-web:build:production"
             },
             "development": {
-              "browserTarget": "demo-web:build:development"
+              "browserTarget": "mars-web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo-web:build"
+            "browserTarget": "mars-web:build"
           }
         },
         "test": {
@@ -119,5 +119,5 @@
       }
     }
   },
-  "defaultProject": "demo-web"
+  "defaultProject": "mars-web"
 }

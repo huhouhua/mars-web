@@ -8,7 +8,7 @@ server {
     # client_header_buffer_size       1k;ls ls
     # large_client_header_buffers     4 128k;
     location / {
-        root /var/www/demo-web;
+        root /var/www/mars-web;
         index index.html index.htm;
         try_files $uri /index.html;
     }

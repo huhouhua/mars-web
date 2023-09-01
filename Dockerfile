@@ -35,7 +35,7 @@ RUN sed -i "s@https\?://[^/]*@http://mirrors.aliyun.com@" /etc/apk/repositories 
 WORKDIR /app
 
 COPY --from=roquie/smalte:latest-alpine /app/smalte /usr/local/bin/smalte
-COPY --from=remove_exif /app/dist/demo-web /var/www/demo-web
+COPY --from=remove_exif /app/dist/mars-web /var/www/mars-web
 COPY --from=build /app/misc/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/misc/app.conf.template /etc/nginx/conf.d/app.conf.template
 COPY --from=build /app/misc/start.sh .
