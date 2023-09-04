@@ -16,6 +16,7 @@ export class EditHelmInfrastructureComponent implements OnInit {
   loading:boolean =false;
   passwordVisible:boolean =false;
   environmentId:string='';
+  private metaData:any ={};
   public status: OptionAny[] = [
     {
       value: 'running',
@@ -72,6 +73,7 @@ export class EditHelmInfrastructureComponent implements OnInit {
 
   public parseMetaDataOfValue(model:any, str:string){
     let  obj =JSON.parse(str)
+    this.metaData = obj;
     model.repoName =obj.name;
     model.repoUrl = obj.url;
     model.repoUsername =obj.username;
@@ -81,7 +83,7 @@ export class EditHelmInfrastructureComponent implements OnInit {
   public getMetaData():any{
     let value= this.validateForm.value;
     let metadata = {
-      name:value.repoName,
+      name:this.metaData.name,
       url:value.repoUrl,
       username:value.repoUsername,
       password:value.repoPassword,
