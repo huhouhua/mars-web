@@ -76,7 +76,6 @@ import { ViewAppDeployFailComponent } from './pages/application/components/publi
 import { CreateHelmInfrastructureComponent } from './pages/infrastructure/components/create-infra-helm/create-helm-infrastructure.component';
 import { InfrastructurelistComponent } from './pages/infrastructure/list/infrastructure-list.component';
 import { EditHelmInfrastructureComponent } from './pages/infrastructure/components/edit-helm-infra/edit-helm-infrastructure.component';
-
 registerLocaleData(zh);
 
 @NgModule({
